@@ -23,7 +23,7 @@ public class Proyecto {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Admin admin1 = new Admin(UUID.randomUUID().hashCode(), "admin1", "admin1", userType.ADMIN);
+        Admin admin1 = new Admin(UUID.randomUUID().toString(), "admin1", "admin1", userType.ADMIN);
         System.out.println(admin1);
         
         Student student1 = new Student(
@@ -32,7 +32,7 @@ public class Proyecto {
                 0, 
                 gender.Mujer, 
                 status.Activo,
-                UUID.randomUUID().hashCode(), 
+                UUID.randomUUID().toString(), 
                 "student1", 
                 "student1", 
                 userType.STUDENT

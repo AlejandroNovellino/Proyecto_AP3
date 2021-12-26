@@ -10,7 +10,7 @@ package proyecto.dataModel;
  * @author Alejandro
  */
 public abstract class User {
-    protected int id;
+    protected String id;
     protected String userName;
     protected String passWord;
     protected userType type;
@@ -18,18 +18,18 @@ public abstract class User {
     public User() {
     }
 
-    public User(int id, String userName, String passWord, userType type) {
+    public User(String id, String userName, String passWord, userType type) {
         this.id = id;
         this.userName = userName;
         this.passWord = passWord;
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
