@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import proyecto.dataModel.Student;
-import proyecto.dataModel.User;
+import proyecto.dataModel.users.Student;
+import proyecto.dataModel.users.User;
 
 /**
  *

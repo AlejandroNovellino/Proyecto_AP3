@@ -7,12 +7,12 @@ package proyecto;
 
 import java.util.ArrayList;
 import java.util.UUID;
-import proyecto.dataModel.Admin;
-import proyecto.dataModel.Student;
-import proyecto.dataModel.User;
-import proyecto.dataModel.gender;
-import proyecto.dataModel.status;
-import proyecto.dataModel.userType;
+import proyecto.dataModel.users.Admin;
+import proyecto.dataModel.users.Student;
+import proyecto.dataModel.users.User;
+import proyecto.dataModel.enums.gender;
+import proyecto.dataModel.enums.status;
+import proyecto.dataModel.enums.userType;
 import proyecto.helpers.FilesManager;
 
 /**

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.dataModel;
+package proyecto.dataModel.manyToManyRelations;
 
 import java.util.ArrayList;
+import proyecto.dataModel.evaluationRelated.Option;
 
 /**
  *

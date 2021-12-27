@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.dataModel;
-
-import java.io.Serializable;
+package proyecto.dataModel.enums;
 
 /**
  *
  * @author Alejandro
  */
-public class Option implements Serializable{
-    private String id;
-    private String value; //valor - lo que indica la opcion
-    private boolean isAnswer;
+public enum gender {
+    Hombre,
+    Mujer, 
+    Otro
 }

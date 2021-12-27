@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.dataModel;
+package proyecto.dataModel.evaluationRelated;
 
 /**
  *
  * @author Alejandro
  */
-public enum gender {
-    Hombre,
-    Mujer, 
-    Otro
+public class Exam extends Evaluation{
+    
 }

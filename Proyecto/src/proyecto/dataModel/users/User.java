@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.dataModel;
+package proyecto.dataModel.users;
 
 import java.io.Serializable;
+import proyecto.dataModel.enums.userType;
 
 /**
  *

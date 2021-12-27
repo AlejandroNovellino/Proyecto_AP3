@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.dataModel;
+package proyecto.dataModel.users;
 
 import java.util.ArrayList;
+import proyecto.dataModel.manyToManyRelations.Enrollment;
+import proyecto.dataModel.enums.gender;
+import proyecto.dataModel.enums.status;
+import proyecto.dataModel.enums.userType;
 
 /**
  *
