@@ -6,17 +6,13 @@
 package proyecto.dataModel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
  * @author Alejandro
  */
-public class Subject implements Serializable{
-    private String id; 
-    private int code;
-    private String name;
-    Prelation prelation;
-    private ArrayList<Enrollment> enrrolments;
-    //Evaluaciones
+public class Option implements Serializable{
+    private String id;
+    private String value; //valor - lo que indica la opcion
+    private boolean isAnswer;
 }

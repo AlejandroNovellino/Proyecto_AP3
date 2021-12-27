@@ -5,13 +5,14 @@
  */
 package proyecto.dataModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Alejandro
  */
-public class Prelation {
+public class Prelation implements Serializable{
     private String id;
     private ArrayList<Integer> subjectsCodes;
     private int uCredits;

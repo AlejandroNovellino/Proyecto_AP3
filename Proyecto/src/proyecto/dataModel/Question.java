@@ -5,18 +5,17 @@
  */
 package proyecto.dataModel;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Alejandro
  */
-public class Subject implements Serializable{
-    private String id; 
-    private int code;
-    private String name;
-    Prelation prelation;
-    private ArrayList<Enrollment> enrrolments;
-    //Evaluaciones
+public class Question {
+    private String id;
+    //private tag
+    private String statement; //enunciado
+    private float score; //puntaje (peso)
+    private boolean inUse; 
+    private ArrayList<Option> options;
 }
