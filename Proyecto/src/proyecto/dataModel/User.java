@@ -5,11 +5,13 @@
  */
 package proyecto.dataModel;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alejandro
  */
-public abstract class User {
+public abstract class User implements Serializable{
     protected String id;
     protected String userName;
     protected String passWord;

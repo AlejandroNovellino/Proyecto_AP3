@@ -5,6 +5,8 @@
  */
 package proyecto.dataModel;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Alejandro
@@ -15,7 +17,7 @@ public class Student extends User {
     private int ci;
     private gender gender;
     private status status;
-    //private enrollments
+    private ArrayList<Enrollment> enrollments;
     //private answers
 
     public Student() {

@@ -5,12 +5,15 @@
  */
 package proyecto;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import proyecto.dataModel.Admin;
 import proyecto.dataModel.Student;
+import proyecto.dataModel.User;
 import proyecto.dataModel.gender;
 import proyecto.dataModel.status;
 import proyecto.dataModel.userType;
+import proyecto.helpers.FilesManager;
 
 /**
  *
@@ -38,6 +41,11 @@ public class Proyecto {
                 userType.STUDENT
         );
         System.out.println(student1);
+        
+        ArrayList<User> aux = new ArrayList<>();
+        aux.add(student1);
+        FilesManager.createUsersFile(aux);
+        System.out.println(FilesManager.readUsersFile());
     }
     
 }
