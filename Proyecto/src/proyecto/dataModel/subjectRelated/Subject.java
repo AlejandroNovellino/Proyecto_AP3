@@ -8,6 +8,7 @@ package proyecto.dataModel.subjectRelated;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import java.io.Serializable;
 import java.util.ArrayList;
+import proyecto.dataModel.evaluationRelated.Evaluation;
 
 /**
  *
@@ -19,5 +20,5 @@ public class Subject implements Serializable{
     private String name;
     Prelation prelation;
     private ArrayList<Enrollment> enrrolments;
-    //Evaluaciones
+    private ArrayList<Evaluation> evaluations;
 }
