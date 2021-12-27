@@ -21,12 +21,12 @@ import proyecto.dataModel.users.User;
  * @author Alejandro
  */
 public class FilesManager {
-    public static void createUsersFile(ArrayList<User> users) {
+    public static void writeListToFile(ArrayList<?> list, String fileName) {
         try {
-            FileOutputStream file = new FileOutputStream(new File("src/proyecto/files/users.txt"));
+            FileOutputStream file = new FileOutputStream(new File("src/proyecto/files/"+fileName+".txt"));
             ObjectOutputStream stream = new ObjectOutputStream(file);
             
-            stream.writeObject(users);
+            stream.writeObject(list);
 
             stream.close();
             file.close();
@@ -38,13 +38,13 @@ public class FilesManager {
         }
     }
     
-    public static ArrayList<User> readUsersFile() {
-        ArrayList<User> users = new ArrayList<>(); 
+    public static ArrayList<?> readListFromFile(String fileName) {
+        ArrayList<?> list = new ArrayList<>(); 
         try {
-            FileInputStream file = new FileInputStream(new File("src/proyecto/files/users.txt"));
+            FileInputStream file = new FileInputStream(new File("src/proyecto/files/"+fileName+".txt"));
             ObjectInputStream stream = new ObjectInputStream (file);
             
-            users = (ArrayList<User>) stream.readObject();
+            list = (ArrayList<?>) stream.readObject();
 
             stream.close();
             file.close();
@@ -57,6 +57,30 @@ public class FilesManager {
             System.out.println("Error class not found");
         }
         
-        return users;
+        return list;
+    }
+    
+    public static ArrayList<User> getUsers() {
+        return (ArrayList<User>)readListFromFile("users");
+    }
+    
+     public static ArrayList<Student> getAdmins() {
+        ArrayList<User> users = (ArrayList<User>)readListFromFile("users");
+        
+        users.removeIf(user -> (user.getType().toString().equals("STUDENT")));
+        ArrayList<Student> students = new ArrayList<>();
+        users.forEach(user -> students.add((Student)user));      
+        
+        return students;
+    }
+    
+    public static ArrayList<Student> getStudents() {
+        ArrayList<User> users = (ArrayList<User>)readListFromFile("users");
+        
+        users.removeIf(user -> (user.getType().toString().equals("ADMIN")));
+        ArrayList<Student> students = new ArrayList<>();
+        users.forEach(user -> students.add((Student)user));      
+        
+        return students;
     }
 }

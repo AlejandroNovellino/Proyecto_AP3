@@ -19,4 +19,10 @@ public class Admin extends User {
     public Admin(String id, String userName, String passWord, userType type) {
         super(id, userName, passWord, type);
     }
+    
+    @Override
+    public String toString() {
+        return super.toString()
+                + "}";
+    }
 }

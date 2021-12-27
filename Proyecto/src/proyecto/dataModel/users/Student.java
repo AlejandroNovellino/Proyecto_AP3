@@ -20,14 +20,13 @@ public class Student extends User {
     private String lastNames;
     private int ci;
     private gender gender;
-    private status status;
+    private boolean status;
     private ArrayList<Enrollment> enrollments;
-    //private answers
 
     public Student() {
     }
 
-    public Student(String names, String lastNames, int ci, gender gender, status status, String id, String userName, String passWord, userType type) {
+    public Student(String names, String lastNames, int ci, gender gender, boolean status, String id, String userName, String passWord, userType type) {
         super(id, userName, passWord, type);
         this.names = names;
         this.lastNames = lastNames;
@@ -70,11 +69,11 @@ public class Student extends User {
         this.gender = gender;
     }
 
-    public status getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(status status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
     
@@ -85,7 +84,7 @@ public class Student extends User {
                 + ", lastNames: "+this.lastNames
                 + ", ci: "+this.ci
                 + ", gender: "+this.gender
-                + ", status: "+this.status;
+                + ", status: "+this.status
+                + "}";
     }
-    
 }

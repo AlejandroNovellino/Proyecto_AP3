@@ -62,7 +62,7 @@ public abstract class User implements Serializable{
     
     @Override
     public String toString() {
-        return ""
+        return "{"
                 + "id: "+this.id
                 + ", userName: "+this.userName
                 + ", password: "+this.passWord
