@@ -6,6 +6,7 @@
 package proyecto.dataModel.users;
 
 import java.io.Serializable;
+import java.util.Objects;
 import proyecto.dataModel.enums.userType;
 
 /**
@@ -58,6 +59,31 @@ public abstract class User implements Serializable{
 
     public void setType(userType type) {
         this.type = type;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.userName);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.userName, other.userName)) {
+            return false;
+        }
+        return true;
     }
     
     @Override

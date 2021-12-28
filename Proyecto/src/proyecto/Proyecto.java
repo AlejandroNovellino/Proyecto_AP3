@@ -13,6 +13,7 @@ import proyecto.dataModel.users.User;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.status;
 import proyecto.dataModel.enums.userType;
+import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.helpers.FilesManager;
 
 /**
@@ -20,14 +21,9 @@ import proyecto.helpers.FilesManager;
  * @author Alejandro
  */
 public class Proyecto {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    
+    public static void createUsers(ArrayList<User> list) {
         Admin admin1 = new Admin(UUID.randomUUID().toString(), "admin1", "admin1", userType.ADMIN);
-        System.out.println(admin1);
         
         Student student1 = new Student(
                 "student1", 
@@ -40,7 +36,6 @@ public class Proyecto {
                 "student1", 
                 userType.STUDENT
         );
-        System.out.println(student1);
         
         Student student2 = new Student(
                 "student12", 
@@ -53,15 +48,70 @@ public class Proyecto {
                 "student2", 
                 userType.STUDENT
         );
-        System.out.println(student2);
         
-        ArrayList<User> aux = new ArrayList<>();
-        aux.add(admin1);
-        aux.add(student1);
-        aux.add(student2);
-        
-        FilesManager.writeListToFile(aux, "users");
-        System.out.println("\n  File content:\n"+FilesManager.getUsers());
+        list.add(admin1);
+        list.add(student1);
+        list.add(student2);
     }
     
+    public static void  testStudents() {
+        System.out.println("\n    testStudents:");
+        ArrayList<Student> students = FilesManager.getStudents();
+        System.out.println(students);
+    }
+    
+    public static void testAdmins() {
+        System.out.println("\n    testAdmins:");
+        ArrayList<Admin> admins = FilesManager.getAdmins();
+        System.out.println(admins);
+    }
+    
+    public static void createSubjects(ArrayList<Subject> subjects) {
+        subjects.add(
+            new Subject(
+                    UUID.randomUUID().toString(),
+                    1111,
+                    "Materia1",
+                    5,
+                    null
+            )
+        );
+        subjects.add(
+            new Subject(
+                    UUID.randomUUID().toString(),
+                    2222,
+                    "Materia2",
+                    4,
+                    null
+            )
+        );
+    }
+    
+    public static void testSubjects() {
+        System.out.println("\n    testSubjects:");
+        ArrayList<Subject> subjects = new ArrayList<>();
+        createSubjects(subjects);
+        System.out.println("\n    Subjects created:\n"+subjects);
+        //file test
+        FilesManager.writeListToFile(subjects, "subjects");
+        ArrayList<Subject> aux = (ArrayList<Subject>)FilesManager.readListFromFile("subjects");
+        System.out.println("\n    File content:\n"+aux);
+    }
+    
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//
+//        // Test users
+//        ArrayList<User> users = new ArrayList<>();
+//        createUsers(users);
+//
+//        FilesManager.writeListToFile(users, "users");
+//        System.out.println("\n    File content:\n"+FilesManager.getUsers());
+//
+//        testStudents();
+//        testAdmins();
+//
+//        // Test subjects
+//        testSubjects();
+//    }
 }

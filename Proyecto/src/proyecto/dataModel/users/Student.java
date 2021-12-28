@@ -10,6 +10,7 @@ import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.status;
 import proyecto.dataModel.enums.userType;
+import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Student extends User {
     private gender gender;
     private boolean status;
     private ArrayList<Enrollment> enrollments;
+    private ArrayList<EvaluationRegistry> evaluationsRegistrys;
 
     public Student() {
     }
@@ -33,9 +35,9 @@ public class Student extends User {
         this.ci = ci;
         this.gender = gender;
         this.status = status;
-    }
-
-    
+        this.enrollments = new ArrayList<>();
+        this.evaluationsRegistrys = new ArrayList<>();
+    }    
 
     public String getNames() {
         return names;
@@ -75,6 +77,30 @@ public class Student extends User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public ArrayList<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(ArrayList<Enrollment> enrollments) {
+        this.enrollments = enrollments;
+    }
+
+    public ArrayList<EvaluationRegistry> getEvaluationsRegistrys() {
+        return evaluationsRegistrys;
+    }
+
+    public void setEvaluationsRegistrys(ArrayList<EvaluationRegistry> evaluationsRegistrys) {
+        this.evaluationsRegistrys = evaluationsRegistrys;
+    }
+    
+    public void addEnrollment(Enrollment enrollment) {
+        this.enrollments.add(enrollment);
+    }
+    
+    public void addEvaluationRegistry(EvaluationRegistry evaluationRegistry) {
+        this.evaluationsRegistrys.add(evaluationRegistry);
     }
     
     @Override

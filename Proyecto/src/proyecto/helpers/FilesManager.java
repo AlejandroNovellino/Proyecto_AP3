@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import proyecto.dataModel.subjectRelated.Subject;
+import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
 import proyecto.dataModel.users.User;
 
@@ -64,14 +66,14 @@ public class FilesManager {
         return (ArrayList<User>)readListFromFile("users");
     }
     
-     public static ArrayList<Student> getAdmins() {
+     public static ArrayList<Admin> getAdmins() {
         ArrayList<User> users = (ArrayList<User>)readListFromFile("users");
         
         users.removeIf(user -> (user.getType().toString().equals("STUDENT")));
-        ArrayList<Student> students = new ArrayList<>();
-        users.forEach(user -> students.add((Student)user));      
+        ArrayList<Admin> admins = new ArrayList<>();
+        users.forEach(user -> admins.add((Admin)user));      
         
-        return students;
+        return admins;
     }
     
     public static ArrayList<Student> getStudents() {
@@ -82,5 +84,9 @@ public class FilesManager {
         users.forEach(user -> students.add((Student)user));      
         
         return students;
+    }
+    
+    public static ArrayList<Subject> getSubjects() {
+        return (ArrayList<Subject>)readListFromFile("subjects");
     }
 }

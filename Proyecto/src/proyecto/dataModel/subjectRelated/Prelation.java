@@ -49,6 +49,9 @@ public class Prelation implements Serializable{
     public void setuCredits(int uCredits) {
         this.uCredits = uCredits;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Prelation{" + "id=" + id + ", subjectsCodes=" + subjectsCodes + ", uCredits=" + uCredits + '}';
+    }
 }

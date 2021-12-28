@@ -5,11 +5,13 @@
  */
 package proyecto.dataModel.manyToManyRelations;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alejandro
  */
-public class Enrollment {
+public class Enrollment implements Serializable{
     private String id;
     private String subjectId;
     private String studentId;
@@ -56,6 +58,9 @@ public class Enrollment {
     public void setNote(Integer note) {
         this.note = note;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Enrollment{" + "id=" + id + ", subjectId=" + subjectId + ", studentId=" + studentId + ", note=" + note + '}';
+    }
 }
