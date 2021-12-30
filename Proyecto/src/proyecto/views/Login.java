@@ -5,10 +5,12 @@
  */
 package proyecto.views;
 
+import proyecto.views.adminViews.AdminMain;
 import javax.swing.JFrame;
 import proyecto.controls.LoginControl;
 import proyecto.dataModel.users.User;
 import proyecto.helpers.JFramesHelper;
+import proyecto.Proyecto;
 
 /**
  *
@@ -29,11 +31,6 @@ public class Login extends javax.swing.JFrame {
             uniqueInstance = new Login();
         }
         return uniqueInstance;
-    }
-    
-    private void setMessage(boolean visibility, String messageToDisplay) {
-        message.setText(messageToDisplay);
-        messagePanel.setVisible(visibility);
     }
     
     public static void setNimbusFeel() {
@@ -79,7 +76,7 @@ public class Login extends javax.swing.JFrame {
         password = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         messagePanel = new javax.swing.JPanel();
-        message = new javax.swing.JTextField();
+        message = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,21 +106,22 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        message.setEditable(false);
+        message.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        message.setText("jLabel4");
 
         javax.swing.GroupLayout messagePanelLayout = new javax.swing.GroupLayout(messagePanel);
         messagePanel.setLayout(messagePanelLayout);
         messagePanelLayout.setHorizontalGroup(
             messagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(messagePanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(message, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(message)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
         messagePanelLayout.setVerticalGroup(
             messagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(messagePanelLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, messagePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(message)
                 .addContainerGap())
         );
@@ -138,6 +136,9 @@ public class Login extends javax.swing.JFrame {
                         .addGap(127, 127, 127)
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(loginButton))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(messagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,11 +149,8 @@ public class Login extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                    .addComponent(password)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(loginButton)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                    .addComponent(password))))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,8 +166,8 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(messagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(messagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(loginButton)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -178,10 +176,10 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,21 +211,20 @@ public class Login extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         User user = LoginControl.getUserByUsername(username.getText());
         if(user == null) {
-            setMessage(true, "Usuario no existe");
+            JFramesHelper.setMessage(messagePanel, message, true, "Usuario no existe");
         }else{
             if(!user.getPassWord().equals(password.getText())){
-                setMessage(true, "Contrasena incorrecta");
+                JFramesHelper.setMessage(messagePanel, message, true, "Contrasena incorrecta");
             } else {
                 switch(user.getType()){
                     case ADMIN: 
                         AdminMain.getInstance().setVisible(true);
-                        //JFramesHelper.makeFrameFullSize(AdminMain.getInstance());
-                        setMessage(false, "");
+                        JFramesHelper.setMessage(messagePanel, message, false, "");
                         uniqueInstance.setVisible(false);
                         break;
                     case STUDENT:
                         StudentMain.getInstance().setVisible(true);
-                        setMessage(false, "");
+                        JFramesHelper.setMessage(messagePanel, message, false, "");
                         uniqueInstance.setVisible(false);
                         break;
                     default: 
@@ -244,6 +241,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Proyecto.initFiles();
                 Login.setNimbusFeel();
                 Login.getInstance().setVisible(true);
             }
@@ -257,7 +255,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginButton;
-    private javax.swing.JTextField message;
+    private javax.swing.JLabel message;
     private javax.swing.JPanel messagePanel;
     private javax.swing.JTextField password;
     private javax.swing.JTextField username;

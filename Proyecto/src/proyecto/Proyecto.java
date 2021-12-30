@@ -7,12 +7,14 @@ package proyecto;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import proyecto.controls.CreateStudentControl;
 import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
 import proyecto.dataModel.users.User;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.status;
 import proyecto.dataModel.enums.userType;
+import proyecto.dataModel.subjectRelated.Prelation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.helpers.FilesManager;
 
@@ -29,7 +31,7 @@ public class Proyecto {
                 "student1", 
                 "student1",
                 0, 
-                gender.Mujer, 
+                gender.Femenino, 
                 true,
                 UUID.randomUUID().toString(), 
                 "student1", 
@@ -41,7 +43,7 @@ public class Proyecto {
                 "student12", 
                 "student2",
                 0, 
-                gender.Mujer, 
+                gender.Femenino, 
                 true,
                 UUID.randomUUID().toString(), 
                 "student2", 
@@ -85,6 +87,32 @@ public class Proyecto {
                     null
             )
         );
+        
+        subjects.add(
+            new Subject(
+                    UUID.randomUUID().toString(),
+                    3333,
+                    "Materia3",
+                    4,
+                    null
+            )
+        );
+        
+        ArrayList<Integer> codes4 = new ArrayList<>();
+        codes4.add(3333);
+        subjects.add(
+            new Subject(
+                UUID.randomUUID().toString(),
+                4444,
+                "Materia4",
+                4,
+                new Prelation(
+                    UUID.randomUUID().toString(),
+                    codes4,
+                    0
+                )
+            )
+        );
     }
     
     public static void testSubjects() {
@@ -98,20 +126,18 @@ public class Proyecto {
         System.out.println("\n    File content:\n"+aux);
     }
     
-//    public static void main(String[] args) {
-//        // TODO code application logic here
-//
-//        // Test users
-//        ArrayList<User> users = new ArrayList<>();
-//        createUsers(users);
-//
-//        FilesManager.writeListToFile(users, "users");
-//        System.out.println("\n    File content:\n"+FilesManager.getUsers());
-//
-//        testStudents();
-//        testAdmins();
-//
-//        // Test subjects
-//        testSubjects();
-//    }
+    public static void initFiles() {
+        // Test users
+        ArrayList<User> users = new ArrayList<>();
+        createUsers(users);
+
+        FilesManager.writeListToFile(users, "users");
+        System.out.println("\n    File content:\n"+FilesManager.getUsers());
+
+        testStudents();
+        testAdmins();
+
+        // Test subjects
+        testSubjects();
+    }
 }

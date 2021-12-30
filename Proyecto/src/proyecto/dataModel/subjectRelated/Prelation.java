@@ -34,11 +34,11 @@ public class Prelation implements Serializable{
         this.id = id;
     }
 
-    public ArrayList<Integer> getMaterias() {
+    public ArrayList<Integer> getSubjectsCodes() {
         return subjectsCodes;
     }
 
-    public void setMaterias(ArrayList<Integer> materias) {
+    public void setSubjectsCodes(ArrayList<Integer> materias) {
         this.subjectsCodes = materias;
     }
 

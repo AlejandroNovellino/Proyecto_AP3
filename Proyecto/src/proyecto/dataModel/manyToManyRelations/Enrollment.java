@@ -16,15 +16,17 @@ public class Enrollment implements Serializable{
     private String subjectId;
     private String studentId;
     private Integer note;
+    private Boolean passed; // se vio la materia y se paso
 
     public Enrollment() {
     }
 
-    public Enrollment(String id, String subjectId, String studentId, Integer note) {
+    public Enrollment(String id, String subjectId, String studentId, Integer note, Boolean passed) {
         this.id = id;
         this.subjectId = subjectId;
         this.studentId = studentId;
         this.note = note;
+        this.passed = passed;
     }
 
     public String getId() {
@@ -57,6 +59,14 @@ public class Enrollment implements Serializable{
 
     public void setNote(Integer note) {
         this.note = note;
+    }
+
+    public Boolean getPassed() {
+        return passed;
+    }
+
+    public void setPassed(Boolean passed) {
+        this.passed = passed;
     }
 
     @Override

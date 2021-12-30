@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import proyecto.dataModel.manyToManyRelations.Enrollment;
+import proyecto.dataModel.subjectRelated.Prelation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
@@ -36,6 +38,7 @@ public class FilesManager {
         } catch (FileNotFoundException e) {
                 System.out.println("File not found");
         }catch (IOException e) {
+                System.out.println(e);
                 System.out.println("Error initializing stream");
         }
     }
@@ -54,6 +57,7 @@ public class FilesManager {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }catch (IOException e) {
+            System.out.println(e);
             System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
             System.out.println("Error class not found");
@@ -86,7 +90,121 @@ public class FilesManager {
         return students;
     }
     
+    public static ArrayList<Integer> getAllCiStudents() {
+        ArrayList<Integer> aux = new ArrayList<>();
+        getStudents().forEach(student -> aux.add(student.getCi()));
+        return aux;
+    }
+    
     public static ArrayList<Subject> getSubjects() {
         return (ArrayList<Subject>)readListFromFile("subjects");
+    }
+    
+    public static ArrayList<Subject> getSubjectsWithoutPrelation() {
+        ArrayList<Subject> aux = getSubjects();
+        aux.removeIf(subject -> subject.getPrelation()!=null);
+        return aux;
+    }
+    
+    public static ArrayList<Enrollment> getEnrollments() {
+        return (ArrayList<Enrollment>)readListFromFile("enrollments");
+    }
+    
+    public static ArrayList<Subject> getViewedSubjectsForStudent(Student student) {
+        if(student == null) {
+            return new ArrayList<>();
+        }
+        
+        try {
+            ArrayList<Enrollment> enrollments = getEnrollments();
+            ArrayList<Subject> subjects = getSubjects();
+            ArrayList<Subject> subjectsToReturn = getSubjects();
+            enrollments.removeIf(enrollment -> !enrollment.getStudentId().equals(student.getId()));
+            enrollments.forEach(enrollment -> {
+                if(enrollment.getPassed()) {
+                    int i = subjects.indexOf(enrollment.getSubjectId());
+                    subjectsToReturn.add(subjects.get(i));
+                }
+            });
+            return subjectsToReturn;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+    
+    public static ArrayList<Subject> getNotViewedSubjectsForStudent(Student student) {
+        if(student == null) {
+            return getSubjects();
+        }
+        
+        try {
+            ArrayList<Enrollment> enrollments = getEnrollments();
+            ArrayList<Subject> subjects = getSubjects();
+            enrollments.removeIf(enrollment -> !enrollment.getStudentId().equals(student.getId()));
+            enrollments.forEach(enrollment -> {
+                subjects.removeIf(subject -> subject.getId().equals(enrollment.getSubjectId()));
+            });
+            return subjects;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+    
+    public static ArrayList<Subject> getCurrentEnrollSubjectsForStudent(Student student) {
+        if(student == null) {
+            return new ArrayList<>();
+        }
+        
+        try {
+            ArrayList<Enrollment> enrollments = getEnrollments();
+            ArrayList<Subject> subjects = getSubjects();
+            ArrayList<Subject> subjectsToReturn = getSubjects();
+            enrollments.removeIf(enrollment -> !enrollment.getStudentId().equals(student.getId()));
+            enrollments.forEach(enrollment -> {
+                if(!enrollment.getPassed()) {
+                    int i = subjects.indexOf(enrollment.getSubjectId());
+                    subjectsToReturn.add(subjects.get(i));
+                }
+            });
+            return subjectsToReturn;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+    
+    public static ArrayList<Subject> getCurrentPosibleToEnrollSubjectsForStudent(Student student) {
+        if(student == null) {
+            return new ArrayList<>();
+        }
+        
+        try {
+            ArrayList<Subject> subjects = getSubjects();
+            ArrayList<Subject> subjectsToReturn = getSubjects();
+            
+            subjects.forEach(subject -> {
+                if(studentPassPrelation(student, subject.getPrelation())) {
+                    subjectsToReturn.add(subject);
+                }
+            });
+            
+            return subjectsToReturn;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+    
+    public static boolean studentPassPrelation(Student student, Prelation prelation) {
+        try {
+            boolean result = true;
+            ArrayList<Subject> viewedSubjects = getViewedSubjectsForStudent(student);
+            for(Subject subject : viewedSubjects) {
+                if(!prelation.getSubjectsCodes().contains(subject.getCode())) {
+                    result = false;
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

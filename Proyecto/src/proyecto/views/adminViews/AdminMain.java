@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.views;
+package proyecto.views.adminViews;
 
 import java.awt.Color;
 
@@ -59,6 +59,7 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Main Admin View");
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -72,6 +73,9 @@ public class AdminMain extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnStudent1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnStudent1MousePressed(evt);
             }
         });
 
@@ -267,6 +271,11 @@ public class AdminMain extends javax.swing.JFrame {
     private void btnStudent1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudent1MouseExited
         changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
     }//GEN-LAST:event_btnStudent1MouseExited
+
+    private void btnStudent1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudent1MousePressed
+        CreateStudent.getInstance().setVisible(true);
+        uniqueInstance.setVisible(false);
+    }//GEN-LAST:event_btnStudent1MousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnStudent1;
