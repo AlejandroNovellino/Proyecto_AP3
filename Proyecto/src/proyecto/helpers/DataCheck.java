@@ -37,7 +37,7 @@ public class DataCheck {
     
     public static boolean uniqueCi(int ci) {
         try {
-            return FilesManager.getAllCiStudents().contains(ci);
+            return !FilesManager.getAllCiStudents().contains(ci);
         } catch (Exception e) {
             return true;
         }

@@ -6,6 +6,10 @@
 package proyecto.controls;
 
 import java.util.ArrayList;
+import java.util.UUID;
+import proyecto.dataModel.enums.gender;
+import proyecto.dataModel.enums.userType;
+import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.subjectRelated.Prelation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Student;
@@ -178,5 +182,69 @@ public class CreateStudentControl {
                 posibleToEnrollSubjects.remove(subject);
             }
         }
+        for(Subject subject : enrolledSubjects) {
+            if(posibleToEnrollSubjects.contains(subject)) {
+                posibleToEnrollSubjects.remove(subject);
+                notViewedSubjects.remove(subject);
+            }
+        }
+        codesFromViewedSubjects.clear();
+        viewedSubjects.forEach(subject -> codesFromViewedSubjects.add(subject.getCode()));
+        System.out.println(viewedSubjects);
+        for(Subject subject : posibleToEnrollSubjects) {
+            if(!notViewedSubjects.contains(subject)) {
+                notViewedSubjects.add(subject);
+            }
+            if(!posibleToEnrollSubjects.contains(subject)) {
+                posibleToEnrollSubjects.add(subject);
+            }
+        }
+        for(Subject subject : notViewedSubjects) {
+            if(!checkPrelations(subject, codesFromViewedSubjects) && posibleToEnrollSubjects.contains(subject)) {
+                posibleToEnrollSubjects.remove(subject);
+            }
+        }
+    }
+    
+    public void createStudent(String names, String lastNames, int ci, gender gender, boolean status) {
+        //create the student
+        String id = UUID.randomUUID().toString();
+        String userName = names.concat(lastNames);
+        String passWord = Integer.toString(ci);
+        userType type = userType.STUDENT;
+        Student newStudent = new Student(names, lastNames, ci, gender, status, id, userName, passWord, type);
+        // create the enrollments, the passed ones
+        ArrayList<Enrollment> enrollments = new ArrayList<>();
+        viewedSubjects.forEach((subject) -> {
+            enrollments.add(
+                    new Enrollment(
+                            UUID.randomUUID().toString(),
+                            subject.getId(),
+                            id,
+                            20, 
+                            true)
+            );
+        });
+        // create the enrollments, the current ones
+        enrolledSubjects.forEach(subject -> {
+            enrollments.add(
+                    new Enrollment(
+                            UUID.randomUUID().toString(),
+                            subject.getId(),
+                            id,
+                            null, 
+                            false)
+            );
+        });
+        // set the enrollments
+        newStudent.setEnrollments(enrollments);
+        // add student to the file
+        ArrayList<Student> allStudents = FilesManager.getStudents();
+        allStudents.add(newStudent);
+        FilesManager.writeListToFile(allStudents, "users");
+        // add the enrollments to the file
+        ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
+        enrollments.forEach(enrollment -> allEnrollments.add(enrollment));
+        FilesManager.writeListToFile(allEnrollments, "enrollments");
     }
 }

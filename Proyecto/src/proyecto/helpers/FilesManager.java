@@ -31,7 +31,7 @@ public class FilesManager {
             ObjectOutputStream stream = new ObjectOutputStream(file);
             
             stream.writeObject(list);
-
+            
             stream.close();
             file.close();
 
@@ -174,7 +174,9 @@ public class FilesManager {
     
     public static ArrayList<Subject> getCurrentPosibleToEnrollSubjectsForStudent(Student student) {
         if(student == null) {
-            return new ArrayList<>();
+            ArrayList<Subject> subjects = getSubjects();
+            subjects.removeIf(subject -> subject.getPrelation() != null);
+            return subjects;
         }
         
         try {

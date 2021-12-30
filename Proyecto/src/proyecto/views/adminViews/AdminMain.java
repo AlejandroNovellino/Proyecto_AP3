@@ -103,6 +103,11 @@ public class AdminMain extends javax.swing.JFrame {
         leftSidePanel.add(btnStudent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 40));
 
         btnStudent2.setBackground(new java.awt.Color(103, 69, 128));
+        btnStudent2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnStudent2MouseEntered(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,6 +184,14 @@ public class AdminMain extends javax.swing.JFrame {
 
         btnStudent5.setBackground(new java.awt.Color(103, 69, 128));
         btnStudent5.setForeground(new java.awt.Color(255, 255, 255));
+        btnStudent5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnStudent5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnStudent5MouseExited(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -276,6 +289,18 @@ public class AdminMain extends javax.swing.JFrame {
         CreateStudent.getInstance().setVisible(true);
         uniqueInstance.setVisible(false);
     }//GEN-LAST:event_btnStudent1MousePressed
+
+    private void btnStudent2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudent2MouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnStudent2MouseEntered
+
+    private void btnStudent5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudent5MouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnStudent5MouseEntered
+
+    private void btnStudent5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudent5MouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnStudent5MouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnStudent1;
