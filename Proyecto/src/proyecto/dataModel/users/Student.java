@@ -110,6 +110,7 @@ public class Student extends User {
                 + ", ci: "+this.ci
                 + ", gender: "+this.gender
                 + ", status: "+this.status
+                + ", enrollments: "+ this.enrollments
                 + "}";
     }
 }

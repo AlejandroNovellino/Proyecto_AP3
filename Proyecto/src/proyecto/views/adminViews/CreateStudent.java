@@ -5,6 +5,7 @@
  */
 package proyecto.views.adminViews;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import proyecto.controls.CreateStudentControl;
 import proyecto.dataModel.enums.gender;
@@ -19,18 +20,32 @@ import proyecto.helpers.JFramesHelper;
  */
 public class CreateStudent extends javax.swing.JFrame {
     private static CreateStudent uniqueInstance = null;
-    private boolean modifyStudent = false;  
+    private CreateStudentControl control;
+    private boolean modifyStudent = false;
     /**
      * Creates new form createStudent
      */
     private CreateStudent() {
         initComponents();
         alertMessagePanel.setVisible(false);
-        if(modifyStudent) {
-            CreateStudentControl.getInstance(null);
-        } else {
-            CreateStudentControl.getInstance(null);
-        }
+        control = new CreateStudentControl(null);
+        JFramesHelper.setModalSize(modal);
+        updateLists();
+    }
+    
+    private CreateStudent(Student student) {
+        initComponents();
+        alertMessagePanel.setVisible(false);
+        // set all the elements with the ones from the student
+        names.setText(student.getNames());
+        lastNames.setText(student.getLastNames());
+        ci.setText(Integer.toString(student.getCi()));
+        setGenderSelected(student.getGender());
+        setStatusSelected(student.getStatus());
+        // set the other elements
+        createBtn.setText("Modificar");
+        control = new CreateStudentControl(student);
+        JFramesHelper.setModalSize(modal);
         updateLists();
     }
     
@@ -41,25 +56,36 @@ public class CreateStudent extends javax.swing.JFrame {
         return uniqueInstance;
     }
     
+    public static CreateStudent getInstance(Student student) {
+        if(uniqueInstance == null) {
+            uniqueInstance = new CreateStudent(student);
+        }
+        return uniqueInstance;
+    }
+    
+    public void killInstance() {
+        uniqueInstance = null;
+    }
+    
     private void updateLists() {
         // update subjectsToSelect
         DefaultListModel<Subject> aux1 = new DefaultListModel<>();
-        CreateStudentControl.getInstance().getNotViewedSubjects().forEach(element -> aux1.addElement(element));
+        control.getNotViewedSubjects().forEach(element -> aux1.addElement(element));
         subjectsToSelect.setModel(aux1);
         
         // update subjectsSaw
         DefaultListModel<Subject> aux2 = new DefaultListModel<>();
-        CreateStudentControl.getInstance().getViewedSubjects().forEach(element -> aux2.addElement(element));
+        control.getViewedSubjects().forEach(element -> aux2.addElement(element));
         subjectsSaw.setModel(aux2);
         
         // update subjectCanBeView
         DefaultListModel<Subject> aux3 = new DefaultListModel<>();
-        CreateStudentControl.getInstance().getPosibleToEnrollSubjects().forEach(element -> aux3.addElement(element));
+        control.getNotViewedSubjects().forEach(element -> aux3.addElement(element));
         subjectCanBeView.setModel(aux3);
         
         // update subjectsToEnroll
         DefaultListModel<Subject> aux4 = new DefaultListModel<>();
-        CreateStudentControl.getInstance().getEnrolledSubjects().forEach(element -> aux4.addElement(element));
+        control.getEnrolledSubjects().forEach(element -> aux4.addElement(element));
         subjectsToEnroll.setModel(aux4);
     }
     
@@ -76,6 +102,11 @@ public class CreateStudent extends javax.swing.JFrame {
         }
     }
     
+    private void setGenderSelected(gender gender) {
+        ComboBoxModel<String> aux = genderSelection.getModel();
+        aux.setSelectedItem(gender.toString());
+    }
+    
     private boolean getStatusSelected() {
         switch(statusSelected.getSelectedItem().toString()) {
             case "Activo":
@@ -84,6 +115,15 @@ public class CreateStudent extends javax.swing.JFrame {
                 return false;
             default:
                 return false;       
+        }
+    }
+    
+    private void setStatusSelected(boolean status) {
+        ComboBoxModel<String> aux = statusSelected.getModel();
+        if(status) {
+            aux.setSelectedItem("Activo");
+        } else {
+            aux.setSelectedItem("Inactivo");
         }
     }
     
@@ -98,8 +138,18 @@ public class CreateStudent extends javax.swing.JFrame {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Cedula solo puede ser digitos");
             return false;
         } else if(!DataCheck.uniqueCi(Integer.parseInt(ci.getText()))) {
-            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Cedula no es unica");
-            return false;
+            if(control.getCurrentStudent()==null) {
+                JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Cedula no es unica");
+                return false;
+            } else {
+                if(control.getCurrentStudent().getCi() == Integer.parseInt(ci.getText())) {
+                    
+                } else {
+                    JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Cedula no es unica");
+                    return false;
+                }
+            }
+            
         }
             
         JFramesHelper.setMessage(alertMessagePanel, alertMessage, false, "");
@@ -109,13 +159,33 @@ public class CreateStudent extends javax.swing.JFrame {
     private void createStudent() {
         if(allDataCorrect()) {
             try {
-                CreateStudentControl.getInstance().createStudent(
+                control.createStudent(
                     names.getText(), 
                     lastNames.getText(), 
                     Integer.parseInt(ci.getText()), 
                     getGenderSelected(), 
                     getStatusSelected()
                 );
+                modal.setVisible(true);
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+    private void updateStudent() {
+        if(allDataCorrect()) {
+            try {
+                control.updateStudent(
+                    names.getText(), 
+                    lastNames.getText(), 
+                    Integer.parseInt(ci.getText()), 
+                    getGenderSelected(), 
+                    getStatusSelected()
+                );
+                jLabel14.setVisible(false);
+                jLabel12.setVisible(false);
+                jLabel13.setVisible(false);
+                jLabel11.setText("Estudiante modificado exitosamente");
                 modal.setVisible(true);
             } catch (Exception e) {
             }
@@ -157,7 +227,7 @@ public class CreateStudent extends javax.swing.JFrame {
         statusSelected = new javax.swing.JComboBox<>();
         alertMessagePanel = new javax.swing.JPanel();
         alertMessage = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        createBtn = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         subjectCanBeView = new javax.swing.JList<>();
@@ -244,14 +314,14 @@ public class CreateStudent extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(19, 19, 19))
         );
 
@@ -259,7 +329,7 @@ public class CreateStudent extends javax.swing.JFrame {
         modal.getContentPane().setLayout(modalLayout);
         modalLayout.setHorizontalGroup(
             modalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         modalLayout.setVerticalGroup(
             modalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,12 +404,12 @@ public class CreateStudent extends javax.swing.JFrame {
         alertMessage.setText("ALERT");
         alertMessagePanel.add(alertMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(217, 171, 251));
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton1.setText("Crear");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createBtn.setBackground(new java.awt.Color(217, 171, 251));
+        createBtn.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        createBtn.setText("Crear");
+        createBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createBtnActionPerformed(evt);
             }
         });
 
@@ -438,7 +508,7 @@ public class CreateStudent extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                 .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -488,7 +558,7 @@ public class CreateStudent extends javax.swing.JFrame {
                 .addComponent(alertMessagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(createBtn)
                     .addComponent(cancel))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -501,7 +571,7 @@ public class CreateStudent extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -510,7 +580,7 @@ public class CreateStudent extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -522,7 +592,7 @@ public class CreateStudent extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -533,14 +603,12 @@ public class CreateStudent extends javax.swing.JFrame {
         AdminMain.getInstance().setVisible(true);
         uniqueInstance.setVisible(false);
         uniqueInstance = null;
-        CreateStudentControl.killUniqueInstance();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void subjectsToSelectMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subjectsToSelectMousePressed
         try {
-            CreateStudentControl.getInstance().addToViewedSubjects(subjectsToSelect.getSelectedValue());
-            CreateStudentControl.getInstance().removeFromNotViewedSubjects(subjectsToSelect.getSelectedValue().getId());
-            CreateStudentControl.getInstance().updateLists();
+            control.addToViewedSubjects(subjectsToSelect.getSelectedValue());
+            control.removeFromNotViewedSubjects(subjectsToSelect.getSelectedValue().getId());
             updateLists();
         } catch (Exception e) {
         }
@@ -548,9 +616,8 @@ public class CreateStudent extends javax.swing.JFrame {
 
     private void subjectsSawMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subjectsSawMousePressed
         try {
-            CreateStudentControl.getInstance().addToNotViewedSubjects(subjectsSaw.getSelectedValue());
-            CreateStudentControl.getInstance().removeFromViewedSubjects(subjectsSaw.getSelectedValue().getId());
-            CreateStudentControl.getInstance().updateLists();
+            control.addToNotViewedSubjects(subjectsSaw.getSelectedValue());
+            control.removeFromViewedSubjects(subjectsSaw.getSelectedValue().getId());
             updateLists();
         } catch (Exception e) {
         }
@@ -558,9 +625,8 @@ public class CreateStudent extends javax.swing.JFrame {
 
     private void subjectCanBeViewMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subjectCanBeViewMousePressed
         try {
-            CreateStudentControl.getInstance().addToEnrolledSubjects(subjectCanBeView.getSelectedValue());
-            CreateStudentControl.getInstance().removeFromPosibleToEnrollSubjects(subjectCanBeView.getSelectedValue().getId());
-            CreateStudentControl.getInstance().updateLists();
+            control.addToEnrolledSubjects(subjectCanBeView.getSelectedValue());
+            control.removeFromNotViewedSubjects(subjectCanBeView.getSelectedValue().getId());
             updateLists();
         } catch (Exception e) {
         }
@@ -568,20 +634,26 @@ public class CreateStudent extends javax.swing.JFrame {
 
     private void subjectsToEnrollMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subjectsToEnrollMousePressed
         try {
-            CreateStudentControl.getInstance().addToPosibleToEnrollSubjects(subjectsToEnroll.getSelectedValue());
-            CreateStudentControl.getInstance().removeFromEnrolledSubjects(subjectsToEnroll.getSelectedValue().getId());
-            CreateStudentControl.getInstance().updateLists();
+            control.addToNotViewedSubjects(subjectsToEnroll.getSelectedValue());
+            control.removeFromEnrolledSubjects(subjectsToEnroll.getSelectedValue().getId());
             updateLists();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_subjectsToEnrollMousePressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        createStudent();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+        if(control.getCurrentStudent() == null) {
+            createStudent();
+        } else {
+            updateStudent();
+        } 
+    }//GEN-LAST:event_createBtnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        AdminMain.getInstance().setVisible(true);
         modal.setVisible(false);
+        uniqueInstance.setVisible(false);
+        killInstance();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -589,8 +661,8 @@ public class CreateStudent extends javax.swing.JFrame {
     private javax.swing.JPanel alertMessagePanel;
     private javax.swing.JButton cancel;
     private javax.swing.JTextField ci;
+    private javax.swing.JButton createBtn;
     private javax.swing.JComboBox<String> genderSelection;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

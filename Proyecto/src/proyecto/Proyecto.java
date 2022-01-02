@@ -45,8 +45,8 @@ public class Proyecto {
                 "student2", 
                 "student2",
                 2222, 
-                gender.Femenino, 
-                true,
+                gender.Masculino, 
+                false,
                 UUID.randomUUID().toString(), 
                 "student2", 
                 "student2", 
@@ -59,15 +59,15 @@ public class Proyecto {
     }
     
     public static void  testStudents() {
-        System.out.println("\n    testStudents:");
+        //System.out.println("\n    testStudents:");
         ArrayList<Student> students = FilesManager.getStudents();
-        System.out.println(students);
+        //System.out.println(students);
     }
     
     public static void testAdmins() {
-        System.out.println("\n    testAdmins:");
+        //System.out.println("\n    testAdmins:");
         ArrayList<Admin> admins = FilesManager.getAdmins();
-        System.out.println(admins);
+        //System.out.println(admins);
     }
     
     public static void createSubjects(ArrayList<Subject> subjects) {
@@ -135,20 +135,20 @@ public class Proyecto {
     public static void testEvaluations()  {
         ArrayList<Evaluation> evaluations = new ArrayList<>();
         createEvaluations(evaluations);
-        System.out.println(evaluations);
+        //System.out.println(evaluations);
         // save to file
         FilesManager.writeListToFile(evaluations, "evaluations");
     }
     
     public static void testSubjects() {
-        System.out.println("\n    testSubjects:");
+        //System.out.println("\n    testSubjects:");
         ArrayList<Subject> subjects = new ArrayList<>();
         createSubjects(subjects);
-        System.out.println("\n    Subjects created:\n"+subjects);
+        //System.out.println("\n    Subjects created:\n"+subjects);
         //file test
         FilesManager.writeListToFile(subjects, "subjects");
         ArrayList<Subject> aux = (ArrayList<Subject>)FilesManager.readListFromFile("subjects");
-        System.out.println("\n    File content:\n"+aux);
+        //System.out.println("\n    File content:\n"+aux);
     }
     
     public static void initFiles() {
@@ -157,7 +157,7 @@ public class Proyecto {
         createUsers(users);
 
         FilesManager.writeListToFile(users, "users");
-        System.out.println("\n    File content:\n"+FilesManager.getUsers());
+        //System.out.println("\n    File content:\n"+FilesManager.getUsers());
 
         testStudents();
         testAdmins();

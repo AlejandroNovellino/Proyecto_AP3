@@ -12,6 +12,7 @@ import proyecto.dataModel.enums.userType;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Student;
+import proyecto.dataModel.users.User;
 import proyecto.helpers.FilesManager;
 
 /**
@@ -19,20 +20,17 @@ import proyecto.helpers.FilesManager;
  * @author Alejandro
  */
 public class CreateStudentControl {
-    private static CreateStudentControl uniqueInstance = null;
-    private ArrayList<Subject> allSubjects = null;
-    private ArrayList<Subject> viewedSubjects = null;
-    private ArrayList<Subject> notViewedSubjects = null;
-    private ArrayList<Subject> enrolledSubjects = null;
-    private ArrayList<Subject> posibleToEnrollSubjects = null;
-   
+    private ArrayList<Subject> allSubjects = null; // all subjects
+    private ArrayList<Subject> viewedSubjects = null; // viewed subjects
+    private ArrayList<Subject> notViewedSubjects = null; // not viewed subjects
+    private ArrayList<Subject> enrolledSubjects = null; // currently enrolled subjects
+    private Student currentStudent = null;
     
     public CreateStudentControl() {
         this.allSubjects = FilesManager.getSubjects();
         this.viewedSubjects = new ArrayList<>();
         this.notViewedSubjects = new ArrayList<>();
         this.enrolledSubjects  = new ArrayList<>();
-        this.posibleToEnrollSubjects = new ArrayList<>();
     }
     
     public CreateStudentControl(Student student) {
@@ -40,30 +38,19 @@ public class CreateStudentControl {
         this.allSubjects = FilesManager.getSubjects();
         // set viewed subjects
         this.viewedSubjects = FilesManager.getViewedSubjectsForStudent(student);
-        // set not viewed subjects
-        this.notViewedSubjects = FilesManager.getNotViewedSubjectsForStudent(student);
         // set enrolled subjects 
         this.enrolledSubjects = FilesManager.getCurrentEnrollSubjectsForStudent(student);
-        // set posible to enroll subjects
-        //this.posibleToEnrollSubjects = FilesManager.getCurrentPosibleToEnrollSubjectsForStudent(student);
-    }
-    
-    public static CreateStudentControl getInstance() {
-        if(uniqueInstance == null) {
-            uniqueInstance = new CreateStudentControl();
-        }
-        return uniqueInstance;
-    }   
-    
-    public static CreateStudentControl getInstance(Student student) {
-        if(uniqueInstance == null) {
-            uniqueInstance = new CreateStudentControl(student);
-        }
-        return uniqueInstance;
-    } 
-    
-    public static void killUniqueInstance() {
-        uniqueInstance = null;
+        // set not viewed subjects
+        ArrayList<Subject> aux = FilesManager.getSubjects();
+        viewedSubjects.forEach(viewedSubject -> {
+            aux.removeIf(subject -> subject.getId().equals(viewedSubject.getId()));
+        });
+        enrolledSubjects.forEach(viewedSubject -> {
+            aux.removeIf(subject -> subject.getId().equals(viewedSubject.getId()));
+        });
+        this.notViewedSubjects = aux;
+        // set student 
+        this.currentStudent = student;
     }
 
     public ArrayList<Subject> getAllSubjects() {
@@ -98,12 +85,12 @@ public class CreateStudentControl {
         this.enrolledSubjects = enrolledSubjects;
     }
 
-    public ArrayList<Subject> getPosibleToEnrollSubjects() {
-        return posibleToEnrollSubjects;
+    public Student getCurrentStudent() {
+        return currentStudent;
     }
 
-    public void setPosibleToEnrollSubjects(ArrayList<Subject> posibleToEnrollSubjects) {
-        this.posibleToEnrollSubjects = posibleToEnrollSubjects;
+    public void setCurrentStudent(Student currentStudent) {
+        this.currentStudent = currentStudent;
     }
     
     public ArrayList<String> getAllSubjectsNames() {
@@ -114,7 +101,7 @@ public class CreateStudentControl {
 
     @Override
     public String toString() {
-        return "CreateStudentControl{" + "allSubjects=" + allSubjects + ", viewedSubjects=" + viewedSubjects + ", notViewedSubjects=" + notViewedSubjects + ", enrolledSubjects=" + enrolledSubjects + ", posibleToEnrollSubjects=" + posibleToEnrollSubjects + '}';
+        return "CreateStudentControl{" + "allSubjects=" + allSubjects + ", viewedSubjects=" + viewedSubjects + ", notViewedSubjects=" + notViewedSubjects + ", enrolledSubjects=" + enrolledSubjects + '}';
     }
     
     public void addToViewedSubjects(Subject subject) {
@@ -127,10 +114,6 @@ public class CreateStudentControl {
     
     public void addToEnrolledSubjects(Subject subject) {
         enrolledSubjects.add(subject);
-    }
-    
-    public void addToPosibleToEnrollSubjects(Subject subject) {
-        posibleToEnrollSubjects.add(subject);
     }
     
     public void removeFromArrayList(ArrayList<Subject> list, String id) {
@@ -147,47 +130,6 @@ public class CreateStudentControl {
     
     public void removeFromEnrolledSubjects(String id) {
         removeFromArrayList(enrolledSubjects, id);
-    }
-     
-    public void removeFromPosibleToEnrollSubjects(String id) {
-        removeFromArrayList(posibleToEnrollSubjects, id);
-    }
-    
-    public void updateLists() {
-        ArrayList<Integer> codesFromViewedSubjects = new ArrayList<>();
-        viewedSubjects.forEach(subject -> codesFromViewedSubjects.add(subject.getCode()));
-        for(Subject subject : notViewedSubjects) {
-            if(posibleToEnrollSubjects.contains(subject)) {
-                posibleToEnrollSubjects.add(subject);
-            }
-        }
-        for(Subject subject : viewedSubjects) {
-            if(posibleToEnrollSubjects.contains(subject)) {
-                posibleToEnrollSubjects.remove(subject);
-            }
-        }
-        for(Subject subject : enrolledSubjects) {
-            if(posibleToEnrollSubjects.contains(subject)) {
-                posibleToEnrollSubjects.remove(subject);
-                notViewedSubjects.remove(subject);
-            }
-        }
-        codesFromViewedSubjects.clear();
-        viewedSubjects.forEach(subject -> codesFromViewedSubjects.add(subject.getCode()));
-        System.out.println(viewedSubjects);
-        for(Subject subject : posibleToEnrollSubjects) {
-            if(!notViewedSubjects.contains(subject)) {
-                notViewedSubjects.add(subject);
-            }
-            if(!posibleToEnrollSubjects.contains(subject)) {
-                posibleToEnrollSubjects.add(subject);
-            }
-        }
-        for(Subject subject : notViewedSubjects) {
-            if(posibleToEnrollSubjects.contains(subject)) {
-                posibleToEnrollSubjects.remove(subject);
-            }
-        }
     }
     
     public void createStudent(String names, String lastNames, int ci, gender gender, boolean status) {
@@ -223,9 +165,57 @@ public class CreateStudentControl {
         // set the enrollments
         newStudent.setEnrollments(enrollments);
         // add student to the file
-        ArrayList<Student> allStudents = FilesManager.getStudents();
-        allStudents.add(newStudent);
-        FilesManager.writeListToFile(allStudents, "users");
+        ArrayList<User> allUsers = FilesManager.getUsers();
+        allUsers.add(newStudent);
+        FilesManager.writeListToFile(allUsers, "users");
+        // add the enrollments to the file
+        ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
+        enrollments.forEach(enrollment -> allEnrollments.add(enrollment));
+        FilesManager.writeListToFile(allEnrollments, "enrollments");
+    }
+    
+    public void updateStudent(String names, String lastNames, int ci, gender gender, boolean status) {
+        // set the new values to the student
+        currentStudent.setNames(names);
+        currentStudent.setLastNames(lastNames);
+        currentStudent.setCi(ci);
+        currentStudent.setGender(gender);
+        currentStudent.setStatus(status);
+        // delete all the old enrollments
+        ArrayList<Enrollment> oldEnrollments = FilesManager.getEnrollments();
+        oldEnrollments.removeIf(element -> element.getStudentId().equals(currentStudent.getId()));
+        FilesManager.writeListToFile(oldEnrollments, "enrollments");
+        // create the enrollments, the passed ones
+        ArrayList<Enrollment> enrollments = new ArrayList<>();
+        viewedSubjects.forEach((subject) -> {
+            enrollments.add(
+                    new Enrollment(
+                            UUID.randomUUID().toString(),
+                            subject.getId(),
+                            currentStudent.getId(),
+                            20, 
+                            true)
+            );
+        });
+        // create the enrollments, the current ones
+        enrolledSubjects.forEach(subject -> {
+            enrollments.add(
+                    new Enrollment(
+                            UUID.randomUUID().toString(),
+                            subject.getId(),
+                            currentStudent.getId(),
+                            null, 
+                            false)
+            );
+        });
+        // set the enrollments
+        currentStudent.setEnrollments(enrollments);
+        // update the users file
+        ArrayList<User> allUsers = FilesManager.getUsers();
+        allUsers.removeIf(element -> element.getId().equals(currentStudent.getId()));
+        // add student to the file
+        allUsers.add(currentStudent);
+        FilesManager.writeListToFile(allUsers, "users");
         // add the enrollments to the file
         ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
         enrollments.forEach(enrollment -> allEnrollments.add(enrollment));

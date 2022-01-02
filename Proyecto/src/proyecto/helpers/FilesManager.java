@@ -38,7 +38,6 @@ public class FilesManager {
         } catch (FileNotFoundException e) {
                 System.out.println("File not found");
         }catch (IOException e) {
-                System.out.println(e);
                 System.out.println("Error initializing stream");
         }
     }
@@ -90,6 +89,12 @@ public class FilesManager {
         return students;
     }
     
+    public static Student getStudentByCi(int ci) {
+        ArrayList<Student> aux = getStudents();
+        aux.removeIf(element -> element.getCi()!=ci);
+        return aux.get(0);
+    }
+    
     public static ArrayList<Integer> getAllCiStudents() {
         ArrayList<Integer> aux = new ArrayList<>();
         getStudents().forEach(student -> aux.add(student.getCi()));
@@ -120,16 +125,22 @@ public class FilesManager {
         }
         
         try {
-            ArrayList<Enrollment> enrollments = getEnrollments();
             ArrayList<Subject> subjects = getSubjects();
-            ArrayList<Subject> subjectsToReturn = getSubjects();
-            enrollments.removeIf(enrollment -> !enrollment.getStudentId().equals(student.getId()));
-            enrollments.forEach(enrollment -> {
+            ArrayList<Subject> subjectsToReturn = new ArrayList<>();
+            ArrayList<String> subjectsViewedIds = new ArrayList<>();
+            // get all the enrolled subjects ids
+            student.getEnrollments().forEach(enrollment -> {
                 if(enrollment.getPassed()) {
-                    int i = subjects.indexOf(enrollment.getSubjectId());
-                    subjectsToReturn.add(subjects.get(i));
+                    subjectsViewedIds.add(enrollment.getSubjectId());
                 }
             });
+            // add the enrolled subjects to the return list
+            subjects.forEach(element -> {
+                if(subjectsViewedIds.contains(element.getId())) {
+                    subjectsToReturn.add(element);
+                }
+            });
+            // return the list
             return subjectsToReturn;
         } catch (Exception e) {
             return new ArrayList<>();
@@ -160,16 +171,22 @@ public class FilesManager {
         }
         
         try {
-            ArrayList<Enrollment> enrollments = getEnrollments();
             ArrayList<Subject> subjects = getSubjects();
-            ArrayList<Subject> subjectsToReturn = getSubjects();
-            enrollments.removeIf(enrollment -> !enrollment.getStudentId().equals(student.getId()));
-            enrollments.forEach(enrollment -> {
+            ArrayList<Subject> subjectsToReturn = new ArrayList<>();
+            ArrayList<String> subjectsViewedIds = new ArrayList<>();
+            // get all the enrolled subjects ids
+            student.getEnrollments().forEach(enrollment -> {
                 if(!enrollment.getPassed()) {
-                    int i = subjects.indexOf(enrollment.getSubjectId());
-                    subjectsToReturn.add(subjects.get(i));
+                    subjectsViewedIds.add(enrollment.getSubjectId());
                 }
             });
+            // add the enrolled subjects to the return list
+            subjects.forEach(element -> {
+                if(subjectsViewedIds.contains(element.getId())) {
+                    subjectsToReturn.add(element);
+                }
+            });
+            // return the list
             return subjectsToReturn;
         } catch (Exception e) {
             return new ArrayList<>();

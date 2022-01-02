@@ -67,7 +67,9 @@ public class AdminMain extends javax.swing.JFrame {
             studentTable.addRow(new Object[]{
                 element.getNames(),
                 element.getLastNames(), 
-                element.getCi()
+                element.getCi(),
+                element.getGender().toString(),
+                element.getStatus()
             });
         });
         // set subjects table
@@ -98,6 +100,15 @@ public class AdminMain extends javax.swing.JFrame {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, message);
         }
     }    
+    
+    private void editEstudent() {
+        try {
+            int index = studentsTable.getSelectedRow();
+            CreateStudent.getInstance(control.getElementByIndex(control.getAllStudents(), index)).setVisible(true);
+        } catch (Exception e) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar un estudiante");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,6 +203,12 @@ public class AdminMain extends javax.swing.JFrame {
         btnStudentModify.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnStudentModifyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnStudentModifyMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnStudentModifyMousePressed(evt);
             }
         });
 
@@ -525,14 +542,14 @@ public class AdminMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "CI"
+                "Nombre", "Apellido", "CI", "Genero", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -779,7 +796,6 @@ public class AdminMain extends javax.swing.JFrame {
             killInstance();
         } catch (Exception e) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una materia");
-            System.out.println(e);
         }
     }//GEN-LAST:event_btnEvaluationAddMousePressed
 
@@ -839,6 +855,16 @@ public class AdminMain extends javax.swing.JFrame {
         deleteFromList(evaluationsTable, control.getAllEvaluations(), "Debe seleccionar una evaluacion", "evaluations");
         setTablesValues();
     }//GEN-LAST:event_btnEvaluationDeleteMousePressed
+
+    private void btnStudentModifyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentModifyMouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnStudentModifyMouseExited
+
+    private void btnStudentModifyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentModifyMousePressed
+        editEstudent();
+        uniqueInstance.setVisible(false);
+        killInstance();
+    }//GEN-LAST:event_btnStudentModifyMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;

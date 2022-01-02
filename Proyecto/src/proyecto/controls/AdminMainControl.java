@@ -51,6 +51,10 @@ public class AdminMainControl {
         this.allEvaluations = allEvaluations;
     }
     
+    public <E> E getElementByIndex(ArrayList<E> list, int index) {
+        return list.get(index);
+    }
+    
     public void deleteFromList(ArrayList<?> list, int index, String fileName) {
         list.remove(index);
         if(fileName.equals("users")) {
@@ -59,8 +63,9 @@ public class AdminMainControl {
             list.forEach(element -> newList.add((Student)element));
             FilesManager.writeListToFile(newList, fileName);
         } else if(fileName.equals("evaluations")){
-            // all the options and questions must be deleted
-            // first we have to set how te evaluation are goinfg to be made
+            // REVISAR
+            FilesManager.writeListToFile(list, fileName);
+            // all the enrollments to the evaluation must be deleted
         } else {
             FilesManager.writeListToFile(list, fileName);
         }
