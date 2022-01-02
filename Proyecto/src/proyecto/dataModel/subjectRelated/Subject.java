@@ -18,17 +18,13 @@ public class Subject implements Serializable{
     private String id; 
     private int code;
     private String name;
-    private int uc; //unidades de credito, como es corto no se coloco en ingles
-    Prelation prelation;
     private ArrayList<Enrollment> enrrolments;
     private ArrayList<Evaluation> evaluations;
 
-    public Subject(String id, int code, String name, int uc, Prelation prelation) {
+    public Subject(String id, int code, String name) {
         this.id = id;
         this.code = code;
         this.name = name;
-        this.uc = uc;
-        this.prelation = prelation;
         this.enrrolments = new ArrayList<>();
         this.evaluations = new ArrayList<>();
     }
@@ -57,22 +53,6 @@ public class Subject implements Serializable{
         this.name = name;
     }
 
-    public int getUc() {
-        return uc;
-    }
-
-    public void setUc(int uc) {
-        this.uc = uc;
-    }
-
-    public Prelation getPrelation() {
-        return prelation;
-    }
-
-    public void setPrelation(Prelation prelation) {
-        this.prelation = prelation;
-    }
-
     public ArrayList<Enrollment> getEnrrolments() {
         return enrrolments;
     }
@@ -91,6 +71,6 @@ public class Subject implements Serializable{
 
     @Override
     public String toString() {
-        return "Subject{" + "id=" + id + ", code=" + code + ", name=" + name + ", uc=" + uc + ", prelation=" + prelation + '}';
+        return "Subject{" + "id=" + id + ", code=" + code + ", name=" + name +'}';
     }
 }

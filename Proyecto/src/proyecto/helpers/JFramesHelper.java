@@ -7,6 +7,7 @@ package proyecto.helpers;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
@@ -22,5 +23,16 @@ public class JFramesHelper {
     public static void makeFrameFullSize(JFrame aFrame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         aFrame.setSize(screenSize.width, screenSize.height);
+    }
+    
+    public static void setModalSize(JDialog modal) {
+        Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
+        int dialogWidth = SCREEN_DIMENSION.width / 4; 
+        int dialogHeight = SCREEN_DIMENSION.height / 4; 
+        int dialogX = SCREEN_DIMENSION.width / 2 - dialogWidth / 2; 
+        int dialogY = SCREEN_DIMENSION.height / 2 - dialogHeight / 2;
+        
+        modal.setBounds(dialogX, dialogY, dialogWidth, dialogHeight);
+        modal.pack();
     }
 }

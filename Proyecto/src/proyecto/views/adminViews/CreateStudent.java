@@ -23,7 +23,7 @@ public class CreateStudent extends javax.swing.JFrame {
     /**
      * Creates new form createStudent
      */
-    public CreateStudent() {
+    private CreateStudent() {
         initComponents();
         alertMessagePanel.setVisible(false);
         if(modifyStudent) {
@@ -311,7 +311,7 @@ public class CreateStudent extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Materias a inscribir (se muestran las que cumplen las prelaciones)");
+        jLabel7.setText("Materias a inscribir");
 
         subjectsToSelect.setBackground(new java.awt.Color(245, 222, 255));
         subjectsToSelect.setSelectionBackground(new java.awt.Color(65, 10, 97));

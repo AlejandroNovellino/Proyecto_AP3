@@ -42,4 +42,12 @@ public class DataCheck {
             return true;
         }
     }
+    
+    public static boolean uniqueSubjectCode(int code) {
+        try {
+            return !FilesManager.getAllSubjectsCodes().contains(code);
+        } catch (Exception e) {
+            return true;
+        }
+    }
 }

@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
-import proyecto.dataModel.subjectRelated.Prelation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
@@ -100,14 +100,18 @@ public class FilesManager {
         return (ArrayList<Subject>)readListFromFile("subjects");
     }
     
-    public static ArrayList<Subject> getSubjectsWithoutPrelation() {
-        ArrayList<Subject> aux = getSubjects();
-        aux.removeIf(subject -> subject.getPrelation()!=null);
-        return aux;
-    }
-    
     public static ArrayList<Enrollment> getEnrollments() {
         return (ArrayList<Enrollment>)readListFromFile("enrollments");
+    }
+    
+     public static ArrayList<Evaluation> getEvaluations() {
+        return (ArrayList<Evaluation>)readListFromFile("evaluations");
+    }
+    
+    public static ArrayList<Integer> getAllSubjectsCodes() {
+        ArrayList<Integer> codes = new ArrayList<>();
+        getSubjects().forEach(subject -> codes.add(subject.getCode()));
+        return codes;
     }
     
     public static ArrayList<Subject> getViewedSubjectsForStudent(Student student) {
@@ -172,41 +176,11 @@ public class FilesManager {
         }
     }
     
-    public static ArrayList<Subject> getCurrentPosibleToEnrollSubjectsForStudent(Student student) {
-        if(student == null) {
-            ArrayList<Subject> subjects = getSubjects();
-            subjects.removeIf(subject -> subject.getPrelation() != null);
-            return subjects;
-        }
+    public static Subject getSubjectByCode(int code) {
+        ArrayList<Subject> allSubjects = getSubjects();
         
-        try {
-            ArrayList<Subject> subjects = getSubjects();
-            ArrayList<Subject> subjectsToReturn = getSubjects();
-            
-            subjects.forEach(subject -> {
-                if(studentPassPrelation(student, subject.getPrelation())) {
-                    subjectsToReturn.add(subject);
-                }
-            });
-            
-            return subjectsToReturn;
-        } catch (Exception e) {
-            return new ArrayList<>();
-        }
-    }
-    
-    public static boolean studentPassPrelation(Student student, Prelation prelation) {
-        try {
-            boolean result = true;
-            ArrayList<Subject> viewedSubjects = getViewedSubjectsForStudent(student);
-            for(Subject subject : viewedSubjects) {
-                if(!prelation.getSubjectsCodes().contains(subject.getCode())) {
-                    result = false;
-                }
-            }
-            return result;
-        } catch (Exception e) {
-            return false;
-        }
+        allSubjects.removeIf(element -> !(element.getCode() == code));
+        
+        return allSubjects.get(0);
     }
 }

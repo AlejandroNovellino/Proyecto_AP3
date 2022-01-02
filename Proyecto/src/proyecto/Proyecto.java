@@ -6,15 +6,17 @@
 package proyecto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import proyecto.controls.CreateStudentControl;
+import proyecto.dataModel.enums.evaluationType;
 import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
 import proyecto.dataModel.users.User;
 import proyecto.dataModel.enums.gender;
-import proyecto.dataModel.enums.status;
 import proyecto.dataModel.enums.userType;
-import proyecto.dataModel.subjectRelated.Prelation;
+import proyecto.dataModel.evaluationRelated.Evaluation;
+import proyecto.dataModel.evaluationRelated.Quiz;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.helpers.FilesManager;
 
@@ -30,7 +32,7 @@ public class Proyecto {
         Student student1 = new Student(
                 "student1", 
                 "student1",
-                0, 
+                1111, 
                 gender.Femenino, 
                 true,
                 UUID.randomUUID().toString(), 
@@ -40,9 +42,9 @@ public class Proyecto {
         );
         
         Student student2 = new Student(
-                "student12", 
+                "student2", 
                 "student2",
-                0, 
+                2222, 
                 gender.Femenino, 
                 true,
                 UUID.randomUUID().toString(), 
@@ -73,18 +75,14 @@ public class Proyecto {
             new Subject(
                     UUID.randomUUID().toString(),
                     1111,
-                    "Materia1",
-                    5,
-                    null
+                    "Materia1"
             )
         );
         subjects.add(
             new Subject(
                     UUID.randomUUID().toString(),
                     2222,
-                    "Materia2",
-                    4,
-                    null
+                    "Materia2"
             )
         );
         
@@ -92,9 +90,7 @@ public class Proyecto {
             new Subject(
                     UUID.randomUUID().toString(),
                     3333,
-                    "Materia3",
-                    4,
-                    null
+                    "Materia3"
             )
         );
         
@@ -104,15 +100,44 @@ public class Proyecto {
             new Subject(
                 UUID.randomUUID().toString(),
                 4444,
-                "Materia4",
-                4,
-                new Prelation(
-                    UUID.randomUUID().toString(),
-                    codes4,
-                    0
-                )
+                "Materia4"
             )
         );
+    }
+    
+    public static void createEvaluations(ArrayList<Evaluation> evaluations) {
+        
+        evaluations.add(
+            new Quiz(
+                UUID.randomUUID().toString(), 
+                evaluationType.Quiz, 
+                15, 
+                new Date(), 
+                new Date(), 
+                true, 
+                2
+            )
+        );
+        
+        evaluations.add(
+            new Quiz(
+                UUID.randomUUID().toString(), 
+                evaluationType.Quiz, 
+                15, 
+                new Date(), 
+                new Date(), 
+                true, 
+                2
+            )
+        );
+    }
+    
+    public static void testEvaluations()  {
+        ArrayList<Evaluation> evaluations = new ArrayList<>();
+        createEvaluations(evaluations);
+        System.out.println(evaluations);
+        // save to file
+        FilesManager.writeListToFile(evaluations, "evaluations");
     }
     
     public static void testSubjects() {
@@ -139,5 +164,8 @@ public class Proyecto {
 
         // Test subjects
         testSubjects();
+        
+        // test evaluations
+        testEvaluations();
     }
 }

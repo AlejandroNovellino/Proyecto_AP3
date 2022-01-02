@@ -41,7 +41,7 @@ public class Option implements Serializable{
         this.value = value;
     }
 
-    public boolean isIsAnswer() {
+    public boolean getIsAnswer() {
         return isAnswer;
     }
 

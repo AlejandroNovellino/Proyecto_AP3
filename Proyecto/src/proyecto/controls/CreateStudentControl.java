@@ -10,7 +10,6 @@ import java.util.UUID;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.userType;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
-import proyecto.dataModel.subjectRelated.Prelation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Student;
 import proyecto.helpers.FilesManager;
@@ -46,7 +45,7 @@ public class CreateStudentControl {
         // set enrolled subjects 
         this.enrolledSubjects = FilesManager.getCurrentEnrollSubjectsForStudent(student);
         // set posible to enroll subjects
-        this.posibleToEnrollSubjects = FilesManager.getCurrentPosibleToEnrollSubjectsForStudent(student);
+        //this.posibleToEnrollSubjects = FilesManager.getCurrentPosibleToEnrollSubjectsForStudent(student);
     }
     
     public static CreateStudentControl getInstance() {
@@ -152,28 +151,13 @@ public class CreateStudentControl {
      
     public void removeFromPosibleToEnrollSubjects(String id) {
         removeFromArrayList(posibleToEnrollSubjects, id);
-    } 
-    
-    public boolean checkPrelations(Subject notViewedSubject, ArrayList<Integer> codes) {
-        
-        boolean aux = true;
-        try {
-            for(Integer code : notViewedSubject.getPrelation().getSubjectsCodes()) {
-                if(!codes.contains(code)) {
-                    aux = false;
-                }
-            }
-        } catch (Exception e) {
-            return false;
-        }
-        return aux;
     }
     
     public void updateLists() {
         ArrayList<Integer> codesFromViewedSubjects = new ArrayList<>();
         viewedSubjects.forEach(subject -> codesFromViewedSubjects.add(subject.getCode()));
         for(Subject subject : notViewedSubjects) {
-            if(checkPrelations(subject, codesFromViewedSubjects) && !posibleToEnrollSubjects.contains(subject)) {
+            if(posibleToEnrollSubjects.contains(subject)) {
                 posibleToEnrollSubjects.add(subject);
             }
         }
@@ -200,7 +184,7 @@ public class CreateStudentControl {
             }
         }
         for(Subject subject : notViewedSubjects) {
-            if(!checkPrelations(subject, codesFromViewedSubjects) && posibleToEnrollSubjects.contains(subject)) {
+            if(posibleToEnrollSubjects.contains(subject)) {
                 posibleToEnrollSubjects.remove(subject);
             }
         }

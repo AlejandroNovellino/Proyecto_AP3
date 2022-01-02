@@ -115,14 +115,6 @@ public abstract class  Evaluation implements Serializable{
 
     @Override
     public String toString() {
-        return "{"
-                + "id: " +this.id
-                + ", type: " +this.type
-                + ", weighing: " +this.weighing
-                + ", initDate: " +this.initDate
-                + ", closeDate: " +this.closeDate
-                + ", active: " +this.active
-                + ", tries: " +this.tries
-                + "}";
+        return "Evaluation{" + "id=" + id + ", type=" + type + ", weighing=" + weighing + ", initDate=" + initDate + ", closeDate=" + closeDate + ", active=" + active + ", tries=" + tries + '}';
     }
 }

@@ -5,10 +5,20 @@
  */
 package proyecto.dataModel.evaluationRelated;
 
+import java.util.Date;
+import proyecto.dataModel.enums.evaluationType;
+
 /**
  *
  * @author Alejandro
  */
 public class Quiz extends Evaluation{
+
+    public Quiz() {
+    }
+
+    public Quiz(String id, evaluationType type, float weighing, Date initDate, Date closeDate, boolean active, int tries) {
+        super(id, type, weighing, initDate, closeDate, active, tries);
+    }
     
 }
