@@ -5,12 +5,14 @@
  */
 package proyecto.views;
 
+import proyecto.views.studentViews.StudentMain;
 import proyecto.views.adminViews.AdminMain;
 import javax.swing.JFrame;
 import proyecto.controls.LoginControl;
 import proyecto.dataModel.users.User;
 import proyecto.helpers.JFramesHelper;
 import proyecto.Proyecto;
+import proyecto.dataModel.users.Student;
 
 /**
  *
@@ -33,7 +35,7 @@ public class Login extends javax.swing.JFrame {
         return uniqueInstance;
     }
     
-    public static void setNimbusFeel() {
+    public static void setWindowsFeel() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -226,10 +228,16 @@ public class Login extends javax.swing.JFrame {
                         uniqueInstance.setVisible(false);
                         break;
                     case STUDENT:
-                        StudentMain.getInstance().setVisible(true);
-                        JFramesHelper.setMessage(messagePanel, message, false, "");
-                        uniqueInstance.setVisible(false);
-                        break;
+                        Student student = (Student)user;
+                        if(student.getStatus()) {
+                            StudentMain.getInstance((Student)user).setVisible(true);
+                            JFramesHelper.setMessage(messagePanel, message, false, "");
+                            uniqueInstance.setVisible(false);
+                            break;
+                        } else {
+                            JFramesHelper.setMessage(messagePanel, message, true, "Se encuentra inactivo, solicite su activacion");
+                        }
+                        
                     default: 
                         break;
                 }
@@ -245,7 +253,7 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Proyecto.initFiles();
-                Login.setNimbusFeel();
+                Login.setWindowsFeel();
                 Login.getInstance().setVisible(true);
             }
         });

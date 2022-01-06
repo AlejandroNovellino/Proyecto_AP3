@@ -81,11 +81,11 @@ public abstract class  Evaluation implements Serializable{
         this.closeDate = closeDate;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         this.active = active;
     }
 

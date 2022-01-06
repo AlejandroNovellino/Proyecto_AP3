@@ -124,7 +124,7 @@ public class CreateEvaluationControl {
                 initDate, 
                 closeDate, 
                 active, 
-                0
+                tries
         );
     }
     
@@ -136,7 +136,7 @@ public class CreateEvaluationControl {
                 initDate, 
                 closeDate, 
                 active, 
-                0
+                tries
         );
     }
     
@@ -148,7 +148,7 @@ public class CreateEvaluationControl {
                 initDate, 
                 closeDate, 
                 active, 
-                0
+                tries
         );
     }
     
@@ -160,7 +160,7 @@ public class CreateEvaluationControl {
                 initDate, 
                 closeDate, 
                 active, 
-                0
+                tries
         );
     }
     
@@ -183,6 +183,9 @@ public class CreateEvaluationControl {
             default:
                 break;
         }
+        // set the questions to the evaluation
+        newEvaluation.setQuestions(questions);
+        // get all the evaluations and add the new one
         ArrayList<Evaluation> allEvaluations = FilesManager.getEvaluations();
         allEvaluations.add(newEvaluation);
         // save to file

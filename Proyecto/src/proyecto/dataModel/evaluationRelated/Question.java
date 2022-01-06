@@ -5,13 +5,14 @@
  */
 package proyecto.dataModel.evaluationRelated;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Alejandro
  */
-public class Question {
+public class Question implements Serializable{
     private String id;
     //private tag
     private String statement; //enunciado

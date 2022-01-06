@@ -8,6 +8,7 @@ package proyecto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import proyecto.controls.CreateEvaluationControl;
 import proyecto.controls.CreateStudentControl;
 import proyecto.dataModel.enums.evaluationType;
 import proyecto.dataModel.users.Admin;
@@ -56,6 +57,8 @@ public class Proyecto {
         list.add(admin1);
         list.add(student1);
         list.add(student2);
+        
+        FilesManager.writeListToFile(list, "users");
     }
     
     public static void  testStudents() {
@@ -94,8 +97,6 @@ public class Proyecto {
             )
         );
         
-        ArrayList<Integer> codes4 = new ArrayList<>();
-        codes4.add(3333);
         subjects.add(
             new Subject(
                 UUID.randomUUID().toString(),
@@ -106,66 +107,64 @@ public class Proyecto {
     }
     
     public static void createEvaluations(ArrayList<Evaluation> evaluations) {
+        FilesManager.writeListToFile(new ArrayList<>(), "evaluations");
         
-        evaluations.add(
-            new Quiz(
-                UUID.randomUUID().toString(), 
-                evaluationType.Quiz, 
-                15, 
-                new Date(), 
-                new Date(), 
-                true, 
-                2
-            )
-        );
+        CreateEvaluationControl control = new CreateEvaluationControl();
+        control.setSubject(4444);
         
-        evaluations.add(
-            new Quiz(
-                UUID.randomUUID().toString(), 
-                evaluationType.Quiz, 
-                15, 
-                new Date(), 
-                new Date(), 
-                true, 
-                2
-            )
-        );
+        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
+        control.createEvaluation(evaluationType.Quiz, 20, new Date(), new Date(), true, 2);
+        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
+        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
+    }
+    
+    public static void testUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        createUsers(users);
     }
     
     public static void testEvaluations()  {
         ArrayList<Evaluation> evaluations = new ArrayList<>();
         createEvaluations(evaluations);
-        //System.out.println(evaluations);
-        // save to file
-        FilesManager.writeListToFile(evaluations, "evaluations");
     }
     
     public static void testSubjects() {
-        //System.out.println("\n    testSubjects:");
         ArrayList<Subject> subjects = new ArrayList<>();
         createSubjects(subjects);
-        //System.out.println("\n    Subjects created:\n"+subjects);
         //file test
         FilesManager.writeListToFile(subjects, "subjects");
-        ArrayList<Subject> aux = (ArrayList<Subject>)FilesManager.readListFromFile("subjects");
-        //System.out.println("\n    File content:\n"+aux);
+    }
+    
+    public static void testUpdateUser() {
+        // get the students
+        ArrayList<Student> allStudents = FilesManager.getStudents();
+        // create the control
+        CreateStudentControl control = new CreateStudentControl(allStudents.get(0));
+        // get the subject to enrolled
+        ArrayList<Subject> subjects = new ArrayList<>();
+        subjects.add(FilesManager.getSubjectByCode(4444));
+        control.setEnrolledSubjects(subjects);
+        // make the changes
+        control.updateStudent(
+                allStudents.get(0).getNames(), 
+                allStudents.get(0).getLastNames(), 
+                allStudents.get(0).getCi(), 
+                allStudents.get(0).getGender(), 
+                true
+        );
     }
     
     public static void initFiles() {
-        // Test users
-        ArrayList<User> users = new ArrayList<>();
-        createUsers(users);
+        // test users
+        testUsers();
 
-        FilesManager.writeListToFile(users, "users");
-        //System.out.println("\n    File content:\n"+FilesManager.getUsers());
-
-        testStudents();
-        testAdmins();
-
-        // Test subjects
+        // test subjects
         testSubjects();
         
         // test evaluations
         testEvaluations();
+        
+        // test updating a student
+        testUpdateUser();
     }
 }

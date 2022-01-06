@@ -5,9 +5,9 @@
  */
 package proyecto.views.adminViews;
 
+import java.util.Date;
 import javax.swing.DefaultListModel;
 import proyecto.controls.CreateEvaluationControl;
-import proyecto.controls.SubjectControl;
 import proyecto.dataModel.enums.evaluationType;
 import proyecto.helpers.DataCheck;
 import proyecto.helpers.JFramesHelper;
@@ -91,6 +91,9 @@ public class CreateEvaluation extends javax.swing.JFrame {
         } else if(closeDate.getDate() == null) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Fecha de cierre nula");
             return false;
+        } else if(initDate.getDate().after(closeDate.getDate())) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Fecha de cierre menor a la de inicio");
+            return false;
         }
         
         JFramesHelper.setMessage(alertMessagePanel, alertMessage, false, "");
@@ -98,14 +101,18 @@ public class CreateEvaluation extends javax.swing.JFrame {
     }
     
     private void createEvaluation() {
+        if(getTypeSelected() == evaluationType.Prueba) {
+            tries.setValue(10000);
+        }
         if(allDataCorrect()) {
+            int auxTries = Integer.parseInt(tries.getValue().toString());
             control.createEvaluation(
                     getTypeSelected(), 
                     Float.parseFloat(weigh.getValue().toString()), 
                     initDate.getDate(), 
                     closeDate.getDate(), 
                     getStatusSelected(), 
-                    Integer.parseInt(tries.getValue().toString())
+                    auxTries
             );
             //modal.setVisible(true);
             AdminMain.getInstance().setVisible(true);
@@ -169,6 +176,11 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel2.setText("Tipo");
 
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quiz", "Parcial Practico", "Parcial Prueba", "Parcial Teorico" }));
+        type.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                typeMousePressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -267,8 +279,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(createQuestion)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jButton2))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -285,9 +296,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
                                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                                         .addGap(48, 48, 48)
                                                         .addComponent(jLabel2))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel6)))
+                                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(initDate, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -416,6 +425,16 @@ public class CreateEvaluation extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void typeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeMousePressed
+        if(getTypeSelected() == evaluationType.Prueba){
+            jLabel5.setVisible(false);
+            tries.setVisible(false);
+        } else {
+            jLabel5.setVisible(true);
+            tries.setVisible(true);
+        }
+    }//GEN-LAST:event_typeMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;

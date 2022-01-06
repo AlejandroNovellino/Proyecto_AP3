@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
+import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
@@ -109,8 +110,12 @@ public class FilesManager {
         return (ArrayList<Enrollment>)readListFromFile("enrollments");
     }
     
-     public static ArrayList<Evaluation> getEvaluations() {
+    public static ArrayList<Evaluation> getEvaluations() {
         return (ArrayList<Evaluation>)readListFromFile("evaluations");
+    }
+     
+    public static ArrayList<EvaluationRegistry> getEvaluationRegistries() {
+        return (ArrayList<EvaluationRegistry>)readListFromFile("evaluationRegistries");
     }
     
     public static ArrayList<Integer> getAllSubjectsCodes() {
@@ -199,5 +204,21 @@ public class FilesManager {
         allSubjects.removeIf(element -> !(element.getCode() == code));
         
         return allSubjects.get(0);
+    }
+    
+    public static Subject getSubjectById(String id) {
+        ArrayList<Subject> allSubjects = getSubjects();
+        
+        allSubjects.removeIf(element -> !(element.getId().equals(id)));
+        
+        return allSubjects.get(0);
+    }
+    
+    public static Evaluation getEvaluationById(String id) {
+        ArrayList<Evaluation> allEvaluations = getEvaluations();
+        
+        allEvaluations.removeIf(element -> !(element.getId().equals(id)));
+        
+        return allEvaluations.get(0);
     }
 }

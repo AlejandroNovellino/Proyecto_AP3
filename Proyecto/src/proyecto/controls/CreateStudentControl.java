@@ -142,25 +142,25 @@ public class CreateStudentControl {
         // create the enrollments, the passed ones
         ArrayList<Enrollment> enrollments = new ArrayList<>();
         viewedSubjects.forEach((subject) -> {
-            enrollments.add(
-                    new Enrollment(
+            Enrollment auxEnrollment = new Enrollment(
                             UUID.randomUUID().toString(),
                             subject.getId(),
                             id,
                             20, 
-                            true)
-            );
+                            true);
+            enrollments.add(auxEnrollment);
+            subject.getEnrrolments().add(auxEnrollment);
         });
         // create the enrollments, the current ones
         enrolledSubjects.forEach(subject -> {
-            enrollments.add(
-                    new Enrollment(
+            Enrollment auxEnrollment = new Enrollment(
                             UUID.randomUUID().toString(),
                             subject.getId(),
                             id,
                             null, 
-                            false)
-            );
+                            false);
+            enrollments.add(auxEnrollment);
+            subject.getEnrrolments().add(auxEnrollment);
         });
         // set the enrollments
         newStudent.setEnrollments(enrollments);
@@ -172,6 +172,24 @@ public class CreateStudentControl {
         ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
         enrollments.forEach(enrollment -> allEnrollments.add(enrollment));
         FilesManager.writeListToFile(allEnrollments, "enrollments");
+        // save the changes to the subject file
+        // update the list of subjects
+        // remove the subjects without the new changes
+        viewedSubjects.forEach(element -> {
+            this.allSubjects.removeIf(subject -> subject.getId().equals(element.getId()));
+        });
+        enrolledSubjects.forEach(element -> {
+            this.allSubjects.removeIf(subject -> subject.getId().equals(element.getId()));
+        });
+        // add the subjects with the changes
+        viewedSubjects.forEach(element -> {
+            this.allSubjects.add(element);
+        });
+        enrolledSubjects.forEach(element -> {
+            this.allSubjects.add(element);
+        });
+        // save to the file
+        FilesManager.writeListToFile(this.allSubjects, "subjects");
     }
     
     public void updateStudent(String names, String lastNames, int ci, gender gender, boolean status) {
@@ -188,25 +206,25 @@ public class CreateStudentControl {
         // create the enrollments, the passed ones
         ArrayList<Enrollment> enrollments = new ArrayList<>();
         viewedSubjects.forEach((subject) -> {
-            enrollments.add(
-                    new Enrollment(
+            Enrollment auxEnrollment = new Enrollment(
                             UUID.randomUUID().toString(),
                             subject.getId(),
                             currentStudent.getId(),
                             20, 
-                            true)
-            );
+                            true);
+            enrollments.add(auxEnrollment);
+            subject.getEnrrolments().add(auxEnrollment);
         });
         // create the enrollments, the current ones
         enrolledSubjects.forEach(subject -> {
-            enrollments.add(
-                    new Enrollment(
+            Enrollment auxEnrollment = new Enrollment(
                             UUID.randomUUID().toString(),
                             subject.getId(),
                             currentStudent.getId(),
                             null, 
-                            false)
-            );
+                            false);
+            enrollments.add(auxEnrollment);
+            subject.getEnrrolments().add(auxEnrollment);
         });
         // set the enrollments
         currentStudent.setEnrollments(enrollments);
@@ -220,5 +238,23 @@ public class CreateStudentControl {
         ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
         enrollments.forEach(enrollment -> allEnrollments.add(enrollment));
         FilesManager.writeListToFile(allEnrollments, "enrollments");
+        // save the changes to the subject file
+        // update the list of subjects
+        // remove the subjects without the new changes
+        viewedSubjects.forEach(element -> {
+            this.allSubjects.removeIf(subject -> subject.getId().equals(element.getId()));
+        });
+        enrolledSubjects.forEach(element -> {
+            this.allSubjects.removeIf(subject -> subject.getId().equals(element.getId()));
+        });
+        // add the subjects with the changes
+        viewedSubjects.forEach(element -> {
+            this.allSubjects.add(element);
+        });
+        enrolledSubjects.forEach(element -> {
+            this.allSubjects.add(element);
+        });
+        // save to the file
+        FilesManager.writeListToFile(this.allSubjects, "subjects");
     }
 }

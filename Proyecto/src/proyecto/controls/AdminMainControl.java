@@ -7,6 +7,8 @@ package proyecto.controls;
 
 import java.util.ArrayList;
 import proyecto.dataModel.evaluationRelated.Evaluation;
+import proyecto.dataModel.manyToManyRelations.Enrollment;
+import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Student;
 import proyecto.dataModel.users.User;
@@ -56,18 +58,66 @@ public class AdminMainControl {
     }
     
     public void deleteFromList(ArrayList<?> list, int index, String fileName) {
-        list.remove(index);
-        if(fileName.equals("users")) {
-            ArrayList<User> newList = new ArrayList<>();
-            FilesManager.getAdmins().forEach(element -> newList.add(element));
-            list.forEach(element -> newList.add((Student)element));
-            FilesManager.writeListToFile(newList, fileName);
-        } else if(fileName.equals("evaluations")){
-            // REVISAR
-            FilesManager.writeListToFile(list, fileName);
-            // all the enrollments to the evaluation must be deleted
-        } else {
-            FilesManager.writeListToFile(list, fileName);
+        switch (fileName) {
+            case "users":
+                // get the user
+                Student user = (Student) list.get(index);
+                // remove the user from the list
+                list.remove(index);
+                // get all the users and delete the student
+                ArrayList<User> users = FilesManager.getUsers();
+                users.removeIf(element -> element.getId().equals(user.getId()));
+                // save the changes to the file 
+                FilesManager.writeListToFile(users, fileName);
+                // now the enrollments must be deleted and the evaluations registries
+                // delete the enrollments from the enrollments file and the subjects file
+                // deleting the enrollments in the subjects file
+                ArrayList<Subject> subjects = FilesManager.getSubjects();
+                user.getEnrollments().forEach(enrollment -> {
+                    subjects.forEach(subject -> {
+                       subject.getEnrrolments().removeIf(element -> element.getId().equals(enrollment.getId()));
+                    });
+                });
+                // deleting the enrollments in the enrolmments file
+                ArrayList<Enrollment> enrollments = FilesManager.getEnrollments();
+                user.getEnrollments().forEach(enrollment -> {
+                    enrollments.removeIf(element -> element.getId().equals(enrollment.getId()));
+                });
+                // save the changes to the subjects file
+                FilesManager.writeListToFile(subjects, "subjects");
+                // save the changes to the enrollments file
+                FilesManager.writeListToFile(enrollments, "enrollments");
+                ///////////////////////////////////////////////////////////////// NO SE SI SE DEBERIA ELIMINAR
+                // delete the registries from the registries file and the evaluations file
+                // deleting the registries in the evaluations file
+                ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
+                user.getEvaluationsRegistrys().forEach(registry -> {
+                    evaluations.forEach(evaluation -> {
+                       evaluation.getResults().removeIf(element -> element.getId().equals(registry.getId()));
+                    });
+                });
+                // deleting the registries in the evaluationRegistries file
+                ArrayList<EvaluationRegistry> evaluationRegistries = FilesManager.getEvaluationRegistries();
+                user.getEvaluationsRegistrys().forEach(registry -> {
+                    evaluationRegistries.removeIf(element -> element.getId().equals(registry.getId()));
+                });
+                // save the changes to the evaluations file
+                FilesManager.writeListToFile(evaluations, "evaluations");
+                // save the changes to the evaluationRegistries file
+                FilesManager.writeListToFile(evaluationRegistries, "evaluationRegistries");
+                break;
+            case "evaluations":
+                // REVISAR
+                FilesManager.writeListToFile(list, fileName);
+                // all the enrollments to the evaluation must be deleted
+                break;
+            case "subjects":
+                // REVISAR
+                FilesManager.writeListToFile(list, fileName);
+            
+                break;
+            default:
+                break;
         }
     }
 }

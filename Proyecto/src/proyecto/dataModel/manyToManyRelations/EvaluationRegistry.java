@@ -18,15 +18,17 @@ public class EvaluationRegistry implements Serializable{
     private String evaluationId;
     private String studentId;
     private float note; 
+    private int numTries;
     private boolean presented; //presentada
     private boolean beingPresented; //siendoPresentada
     private ArrayList<Option> answers;
 
-    public EvaluationRegistry(String id, String evaluationId, String studentId, float note, boolean presented, boolean beingPresented) {
+    public EvaluationRegistry(String id, String evaluationId, String studentId, float note, int numTries, boolean presented, boolean beingPresented) {
         this.id = id;
         this.evaluationId = evaluationId;
         this.studentId = studentId;
         this.note = note;
+        this.numTries = numTries;
         this.presented = presented;
         this.beingPresented = beingPresented;
         this.answers = new ArrayList<>();
@@ -64,7 +66,15 @@ public class EvaluationRegistry implements Serializable{
         this.note = note;
     }
 
-    public boolean isPresented() {
+    public int getNumTries() {
+        return numTries;
+    }
+
+    public void setNumTries(int numTries) {
+        this.numTries = numTries;
+    }
+
+    public boolean getPresented() {
         return presented;
     }
 
