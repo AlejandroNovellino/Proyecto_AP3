@@ -73,6 +73,6 @@ public class Question implements Serializable{
 
     @Override
     public String toString() {
-        return "Question{" + "id=" + id + ", statement=" + statement + ", score=" + score + ", inUse=" + inUse + ", options=" + options + '}';
+        return "Enunciado= " + statement + ", puntaje= " + score + ", Num. opciones= " +options.size();
     }
 }

@@ -111,6 +111,7 @@ public class Student extends User {
                 + ", gender: "+this.gender
                 + ", status: "+this.status
                 + ", enrollments: "+ this.enrollments
+                +", evaluationsRegistrys: "+ this.evaluationsRegistrys
                 + "}";
     }
 }

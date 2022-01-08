@@ -51,6 +51,7 @@ public class Option implements Serializable{
 
     @Override
     public String toString() {
-        return "Option{" + "id=" + id + ", value=" + value + ", isAnswer=" + isAnswer + '}';
+        String aux = (isAnswer) ? "Si":"No";
+        return "Valor= " + value + ", es respuesta= " + aux;
     }
 }

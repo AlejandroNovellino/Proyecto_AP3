@@ -116,6 +116,18 @@ public class CreateEvaluationControl {
         return aux;
     }
     
+    public boolean verifyMoreThanOneAnswer() {
+        // return true if the options only have one answer
+        int count = 0;
+        for(Option option : currentOptions) {
+            if(option.getIsAnswer()) {
+                count++;
+            }
+        }
+        
+        return (count == 1);
+    }
+    
     public Quiz createQuiz(evaluationType type, float weighing, Date initDate, Date closeDate, boolean active, int tries) {
         return new Quiz(
                 UUID.randomUUID().toString(),

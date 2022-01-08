@@ -17,6 +17,8 @@ import proyecto.dataModel.users.User;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.userType;
 import proyecto.dataModel.evaluationRelated.Evaluation;
+import proyecto.dataModel.evaluationRelated.Option;
+import proyecto.dataModel.evaluationRelated.Question;
 import proyecto.dataModel.evaluationRelated.Quiz;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.helpers.FilesManager;
@@ -111,11 +113,71 @@ public class Proyecto {
         
         CreateEvaluationControl control = new CreateEvaluationControl();
         control.setSubject(4444);
+        // aux date
+        Date closeDate = new Date();
+        closeDate.setMonth(4);
         
-        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
-        control.createEvaluation(evaluationType.Quiz, 20, new Date(), new Date(), true, 2);
-        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
-        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
+        // create the options
+        ArrayList<Option> options = new ArrayList<>();
+        options.add(
+                new Option(
+                        UUID.randomUUID().toString(), 
+                        "Opcion 1", 
+                        true
+                )
+        );
+        options.add(
+                new Option(
+                        UUID.randomUUID().toString(), 
+                        "Opcion 2", 
+                        false
+                )
+        );
+        
+        // create the questions
+        ArrayList<Question> questions = new ArrayList<>();
+        questions.add(new Question(
+                UUID.randomUUID().toString(),
+                "Pregunta 1",
+                20, 
+                false, 
+                new ArrayList(options)
+        ));
+        // create the evaluation
+        control.setQuestions(questions);
+        control.createEvaluation(evaluationType.Quiz, 15, new Date(), closeDate, true, 2);
+        
+        // set the second evaluation
+        questions.clear();
+        // set question 1
+        questions.add(new Question(
+                UUID.randomUUID().toString(),
+                "Pregunta 1",
+                10, 
+                false, 
+                new ArrayList(options)
+        ));
+        options.add(
+                new Option(
+                        UUID.randomUUID().toString(), 
+                        "Opcion 3", 
+                        false
+                )
+        );
+        questions.add(new Question(
+                UUID.randomUUID().toString(),
+                "Pregunta 2",
+                10, 
+                false, 
+                new ArrayList(options)
+        ));
+        // create the evaluation
+        control.setQuestions(questions);
+        control.createEvaluation(evaluationType.Quiz, 20, new Date(), closeDate, true, 2);
+        // create the evaluation
+        control.setQuestions(questions);
+        control.createEvaluation(evaluationType.Prueba, 15, new Date(), new Date(), true, 10000);
+//        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
     }
     
     public static void testUsers() {

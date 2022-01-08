@@ -17,13 +17,13 @@ public class EvaluationRegistry implements Serializable{
     private String id;
     private String evaluationId;
     private String studentId;
-    private float note; 
+    private Float note; // note in the evaluation
     private int numTries;
     private boolean presented; //presentada
     private boolean beingPresented; //siendoPresentada
     private ArrayList<Option> answers;
 
-    public EvaluationRegistry(String id, String evaluationId, String studentId, float note, int numTries, boolean presented, boolean beingPresented) {
+    public EvaluationRegistry(String id, String evaluationId, String studentId, Float note, int numTries, boolean presented, boolean beingPresented) {
         this.id = id;
         this.evaluationId = evaluationId;
         this.studentId = studentId;
@@ -58,11 +58,11 @@ public class EvaluationRegistry implements Serializable{
         this.studentId = studentId;
     }
 
-    public float getNote() {
+    public Float getNote() {
         return note;
     }
 
-    public void setNote(float note) {
+    public void setNote(Float note) {
         this.note = note;
     }
 

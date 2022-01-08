@@ -23,6 +23,7 @@ public class StudentMain extends javax.swing.JFrame {
     private final int[] standarColorButtons = {103,69,128};
     private final int[] hoverColorButtons = {78, 36, 102};
     private StudentMainControl control = null;
+    private PresentEvaluation presentEvaluation = null;
     
     /**
      * Creates new form StudentMain
@@ -31,6 +32,7 @@ public class StudentMain extends javax.swing.JFrame {
         initComponents();
         alertMessagePanel.setVisible(false);
         control = new StudentMainControl(student); 
+        JFramesHelper.setModalSize(confirmPresentation);
         setTablesValues();
     }
     
@@ -47,6 +49,10 @@ public class StudentMain extends javax.swing.JFrame {
     
     public void killInstance() {
         uniqueInstance = null;
+    }
+    
+    public void killPresentEvaluationInstace() {
+        presentEvaluation = null;
     }
     
     private void changeBackgroundColor(java.awt.event.MouseEvent evt, int R, int G, int B) {
@@ -78,19 +84,6 @@ public class StudentMain extends javax.swing.JFrame {
                 });
             }
         });
-        // set evaluations table
-        DefaultTableModel evaluationTable = (DefaultTableModel) registeredEvaluations.getModel();
-        control.getEvaluationsInfo().forEach((element) -> {
-            evaluationTable.addRow(new Object[]{
-                element.getEvaluation().getType().toString(),
-                element.getEvaluation().getWeighing(),
-                element.getEvaluation().getInitDate().toString(),
-                element.getEvaluation().getCloseDate().toString(),
-                element.getEvaluation().getTries(),
-                element.getEvaReg().getNumTries(),
-                element.getEvaReg().getNote()
-            });
-        });
         // set passed subjects table
         DefaultTableModel passedSubjectTable = (DefaultTableModel) passedSubjects.getModel();
         control.getSubjectsInfo().forEach((element) -> {
@@ -107,10 +100,29 @@ public class StudentMain extends javax.swing.JFrame {
         control.getEvaluationsPosibleToRegister().forEach(element -> {
             posibleToRegisterEvaluationsTable.addRow(new Object[]{
                 element.getType().toString(),
+                control.getSubjectByRegistryId(
+                        element.getId()
+                ).getName(),
                 element.getWeighing(),
                 element.getInitDate().toString(),
                 element.getCloseDate().toString(),
                 element.getTries()
+            });
+        });
+        // set registered evaluations table
+        DefaultTableModel evaluationTable = (DefaultTableModel) registeredEvaluations.getModel();
+        control.getEvaluationsInfo().forEach((element) -> {
+            evaluationTable.addRow(new Object[]{
+                element.getEvaluation().getType().toString(),
+                control.getSubjectByRegistryId(
+                        element.getEvaluation().getId()
+                ).getName(),
+                element.getEvaluation().getWeighing(),
+                element.getEvaluation().getInitDate().toString(),
+                element.getEvaluation().getCloseDate().toString(),
+                element.getEvaluation().getTries(),
+                element.getEvaReg().getNumTries(),
+                element.getEvaReg().getNote()
             });
         });
     }
@@ -143,21 +155,34 @@ public class StudentMain extends javax.swing.JFrame {
         }
     }
     
-    private void presentEvaluation() {
+    private boolean checkIfEvaluationCanBePresented() {
         try {
             int index = registeredEvaluations.getSelectedRow();
             control.setSelectedEvaluationByIndex(index);
             if(control.getEvaluationsInfo().get(index).getEvaluation().getTries() == control.getEvaluationsInfo().get(index).getEvaReg().getNumTries()) {
                 JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Evaluacion ya se presento el limite de veces");
+                return false;
             } else if(new Date().after(control.getEvaluationsInfo().get(index).getEvaluation().getCloseDate())) {
                 JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "La evaluacion ha culminado");
-            } else {
-                control.deleteEvaluationRegistry();
-                setTablesValues();
-                JFramesHelper.setMessage(alertMessagePanel, alertMessage, false, "");
+                return false;
+            } else if(new Date().before(control.getEvaluationsInfo().get(index).getEvaluation().getInitDate())) {
+                JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "La evaluacion no ha comenzado");
+                return false;
             }
         } catch (Exception e) {
-            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una evaluacion");
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una evaluacion registrada");
+            return false;
+        }
+        return true;
+    }
+    
+    private void presentEvaluation() {
+        try {
+            if(checkIfEvaluationCanBePresented()) { 
+                confirmPresentation.setVisible(true);
+            }
+        } catch (Exception e) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una evaluacion inscrita");
         }
     }
 
@@ -174,8 +199,10 @@ public class StudentMain extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
+        confirm = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         leftSidePanel = new javax.swing.JPanel();
         btnRegisterEvaluation = new javax.swing.JPanel();
@@ -207,32 +234,72 @@ public class StudentMain extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         registeredEvaluations = new javax.swing.JTable();
 
+        confirmPresentation.setTitle("ATENCIÓN ");
+        confirmPresentation.setAlwaysOnTop(true);
+        confirmPresentation.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        confirmPresentation.setModal(true);
+        confirmPresentation.setResizable(false);
+
         jPanel3.setBackground(new java.awt.Color(65, 10, 97));
 
-        jLabel7.setText("jLabel7");
+        jLabel7.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("ATENCIÓN ");
 
-        jButton1.setText("Cancelar");
+        jPanel4.setBackground(new java.awt.Color(103, 69, 128));
 
-        jButton2.setText("Aceptar");
+        cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+
+        confirm.setText("Aceptar");
+        confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(103, 69, 128));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Una vez se haga click en aceptar se dará inicio a la evaluación. \n\nEsto eliminara uno de sus intentos. \n\nEn ningún momento se puede cancelar la presentación, es decir, se debe finalizar la evaluación en su totalidad o parcial, ya que se puede finalizar la presentación en cualquier momento y se evaluara en base a lo respondido. \n\nLas preguntas se evaluaran una a la vez y una vez respondida no se puede volver a la misma.\n\nUna vez finalizada la presentación se dará su nota.\n\n¡Suerte!\n");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setBorder(null);
+        jTextArea1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea1.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jButton1)
-                .addGap(43, 43, 43)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE)
+                .addComponent(cancel)
+                .addGap(101, 101, 101)
+                .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(165, 165, 165))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(180, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(confirm)
+                    .addComponent(cancel))
                 .addContainerGap())
         );
 
@@ -242,35 +309,42 @@ public class StudentMain extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(231, 231, 231)
                 .addComponent(jLabel7)
-                .addContainerGap(379, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addComponent(jLabel7)
-                .addGap(42, 42, 42)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout confirmPresentationLayout = new javax.swing.GroupLayout(confirmPresentation.getContentPane());
         confirmPresentation.getContentPane().setLayout(confirmPresentationLayout);
         confirmPresentationLayout.setHorizontalGroup(
             confirmPresentationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(confirmPresentationLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         confirmPresentationLayout.setVerticalGroup(
             confirmPresentationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(confirmPresentationLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio Estudiante");
+        setBackground(new java.awt.Color(65, 10, 97));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(65, 10, 97));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -388,7 +462,7 @@ public class StudentMain extends javax.swing.JFrame {
 
         leftSidePanel.add(btnPresentEvaluation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 190, 40));
 
-        jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 450));
+        jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 530));
 
         topPanel.setBackground(new java.awt.Color(65, 10, 97));
 
@@ -437,8 +511,8 @@ public class StudentMain extends javax.swing.JFrame {
             alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(alertMessagePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addContainerGap(534, Short.MAX_VALUE))
         );
         alertMessagePanelLayout.setVerticalGroup(
             alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,7 +543,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 580, 60));
+        jPanel1.add(topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 800, 60));
 
         mainTabbedPane.setBackground(new java.awt.Color(65, 10, 97));
         mainTabbedPane.setToolTipText("");
@@ -523,7 +597,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(subjectsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 317, Short.MAX_VALUE)))
+                        .addGap(0, 537, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         subjectsPanelLayout.setVerticalGroup(
@@ -532,7 +606,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -587,7 +661,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addGroup(subjectsPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(0, 317, Short.MAX_VALUE)))
+                        .addGap(0, 537, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         subjectsPanel1Layout.setVerticalGroup(
@@ -596,7 +670,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -608,6 +682,8 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Lista de evaluaciones posibles para registrar");
 
+        jScrollPane5.setBackground(new java.awt.Color(1, 1, 1));
+
         posibleToRegisterEvaluations.setAutoCreateRowSorter(true);
         posibleToRegisterEvaluations.setBackground(new java.awt.Color(78, 36, 102));
         posibleToRegisterEvaluations.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -617,14 +693,14 @@ public class StudentMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Ponderacion", "Fecha Inicio", "Fecha Cierre", "Num. Intentos"
+                "Tipo", "Materia", "Ponderacion", "Fecha Inicio", "Fecha Cierre", "Num. Intentos"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -651,7 +727,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -660,7 +736,7 @@ public class StudentMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel14)
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -681,14 +757,14 @@ public class StudentMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Ponderacion", "Fecha Inicio", "Fecha Cierre", "Num. Intentos", "Num. Realizada", "Nota"
+                "Tipo", "Materia", "Ponderacion", "Fecha Inicio", "Fecha Cierre", "Num. Intentos", "Num. Realizada", "Nota"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -704,10 +780,6 @@ public class StudentMain extends javax.swing.JFrame {
         registeredEvaluations.setSelectionForeground(new java.awt.Color(0, 0, 0));
         registeredEvaluations.setShowVerticalLines(false);
         jScrollPane3.setViewportView(registeredEvaluations);
-        if (registeredEvaluations.getColumnModel().getColumnCount() > 0) {
-            registeredEvaluations.getColumnModel().getColumn(5).setHeaderValue("Num. Realizada");
-            registeredEvaluations.getColumnModel().getColumn(6).setHeaderValue("Nota");
-        }
 
         javax.swing.GroupLayout evaluationsPanelLayout = new javax.swing.GroupLayout(evaluationsPanel);
         evaluationsPanel.setLayout(evaluationsPanelLayout);
@@ -719,7 +791,7 @@ public class StudentMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(evaluationsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addGap(0, 283, Short.MAX_VALUE)))
+                        .addGap(0, 503, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         evaluationsPanelLayout.setVerticalGroup(
@@ -728,13 +800,13 @@ public class StudentMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         mainTabbedPane.addTab("Evaluaciones Registradas", evaluationsPanel);
 
-        jPanel1.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 580, 390));
+        jPanel1.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 800, 470));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -790,8 +862,7 @@ public class StudentMain extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMousePressed
 
     private void btnPresentEvaluationMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPresentEvaluationMousePressed
-        //deleteFromList(studentsTable, control.getAllStudents(), "Debe seleccionar un estudiante", "users");
-        setTablesValues();
+        presentEvaluation();
     }//GEN-LAST:event_btnPresentEvaluationMousePressed
 
     private void btnPresentEvaluationMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPresentEvaluationMouseExited
@@ -802,17 +873,32 @@ public class StudentMain extends javax.swing.JFrame {
         changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
     }//GEN-LAST:event_btnPresentEvaluationMouseEntered
 
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        confirmPresentation.setVisible(false);
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        presentEvaluation = new PresentEvaluation(
+                control.getCurrentStudent(), 
+                control.getSelectedEvaluation(), 
+                control.getEvaluationRegistryForEvaluation(control.getSelectedEvaluation())
+        );
+        confirmPresentation.setVisible(false);
+        uniqueInstance.setVisible(false);
+        JFramesHelper.setMessage(alertMessagePanel, alertMessage, false, "");
+    }//GEN-LAST:event_confirmActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;
     private javax.swing.JPanel alertMessagePanel;
     private javax.swing.JPanel btnDeleteEvaluationRegister;
     private javax.swing.JPanel btnPresentEvaluation;
     private javax.swing.JPanel btnRegisterEvaluation;
+    private javax.swing.JButton cancel;
+    private javax.swing.JButton confirm;
     private javax.swing.JDialog confirmPresentation;
     private javax.swing.JPanel evaluationsPanel;
     private javax.swing.JPanel exit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -826,10 +912,12 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel leftSidePanel;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JTable passedSubjects;

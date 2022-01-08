@@ -108,12 +108,12 @@ public class AdminMainControl {
                 break;
             case "evaluations":
                 // REVISAR
-                FilesManager.writeListToFile(list, fileName);
+                //FilesManager.writeListToFile(list, fileName);
                 // all the enrollments to the evaluation must be deleted
                 break;
             case "subjects":
                 // REVISAR
-                FilesManager.writeListToFile(list, fileName);
+                //FilesManager.writeListToFile(list, fileName);
             
                 break;
             default:

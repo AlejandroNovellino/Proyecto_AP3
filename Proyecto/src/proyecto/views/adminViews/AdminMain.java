@@ -23,6 +23,8 @@ public class AdminMain extends javax.swing.JFrame {
     private final int[] standarColorButtons = {103,69,128};
     private final int[] hoverColorButtons = {78, 36, 102};
     private AdminMainControl control;
+    // auxiliary views
+    InfoEvaluation infoEvaluation = null;
     /**
      * Creates new form AdminMain
      */
@@ -95,7 +97,7 @@ public class AdminMain extends javax.swing.JFrame {
         try {
             int index = table.getSelectedRow();
             control.deleteFromList(list, index, filename);
-            
+            setTablesValues();
         } catch (Exception e) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, message);
         }
@@ -105,6 +107,8 @@ public class AdminMain extends javax.swing.JFrame {
         try {
             int index = studentsTable.getSelectedRow();
             CreateStudent.getInstance(control.getElementByIndex(control.getAllStudents(), index)).setVisible(true);
+            uniqueInstance.setVisible(false);
+            killInstance();
         } catch (Exception e) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar un estudiante");
         }
@@ -134,6 +138,8 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         btnEvaluationDelete = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        btnEvaluationInfo = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         topPanel = new javax.swing.JPanel();
         exit = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -155,7 +161,10 @@ public class AdminMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Admin View");
+        setBackground(new java.awt.Color(65, 10, 97));
+        setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(65, 10, 97));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         leftSidePanel.setBackground(new java.awt.Color(65, 10, 97));
@@ -413,9 +422,45 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        leftSidePanel.add(btnEvaluationDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 190, 40));
+        leftSidePanel.add(btnEvaluationDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 190, 40));
 
-        jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 450));
+        btnEvaluationInfo.setBackground(new java.awt.Color(103, 69, 128));
+        btnEvaluationInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEvaluationInfoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEvaluationInfoMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnEvaluationInfoMousePressed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Resultados Evaluacion");
+
+        javax.swing.GroupLayout btnEvaluationInfoLayout = new javax.swing.GroupLayout(btnEvaluationInfo);
+        btnEvaluationInfo.setLayout(btnEvaluationInfoLayout);
+        btnEvaluationInfoLayout.setHorizontalGroup(
+            btnEvaluationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEvaluationInfoLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel14)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        btnEvaluationInfoLayout.setVerticalGroup(
+            btnEvaluationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEvaluationInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        leftSidePanel.add(btnEvaluationInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 190, 40));
+
+        jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 530));
 
         topPanel.setBackground(new java.awt.Color(65, 10, 97));
 
@@ -464,8 +509,8 @@ public class AdminMain extends javax.swing.JFrame {
             alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(alertMessagePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         alertMessagePanelLayout.setVerticalGroup(
             alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,7 +540,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 580, 60));
+        jPanel1.add(topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 720, 60));
 
         mainTabbedPane.setBackground(new java.awt.Color(65, 10, 97));
         mainTabbedPane.setToolTipText("");
@@ -537,11 +582,7 @@ public class AdminMain extends javax.swing.JFrame {
         studentsTable.setSelectionBackground(new java.awt.Color(199, 147, 230));
         studentsTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         studentsTable.setShowVerticalLines(false);
-        studentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                studentsTableMousePressed(evt);
-            }
-        });
+        studentsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(studentsTable);
 
         javax.swing.GroupLayout studentsPanelLayout = new javax.swing.GroupLayout(studentsPanel);
@@ -554,7 +595,7 @@ public class AdminMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(studentsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(0, 392, Short.MAX_VALUE)))
+                        .addGap(0, 532, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         studentsPanelLayout.setVerticalGroup(
@@ -563,7 +604,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -618,7 +659,7 @@ public class AdminMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(subjectsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 414, Short.MAX_VALUE)))
+                        .addGap(0, 554, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         subjectsPanelLayout.setVerticalGroup(
@@ -627,7 +668,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -682,7 +723,7 @@ public class AdminMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(evaluationsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addGap(0, 380, Short.MAX_VALUE)))
+                        .addGap(0, 520, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         evaluationsPanelLayout.setVerticalGroup(
@@ -691,27 +732,23 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         mainTabbedPane.addTab("Evaluaciones", evaluationsPanel);
 
-        jPanel1.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 580, 390));
+        jPanel1.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 720, 470));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -772,10 +809,6 @@ public class AdminMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEvaluationAddMousePressed
 
-    private void studentsTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsTableMousePressed
-        
-    }//GEN-LAST:event_studentsTableMousePressed
-
     private void btnStudentDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentDeleteMouseEntered
         changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
     }//GEN-LAST:event_btnStudentDeleteMouseEntered
@@ -786,7 +819,6 @@ public class AdminMain extends javax.swing.JFrame {
 
     private void btnStudentDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentDeleteMousePressed
         deleteFromList(studentsTable, control.getAllStudents(), "Debe seleccionar un estudiante", "users");
-        setTablesValues();
     }//GEN-LAST:event_btnStudentDeleteMousePressed
 
     private void exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseEntered
@@ -813,7 +845,6 @@ public class AdminMain extends javax.swing.JFrame {
 
     private void btnSubjectDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubjectDeleteMousePressed
         deleteFromList(subjectsTable, control.getAllSubjects(), "Debe seleccionar una materia", "subjects");
-        setTablesValues();
     }//GEN-LAST:event_btnSubjectDeleteMousePressed
 
     private void btnEvaluationDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationDeleteMouseEntered
@@ -826,7 +857,6 @@ public class AdminMain extends javax.swing.JFrame {
 
     private void btnEvaluationDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationDeleteMousePressed
         deleteFromList(evaluationsTable, control.getAllEvaluations(), "Debe seleccionar una evaluacion", "evaluations");
-        setTablesValues();
     }//GEN-LAST:event_btnEvaluationDeleteMousePressed
 
     private void btnStudentModifyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentModifyMouseExited
@@ -835,15 +865,26 @@ public class AdminMain extends javax.swing.JFrame {
 
     private void btnStudentModifyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentModifyMousePressed
         editEstudent();
-        uniqueInstance.setVisible(false);
-        killInstance();
     }//GEN-LAST:event_btnStudentModifyMousePressed
+
+    private void btnEvaluationInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationInfoMouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnEvaluationInfoMouseEntered
+
+    private void btnEvaluationInfoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationInfoMouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnEvaluationInfoMouseExited
+
+    private void btnEvaluationInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationInfoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEvaluationInfoMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;
     private javax.swing.JPanel alertMessagePanel;
     private javax.swing.JPanel btnEvaluationAdd;
     private javax.swing.JPanel btnEvaluationDelete;
+    private javax.swing.JPanel btnEvaluationInfo;
     private javax.swing.JPanel btnStudentAdd;
     private javax.swing.JPanel btnStudentDelete;
     private javax.swing.JPanel btnStudentModify;
@@ -856,6 +897,7 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

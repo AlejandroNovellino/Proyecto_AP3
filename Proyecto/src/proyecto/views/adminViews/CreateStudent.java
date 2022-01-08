@@ -21,7 +21,6 @@ import proyecto.helpers.JFramesHelper;
 public class CreateStudent extends javax.swing.JFrame {
     private static CreateStudent uniqueInstance = null;
     private CreateStudentControl control;
-    private boolean modifyStudent = false;
     /**
      * Creates new form createStudent
      */
@@ -340,6 +339,7 @@ public class CreateStudent extends javax.swing.JFrame {
         setTitle("Datos Estudiante");
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(65, 10, 97));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(65, 10, 97));
 

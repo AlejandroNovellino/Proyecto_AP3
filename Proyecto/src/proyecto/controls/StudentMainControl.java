@@ -8,6 +8,7 @@ package proyecto.controls;
 import java.util.ArrayList;
 import java.util.UUID;
 import proyecto.dataModel.evaluationRelated.Evaluation;
+import proyecto.dataModel.evaluationRelated.Option;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
 import proyecto.dataModel.subjectRelated.Subject;
@@ -20,8 +21,8 @@ import proyecto.helpers.FilesManager;
  * @author Alejandro
  */
 public class StudentMainControl {
-    
-     public class SubjectInfo {
+    // help classes for the control
+    public class SubjectInfo {
         private Subject subject;
         private Enrollment enrollment;
 
@@ -72,13 +73,14 @@ public class StudentMainControl {
             this.evaReg = evaReg;
         }
     }
-    
+    //##########################################################################
+    // atributos de la clase
     private Student currentStudent;
     private ArrayList<SubjectInfo> subjectsInfo;
     private ArrayList<EvaluationInfo> evaluationsInfo;
     private ArrayList<Evaluation> evaluationsPosibleToRegister;
-    private Evaluation selectedEvaluation;
-
+    private Evaluation selectedEvaluation; // selected evaluation to registy
+    
     public StudentMainControl() {
     }
     
@@ -178,6 +180,17 @@ public class StudentMainControl {
         this.selectedEvaluation = evaluationsInfo.get(index).getEvaluation();
     }
     
+    public Subject getSubjectByRegistryId(String id) {
+        for(SubjectInfo aux : subjectsInfo) {
+            for(Evaluation eva : aux.getSubject().getEvaluations()) {
+                if(eva.getId().equals(id)) {
+                    return aux.getSubject();
+                }
+            }
+        }
+        return null;
+    }
+    
     public EvaluationRegistry getEvaluationRegistryForEvaluation(Evaluation evaluation) {
         for(EvaluationRegistry element : currentStudent.getEvaluationsRegistrys()) {
             if(element.getEvaluationId().equals(evaluation.getId())) {
@@ -193,7 +206,7 @@ public class StudentMainControl {
                 UUID.randomUUID().toString(), 
                 selectedEvaluation.getId(), 
                 currentStudent.getId(), 
-                0, 
+                null, 
                 0, 
                 false, 
                 false
@@ -244,9 +257,24 @@ public class StudentMainControl {
         allUsers.removeIf(user -> user.getId().equals(currentStudent.getId()));
         allUsers.add(currentStudent);
         FilesManager.writeListToFile(allUsers, "users");
+        // update the evaluations file
+        // get the evalautions and delete the registry from it
+        ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
+        // delete the registry from the evaluation
+        for(Evaluation evaluation : evaluations) {
+            if(evaluation.getId().equals(selectedEvaluation.getId())) {
+                evaluation.getResults().removeIf(element -> element.getId().equals(selectedEvaluation.getId()));
+            }
+        }
+        // save the evaluations to the file
+        FilesManager.writeListToFile(evaluations, "evaluations");
         // set the new values to the variables
         this.setValues();
         selectedEvaluation = null;
+    }
+    
+    public void closeEvaluationPresentation() {
+        
     }
     
     public void presentEvaluation() {

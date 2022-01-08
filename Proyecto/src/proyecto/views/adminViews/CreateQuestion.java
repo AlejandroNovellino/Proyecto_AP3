@@ -55,8 +55,14 @@ public class CreateQuestion extends javax.swing.JFrame {
         } else if(control.getCurrentOptions().size() < 2) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Debe existir al menos dos opciones");
             return false;
+        } else if(control.getCurrentOptions().size() > 5) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Solo pueen existir como maximo 5 opciones");
+            return false;
         } else if(!control.verifyHaveAnOption()) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Debe existir al menos una respuesta por pregunta");
+            return false;
+        } else if(!control.verifyMoreThanOneAnswer()) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Solo puede existir una pregunta como respuesta");
             return false;
         } else if(statement.getText().equals("")) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "No posee enunciado");
@@ -228,6 +234,7 @@ public class CreateQuestion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(65, 10, 97));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(65, 10, 97));
 
