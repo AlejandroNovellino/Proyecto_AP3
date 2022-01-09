@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import proyecto.controls.AdminMainControl;
-import proyecto.helpers.FilesManager;
 import proyecto.helpers.JFramesHelper;
 import proyecto.views.Login;
 
@@ -25,6 +24,7 @@ public class AdminMain extends javax.swing.JFrame {
     private AdminMainControl control;
     // auxiliary views
     InfoEvaluation infoEvaluation = null;
+    InfoSubject infoSubject = null;
     /**
      * Creates new form AdminMain
      */
@@ -113,6 +113,32 @@ public class AdminMain extends javax.swing.JFrame {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar un estudiante");
         }
     }
+    
+    private void showEvaluationDetails() {
+        try {
+            int index = evaluationsTable.getSelectedRow();
+            infoEvaluation = new InfoEvaluation(control.getElementByIndex(control.getAllEvaluations(), index));
+            infoEvaluation.setVisible(true);
+            uniqueInstance.setVisible(false);
+        } catch (Exception e) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una evaluacion");
+        }
+    }
+    
+    private void showSubjectDetails() {
+        try {
+            int index = subjectsTable.getSelectedRow();
+            infoSubject = new InfoSubject(
+                    control.getAllStudents(), 
+                    control.getElementByIndex(control.getAllSubjects(), index), 
+                    control.getAllEvaluations()
+            );
+            infoSubject.setVisible(true);
+            uniqueInstance.setVisible(false);
+        } catch (Exception e) {
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una materia");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,6 +166,8 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         btnEvaluationInfo = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        btnSubjectInfo = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         topPanel = new javax.swing.JPanel();
         exit = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -276,7 +304,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        leftSidePanel.add(btnSubjectDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 190, 40));
+        leftSidePanel.add(btnSubjectDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 190, 40));
 
         btnStudentDelete.setBackground(new java.awt.Color(103, 69, 128));
         btnStudentDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -386,7 +414,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        leftSidePanel.add(btnEvaluationAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 190, 40));
+        leftSidePanel.add(btnEvaluationAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 190, 40));
 
         btnEvaluationDelete.setBackground(new java.awt.Color(103, 69, 128));
         btnEvaluationDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -422,7 +450,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        leftSidePanel.add(btnEvaluationDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 190, 40));
+        leftSidePanel.add(btnEvaluationDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 190, 40));
 
         btnEvaluationInfo.setBackground(new java.awt.Color(103, 69, 128));
         btnEvaluationInfo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -458,7 +486,44 @@ public class AdminMain extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        leftSidePanel.add(btnEvaluationInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 190, 40));
+        leftSidePanel.add(btnEvaluationInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 190, 40));
+
+        btnSubjectInfo.setBackground(new java.awt.Color(103, 69, 128));
+        btnSubjectInfo.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubjectInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSubjectInfoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSubjectInfoMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSubjectInfoMousePressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Resultados Materia");
+
+        javax.swing.GroupLayout btnSubjectInfoLayout = new javax.swing.GroupLayout(btnSubjectInfo);
+        btnSubjectInfo.setLayout(btnSubjectInfoLayout);
+        btnSubjectInfoLayout.setHorizontalGroup(
+            btnSubjectInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnSubjectInfoLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel6)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        btnSubjectInfoLayout.setVerticalGroup(
+            btnSubjectInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnSubjectInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        leftSidePanel.add(btnSubjectInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 190, 40));
 
         jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 530));
 
@@ -551,7 +616,6 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Lista de estudiantes");
 
-        studentsTable.setAutoCreateRowSorter(true);
         studentsTable.setBackground(new java.awt.Color(78, 36, 102));
         studentsTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         studentsTable.setForeground(new java.awt.Color(255, 255, 255));
@@ -616,7 +680,6 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Lista de materias");
 
-        subjectsTable.setAutoCreateRowSorter(true);
         subjectsTable.setBackground(new java.awt.Color(78, 36, 102));
         subjectsTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         subjectsTable.setForeground(new java.awt.Color(255, 255, 255));
@@ -680,7 +743,6 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Lista de evaluaciones");
 
-        evaluationsTable.setAutoCreateRowSorter(true);
         evaluationsTable.setBackground(new java.awt.Color(78, 36, 102));
         evaluationsTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         evaluationsTable.setForeground(new java.awt.Color(255, 255, 255));
@@ -876,8 +938,20 @@ public class AdminMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEvaluationInfoMouseExited
 
     private void btnEvaluationInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationInfoMousePressed
-        // TODO add your handling code here:
+        showEvaluationDetails();
     }//GEN-LAST:event_btnEvaluationInfoMousePressed
+
+    private void btnSubjectInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubjectInfoMouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnSubjectInfoMouseEntered
+
+    private void btnSubjectInfoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubjectInfoMouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnSubjectInfoMouseExited
+
+    private void btnSubjectInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubjectInfoMousePressed
+        showSubjectDetails();
+    }//GEN-LAST:event_btnSubjectInfoMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;
@@ -890,6 +964,7 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JPanel btnStudentModify;
     private javax.swing.JPanel btnSubjectAdd;
     private javax.swing.JPanel btnSubjectDelete;
+    private javax.swing.JPanel btnSubjectInfo;
     private javax.swing.JPanel evaluationsPanel;
     private javax.swing.JTable evaluationsTable;
     private javax.swing.JPanel exit;
@@ -902,6 +977,7 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

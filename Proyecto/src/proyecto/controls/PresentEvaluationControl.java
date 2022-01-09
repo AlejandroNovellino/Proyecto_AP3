@@ -130,25 +130,33 @@ public class PresentEvaluationControl {
         System.out.println(evaluationRegistry);
         System.out.println(student);
         System.out.println(evaluation);
-//        // update the users file
-//        ArrayList<User> allUsers = FilesManager.getUsers();
-//        allUsers.removeIf(user -> user.getId().equals(student.getId()));
-//        allUsers.add(student);
-//        FilesManager.writeListToFile(allUsers, "users");
-//        // update the evaluation file
-//        // get the evaluations 
-//        ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
-//        // update the registry from the evaluation
-//        for(Evaluation evaluationAux : evaluations) {
-//            if(evaluationAux.getId().equals(evaluation.getId())) {
-//                // remove the outdated
-//                evaluationAux.getResults().removeIf(element -> element.getId().equals(evaluation.getId()));
-//                // add the updated
-//                evaluationAux.getResults().add(evaluationRegistry);
-//            }
-//        }
-//        // save the evaluations to the file
-//        FilesManager.writeListToFile(evaluations, "evaluations");
-//        // update the evaluation registries file
+        // update the users file
+        ArrayList<User> allUsers = FilesManager.getUsers();
+        allUsers.removeIf(user -> user.getId().equals(student.getId()));
+        allUsers.add(student);
+        FilesManager.writeListToFile(allUsers, "users");
+        // update the evaluation file
+        // get the evaluations 
+        ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
+        // update the registry from the evaluation
+        for(Evaluation evaluationAux : evaluations) {
+            if(evaluationAux.getId().equals(evaluation.getId())) {
+                // remove the outdated
+                evaluationAux.getResults().removeIf(element -> element.getId().equals(evaluation.getId()));
+                // add the updated
+                evaluationAux.getResults().add(evaluationRegistry);
+            }
+        }
+        // save the evaluations to the file
+        FilesManager.writeListToFile(evaluations, "evaluations");
+        // update the evaluation registries file
+        // update the registries file
+        ArrayList<EvaluationRegistry> evaluationsRegistries = FilesManager.getEvaluationRegistries();
+        // delete the outdated registry
+        evaluationsRegistries.removeIf(element -> element.getId().equals(evaluationRegistry.getId()));
+        // add the updated registry
+        evaluationsRegistries.add(evaluationRegistry);
+        // save the registries to the file
+        FilesManager.writeListToFile(evaluationsRegistries, "evaluationRegistries");
     }
 }

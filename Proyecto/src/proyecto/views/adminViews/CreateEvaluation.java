@@ -203,8 +203,8 @@ public class CreateEvaluation extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Ponderacion");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 21, -1, -1));
+        jLabel3.setText("Ponderacion(%)");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
         jPanel2.add(initDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 57, 145, -1));
         jPanel2.add(closeDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 57, 177, -1));
 
@@ -221,7 +221,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel5.setText("Intentos");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 21, -1, -1));
         jPanel2.add(tries, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 19, 46, -1));
-        jPanel2.add(weigh, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 19, 46, -1));
+        jPanel2.add(weigh, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 46, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
