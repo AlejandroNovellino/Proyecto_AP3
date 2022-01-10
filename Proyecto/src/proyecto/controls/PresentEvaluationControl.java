@@ -127,9 +127,6 @@ public class PresentEvaluationControl {
     }
     
     public void saveChangesToFile() {
-        System.out.println(evaluationRegistry);
-        System.out.println(student);
-        System.out.println(evaluation);
         // update the users file
         ArrayList<User> allUsers = FilesManager.getUsers();
         allUsers.removeIf(user -> user.getId().equals(student.getId()));

@@ -8,7 +8,6 @@ package proyecto.controls;
 import java.util.ArrayList;
 import java.util.UUID;
 import proyecto.dataModel.evaluationRelated.Evaluation;
-import proyecto.dataModel.evaluationRelated.Option;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
 import proyecto.dataModel.subjectRelated.Subject;
@@ -271,13 +270,5 @@ public class StudentMainControl {
         // set the new values to the variables
         this.setValues();
         selectedEvaluation = null;
-    }
-    
-    public void closeEvaluationPresentation() {
-        
-    }
-    
-    public void presentEvaluation() {
-        
     }
 }

@@ -25,6 +25,7 @@ public class InfoSubject extends javax.swing.JFrame {
     public InfoSubject(ArrayList<Student> students, Subject subject, ArrayList<Evaluation> evaluations) {
         initComponents();
         control = new InfoSubjectControl(students, subject, evaluations);
+        subjectName.setText(control.getSubject().getName());
         setTableValues();
     }
     
@@ -54,7 +55,8 @@ public class InfoSubject extends javax.swing.JFrame {
                 element.getNumEvaluationsNotPresented(),
                 element.getNumEvaluationsPass(),
                 element.getNumEvaluationsNotPass(),
-                element.getTotalNote()
+                element.getTotalNote(),
+                (element.isSubjectPassed()) ? "Si" : "No"
             });
         });
     }
@@ -74,7 +76,7 @@ public class InfoSubject extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnExitToMainMenu = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        subjectName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -162,26 +164,27 @@ public class InfoSubject extends javax.swing.JFrame {
 
         jPanel2.add(btnExitToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 250, -1));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("EXAMPLE TEXT");
+        subjectName.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        subjectName.setForeground(new java.awt.Color(255, 255, 255));
+        subjectName.setText("EXAMPLE TEXT");
 
         studentsTable.setAutoCreateRowSorter(true);
         studentsTable.setBackground(new java.awt.Color(78, 36, 102));
+        studentsTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         studentsTable.setForeground(new java.awt.Color(255, 255, 255));
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Cedula", "Evaluaciones Presentadas", "Evaluaciones No Presentadas", "Evaluaciones Aprobadas", "Evaluaciones No Aprobadas", "Nota Final"
+                "Nombre", "Apellido", "Cedula", "Evaluaciones Presentadas", "Evaluaciones No Presentadas", "Evaluaciones Aprobadas", "Evaluaciones No Aprobadas", "Nota Final", "Aprobo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -246,7 +249,7 @@ public class InfoSubject extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(subjectName, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1133, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap(36, Short.MAX_VALUE))))
@@ -259,7 +262,7 @@ public class InfoSubject extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(subjectName)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -318,7 +321,6 @@ public class InfoSubject extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnExitToMainMenu;
     private javax.swing.JPanel btnGenerateReport;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -329,5 +331,6 @@ public class InfoSubject extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable studentsTable;
     private javax.swing.JTable subjectInfo;
+    private javax.swing.JLabel subjectName;
     // End of variables declaration//GEN-END:variables
 }

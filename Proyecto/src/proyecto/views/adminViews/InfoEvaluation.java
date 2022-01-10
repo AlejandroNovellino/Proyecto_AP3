@@ -28,6 +28,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
         presented.setText("Presentaron: "+control.getStudents().size());
         passed.setText("Pasaron: "+control.amountPassed());
         notPassed.setText("Rasparon: "+(control.getStudents().size()-control.amountPassed()));
+        evaluationName.setText("Detalles Evaluacion: "+control.getEvaluation().getType().toString());
         setTableValues();
     }
     
@@ -79,7 +80,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnExitToMainMenu = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        evaluationName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentsTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -169,11 +170,13 @@ public class InfoEvaluation extends javax.swing.JFrame {
 
         jPanel2.add(btnExitToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 250, -1));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Detalles Evaluacion");
+        evaluationName.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        evaluationName.setForeground(new java.awt.Color(255, 255, 255));
+        evaluationName.setText("EXAMPLE TEXT");
 
         studentsTable.setBackground(new java.awt.Color(78, 36, 102));
+        studentsTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        studentsTable.setForeground(new java.awt.Color(255, 255, 255));
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -199,6 +202,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
         });
         studentsTable.setSelectionBackground(new java.awt.Color(199, 147, 230));
         studentsTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        studentsTable.setShowVerticalLines(false);
         studentsTable.getTableHeader().setReorderingAllowed(false);
         studentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -211,6 +215,8 @@ public class InfoEvaluation extends javax.swing.JFrame {
         studentAnswers.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         studentAnswers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         studentAnswers.setToolTipText("");
+        studentAnswers.setSelectionBackground(new java.awt.Color(199, 147, 230));
+        studentAnswers.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(studentAnswers);
 
         presented.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -240,7 +246,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(evaluationName)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +270,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(evaluationName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -332,7 +338,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnExitToMainMenu;
     private javax.swing.JPanel btnGenerateReport;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel evaluationName;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
