@@ -24,6 +24,8 @@ public class CreateEvaluation extends javax.swing.JFrame {
      */
     private CreateEvaluation() {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         control = new CreateEvaluationControl();
         alertMessagePanel.setVisible(false);
     }
@@ -178,7 +180,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Datos evaluacion");
+        jLabel1.setText("Datos Evaluación");
 
         jPanel2.setBackground(new java.awt.Color(103, 69, 128));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -188,6 +190,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel2.setText("Tipo");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 24, -1, -1));
 
+        type.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quiz", "Parcial Practico", "Parcial Prueba", "Parcial Teorico" }));
         type.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -205,7 +208,11 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ponderacion(%)");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
+
+        initDate.setBackground(new java.awt.Color(245, 222, 255));
         jPanel2.add(initDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 57, 145, -1));
+
+        closeDate.setBackground(new java.awt.Color(245, 222, 255));
         jPanel2.add(closeDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 57, 177, -1));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -213,6 +220,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel4.setText("Estado");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 21, -1, -1));
 
+        status.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activa", "Inactiva" }));
         jPanel2.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 19, -1, -1));
 
@@ -220,7 +228,11 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Intentos");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 21, -1, -1));
+
+        tries.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jPanel2.add(tries, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 19, 46, -1));
+
+        weigh.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jPanel2.add(weigh, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 46, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -234,6 +246,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 57, -1, -1));
 
         create.setBackground(new java.awt.Color(65, 10, 97));
+        create.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         create.setText("Crear");
         create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,6 +256,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jPanel2.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 359, -1, -1));
 
         cancel.setBackground(new java.awt.Color(65, 10, 97));
+        cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cancel.setText("Cancelar");
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +265,8 @@ public class CreateEvaluation extends javax.swing.JFrame {
         });
         jPanel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(393, 359, -1, -1));
 
+        questionsJList.setBackground(new java.awt.Color(245, 222, 255));
+        questionsJList.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         questionsJList.setSelectionBackground(new java.awt.Color(199, 147, 230));
         questionsJList.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(questionsJList);
@@ -262,6 +278,8 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel8.setText("Preguntas");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
+        createQuestion.setBackground(new java.awt.Color(65, 10, 97));
+        createQuestion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         createQuestion.setText("Crear pregunta");
         createQuestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,6 +288,8 @@ public class CreateEvaluation extends javax.swing.JFrame {
         });
         jPanel2.add(createQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 167, -1, -1));
 
+        jButton2.setBackground(new java.awt.Color(65, 10, 97));
+        jButton2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jButton2.setText("Borrar Pregunta");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,7 +301,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         alertMessagePanel.setBackground(new java.awt.Color(217, 171, 251));
 
         alertMessage.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        alertMessage.setText("jLabel9");
+        alertMessage.setText("EXAMPLE TEXT");
 
         javax.swing.GroupLayout alertMessagePanelLayout = new javax.swing.GroupLayout(alertMessagePanel);
         alertMessagePanel.setLayout(alertMessagePanelLayout);

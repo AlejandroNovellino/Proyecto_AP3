@@ -26,10 +26,14 @@ public class PresentEvaluation extends javax.swing.JFrame {
     
     public PresentEvaluation(Student student, Evaluation evaluation, EvaluationRegistry evaluationRegistry) {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         JFramesHelper.setModalSize(resultsDialog);
         this.control = new PresentEvaluationControl(student, evaluation, evaluationRegistry);
         title.setText(control.getEvaluation().getType().toString());
         this.setVisible(true);
+        // set the align place to the tables
+        JFramesHelper.alignTextJTableCetner(resultsTable, JFramesHelper.swingConstantToCenter());
         setValues();
     }
     
@@ -302,7 +306,7 @@ public class PresentEvaluation extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
-        title.setText("TEXTO EXAMPLE");
+        title.setText("TEXT EXAMPLE");
 
         jPanel3.setBackground(new java.awt.Color(103, 69, 128));
 
@@ -310,29 +314,35 @@ public class PresentEvaluation extends javax.swing.JFrame {
         questionNumber.setForeground(new java.awt.Color(255, 255, 255));
         questionNumber.setText("TEXT EXAMPLE");
 
-        jPanel2.setBackground(new java.awt.Color(65, 10, 97));
+        jPanel2.setBackground(new java.awt.Color(103, 69, 128));
 
+        option1.setBackground(new java.awt.Color(210, 210, 210));
         options.add(option1);
         option1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         option1.setText("jRadioButton1");
 
+        option2.setBackground(new java.awt.Color(210, 210, 210));
         options.add(option2);
         option2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         option2.setText("jRadioButton2");
 
+        option3.setBackground(new java.awt.Color(210, 210, 210));
         options.add(option3);
         option3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         option3.setText("jRadioButton3");
 
+        option4.setBackground(new java.awt.Color(210, 210, 210));
         options.add(option4);
         option4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         option4.setText("jRadioButton4");
 
+        option5.setBackground(new java.awt.Color(210, 210, 210));
         options.add(option5);
         option5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         option5.setText("jRadioButton5");
 
-        continueBtn.setBackground(new java.awt.Color(103, 69, 128));
+        continueBtn.setBackground(new java.awt.Color(65, 10, 97));
+        continueBtn.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         continueBtn.setText("Continuar");
         continueBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,10 +351,9 @@ public class PresentEvaluation extends javax.swing.JFrame {
         });
 
         statement.setEditable(false);
-        statement.setBackground(new java.awt.Color(65, 10, 97));
+        statement.setBackground(new java.awt.Color(245, 222, 255));
         statement.setColumns(20);
         statement.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        statement.setForeground(new java.awt.Color(255, 255, 255));
         statement.setLineWrap(true);
         statement.setRows(5);
         statement.setWrapStyleWord(true);
@@ -356,7 +365,8 @@ public class PresentEvaluation extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Opciones:");
 
-        finishBtn.setBackground(new java.awt.Color(103, 69, 128));
+        finishBtn.setBackground(new java.awt.Color(65, 10, 97));
+        finishBtn.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         finishBtn.setText("Finalizar");
         finishBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,11 +412,11 @@ public class PresentEvaluation extends javax.swing.JFrame {
                 .addComponent(option4)
                 .addGap(30, 30, 30)
                 .addComponent(option5)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(continueBtn)
-                    .addComponent(finishBtn))
-                .addGap(22, 22, 22))
+                    .addComponent(finishBtn)
+                    .addComponent(continueBtn))
+                .addContainerGap())
         );
 
         questionScoreValue.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -446,11 +456,11 @@ public class PresentEvaluation extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(title))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +469,7 @@ public class PresentEvaluation extends javax.swing.JFrame {
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

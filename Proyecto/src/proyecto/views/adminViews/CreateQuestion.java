@@ -25,6 +25,8 @@ public class CreateQuestion extends javax.swing.JFrame {
      */
     public CreateQuestion(CreateEvaluationControl control) {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         this.control = control;
         alertMessagePanel.setVisible(false);
         JFramesHelper.setModalSize(createOptionModal);
@@ -255,6 +257,7 @@ public class CreateQuestion extends javax.swing.JFrame {
         jLabel5.setText("Puntaje");
 
         create.setBackground(new java.awt.Color(65, 10, 97));
+        create.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         create.setText("Crear");
         create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +266,7 @@ public class CreateQuestion extends javax.swing.JFrame {
         });
 
         cancel.setBackground(new java.awt.Color(65, 10, 97));
+        cancel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cancel.setText("Cancelar");
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,6 +274,8 @@ public class CreateQuestion extends javax.swing.JFrame {
             }
         });
 
+        options.setBackground(new java.awt.Color(245, 222, 255));
+        options.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         options.setSelectionBackground(new java.awt.Color(199, 147, 230));
         options.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(options);
@@ -278,6 +284,8 @@ public class CreateQuestion extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Opciones");
 
+        createOption.setBackground(new java.awt.Color(65, 10, 97));
+        createOption.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         createOption.setText("Crear opcion");
         createOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,6 +293,8 @@ public class CreateQuestion extends javax.swing.JFrame {
             }
         });
 
+        deleteOption.setBackground(new java.awt.Color(65, 10, 97));
+        deleteOption.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         deleteOption.setText("Borrar opcion");
         deleteOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +305,7 @@ public class CreateQuestion extends javax.swing.JFrame {
         alertMessagePanel.setBackground(new java.awt.Color(217, 171, 251));
 
         alertMessage.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        alertMessage.setText("jLabel9");
+        alertMessage.setText("EXAMPLE TEXT");
 
         javax.swing.GroupLayout alertMessagePanelLayout = new javax.swing.GroupLayout(alertMessagePanel);
         alertMessagePanel.setLayout(alertMessagePanelLayout);
@@ -314,7 +324,12 @@ public class CreateQuestion extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        statement.setBackground(new java.awt.Color(245, 222, 255));
+        statement.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jScrollPane2.setViewportView(statement);
+
+        score.setBackground(new java.awt.Color(245, 222, 255));
+        score.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

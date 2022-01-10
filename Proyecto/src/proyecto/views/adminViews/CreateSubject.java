@@ -20,6 +20,8 @@ public class CreateSubject extends javax.swing.JFrame {
      */
     private CreateSubject() {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         alertMessagePanel.setVisible(false);
         JFramesHelper.setModalSize(modal);
     }
@@ -167,14 +169,16 @@ public class CreateSubject extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(91, 47, 122));
 
+        name.setBackground(new java.awt.Color(245, 222, 255));
         name.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
+        code.setBackground(new java.awt.Color(245, 222, 255));
         code.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         alertMessagePanel.setBackground(new java.awt.Color(217, 171, 251));
 
         alertMessage.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        alertMessage.setText("jLabel4");
+        alertMessage.setText("EXAMPLE TEXT");
 
         javax.swing.GroupLayout alertMessagePanelLayout = new javax.swing.GroupLayout(alertMessagePanel);
         alertMessagePanel.setLayout(alertMessagePanelLayout);

@@ -5,10 +5,17 @@
  */
 package proyecto.helpers;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Enumeration;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -34,5 +41,29 @@ public class JFramesHelper {
         
         modal.setBounds(dialogX, dialogY, dialogWidth, dialogHeight);
         modal.pack();
+    }
+    
+    public static int swingConstantToCenter() {
+        return SwingConstants.CENTER;
+    }
+    
+    public static void alignTextJTableCetner(JTable table, int placeToAlign) {
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(placeToAlign);
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(0);
+        for(Enumeration<TableColumn> col = table.getColumnModel().getColumns(); col.hasMoreElements();) {
+            col.nextElement().setCellRenderer(dtcr);
+        }   
+    }
+    
+    public static void setJFrameIcon(JFrame frame) {
+        try {
+            String filePath = "src\\proyecto\\views\\icons\\icons8-tableau-software-24.png";
+            Image icon = Toolkit.getDefaultToolkit().getImage(filePath);  
+            frame.setIconImage(icon);  
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

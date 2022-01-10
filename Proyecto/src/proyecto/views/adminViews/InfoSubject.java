@@ -12,6 +12,7 @@ import proyecto.controls.InfoSubjectControl;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Student;
+import proyecto.helpers.JFramesHelper;
 
 /**
  *
@@ -24,8 +25,14 @@ public class InfoSubject extends javax.swing.JFrame {
     
     public InfoSubject(ArrayList<Student> students, Subject subject, ArrayList<Evaluation> evaluations) {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         control = new InfoSubjectControl(students, subject, evaluations);
         subjectName.setText(control.getSubject().getName());
+        // set the align place to the tables
+        JFramesHelper.alignTextJTableCetner(subjectInfo, JFramesHelper.swingConstantToCenter());
+        JFramesHelper.alignTextJTableCetner(studentsTable, JFramesHelper.swingConstantToCenter());
+        // set the table values
         setTableValues();
     }
     
@@ -107,6 +114,7 @@ public class InfoSubject extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-download-graph-report-24.png"))); // NOI18N
         jLabel13.setText("Generar Reporte");
 
         javax.swing.GroupLayout btnGenerateReportLayout = new javax.swing.GroupLayout(btnGenerateReport);
@@ -116,14 +124,11 @@ public class InfoSubject extends javax.swing.JFrame {
             .addGroup(btnGenerateReportLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel13)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         btnGenerateReportLayout.setVerticalGroup(
             btnGenerateReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGenerateReportLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel2.add(btnGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
@@ -143,6 +148,7 @@ public class InfoSubject extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-logout-24.png"))); // NOI18N
         jLabel14.setText("Salir");
 
         javax.swing.GroupLayout btnExitToMainMenuLayout = new javax.swing.GroupLayout(btnExitToMainMenu);
@@ -152,14 +158,11 @@ public class InfoSubject extends javax.swing.JFrame {
             .addGroup(btnExitToMainMenuLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel14)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         btnExitToMainMenuLayout.setVerticalGroup(
             btnExitToMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnExitToMainMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel2.add(btnExitToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 250, -1));
@@ -170,7 +173,7 @@ public class InfoSubject extends javax.swing.JFrame {
 
         studentsTable.setAutoCreateRowSorter(true);
         studentsTable.setBackground(new java.awt.Color(78, 36, 102));
-        studentsTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        studentsTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         studentsTable.setForeground(new java.awt.Color(255, 255, 255));
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,7 +210,7 @@ public class InfoSubject extends javax.swing.JFrame {
         jLabel2.setText("Estudiantes inscritos:");
 
         subjectInfo.setBackground(new java.awt.Color(78, 36, 102));
-        subjectInfo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        subjectInfo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         subjectInfo.setForeground(new java.awt.Color(255, 255, 255));
         subjectInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

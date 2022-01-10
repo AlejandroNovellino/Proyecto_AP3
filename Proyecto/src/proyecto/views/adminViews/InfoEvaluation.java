@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import proyecto.controls.InfoEvaluationControl;
 import proyecto.dataModel.evaluationRelated.Evaluation;
-import proyecto.dataModel.evaluationRelated.Option;
+import proyecto.helpers.JFramesHelper;
 
 /**
  *
@@ -24,11 +24,16 @@ public class InfoEvaluation extends javax.swing.JFrame {
     
     public InfoEvaluation(Evaluation evaluation) {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         control = new InfoEvaluationControl(evaluation);
         presented.setText("Presentaron: "+control.getStudents().size());
         passed.setText("Pasaron: "+control.amountPassed());
         notPassed.setText("Rasparon: "+(control.getStudents().size()-control.amountPassed()));
         evaluationName.setText("Detalles Evaluacion: "+control.getEvaluation().getType().toString());
+        // set the align place to the table
+        JFramesHelper.alignTextJTableCetner(studentsTable, JFramesHelper.swingConstantToCenter());
+        // set the table values
         setTableValues();
     }
     
@@ -113,6 +118,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-download-graph-report-24.png"))); // NOI18N
         jLabel13.setText("Generar Reporte");
 
         javax.swing.GroupLayout btnGenerateReportLayout = new javax.swing.GroupLayout(btnGenerateReport);
@@ -120,16 +126,13 @@ public class InfoEvaluation extends javax.swing.JFrame {
         btnGenerateReportLayout.setHorizontalGroup(
             btnGenerateReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnGenerateReportLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel13)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         btnGenerateReportLayout.setVerticalGroup(
             btnGenerateReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGenerateReportLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel2.add(btnGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
@@ -149,6 +152,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-logout-24.png"))); // NOI18N
         jLabel14.setText("Salir");
 
         javax.swing.GroupLayout btnExitToMainMenuLayout = new javax.swing.GroupLayout(btnExitToMainMenu);
@@ -156,16 +160,13 @@ public class InfoEvaluation extends javax.swing.JFrame {
         btnExitToMainMenuLayout.setHorizontalGroup(
             btnExitToMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnExitToMainMenuLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel14)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         btnExitToMainMenuLayout.setVerticalGroup(
             btnExitToMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnExitToMainMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel2.add(btnExitToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 250, -1));
@@ -175,7 +176,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
         evaluationName.setText("EXAMPLE TEXT");
 
         studentsTable.setBackground(new java.awt.Color(78, 36, 102));
-        studentsTable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        studentsTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         studentsTable.setForeground(new java.awt.Color(255, 255, 255));
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,7 +213,8 @@ public class InfoEvaluation extends javax.swing.JFrame {
         jScrollPane1.setViewportView(studentsTable);
 
         studentAnswers.setBackground(new java.awt.Color(103, 69, 128));
-        studentAnswers.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        studentAnswers.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        studentAnswers.setForeground(new java.awt.Color(255, 255, 255));
         studentAnswers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         studentAnswers.setToolTipText("");
         studentAnswers.setSelectionBackground(new java.awt.Color(199, 147, 230));
@@ -257,11 +259,11 @@ public class InfoEvaluation extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(presented)
-                                        .addGap(18, 18, 18)
+                                        .addGap(30, 30, 30)
                                         .addComponent(passed)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(notPassed)))
-                                .addGap(33, 33, 33))
+                                .addGap(36, 36, 36))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(82, 82, 82))))))

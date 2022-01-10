@@ -30,8 +30,15 @@ public class AdminMain extends javax.swing.JFrame {
      */
     private AdminMain() {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
         alertMessagePanel.setVisible(false);
         control = new AdminMainControl();
+        // set the align place to the tables
+        JFramesHelper.alignTextJTableCetner(studentsTable, JFramesHelper.swingConstantToCenter());
+        JFramesHelper.alignTextJTableCetner(subjectsTable, JFramesHelper.swingConstantToCenter());
+        JFramesHelper.alignTextJTableCetner(evaluationsTable, JFramesHelper.swingConstantToCenter());
+        // set the table values
         setTablesValues();
     }
     
@@ -71,7 +78,7 @@ public class AdminMain extends javax.swing.JFrame {
                 element.getLastNames(), 
                 element.getCi(),
                 element.getGender().toString(),
-                element.getStatus()
+                (element.getStatus()) ? "Activo" : "Inactivo"  
             });
         });
         // set subjects table
@@ -168,11 +175,12 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         btnSubjectInfo = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         topPanel = new javax.swing.JPanel();
-        exit = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
         alertMessagePanel = new javax.swing.JPanel();
         alertMessage = new javax.swing.JLabel();
+        exit = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         mainTabbedPane = new javax.swing.JTabbedPane();
         studentsPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -213,6 +221,7 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-add-24.png"))); // NOI18N
         jLabel1.setText("Agregar Estudiante");
 
         javax.swing.GroupLayout btnStudentAddLayout = new javax.swing.GroupLayout(btnStudentAdd);
@@ -220,19 +229,16 @@ public class AdminMain extends javax.swing.JFrame {
         btnStudentAddLayout.setHorizontalGroup(
             btnStudentAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnStudentAddLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         btnStudentAddLayout.setVerticalGroup(
             btnStudentAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnStudentAddLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnStudentAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 40));
+        leftSidePanel.add(btnStudentAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, 40));
 
         btnStudentModify.setBackground(new java.awt.Color(103, 69, 128));
         btnStudentModify.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -249,26 +255,24 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-edit-file-24.png"))); // NOI18N
         jLabel2.setText("Modificar Estudiante");
 
         javax.swing.GroupLayout btnStudentModifyLayout = new javax.swing.GroupLayout(btnStudentModify);
         btnStudentModify.setLayout(btnStudentModifyLayout);
         btnStudentModifyLayout.setHorizontalGroup(
             btnStudentModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnStudentModifyLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+            .addGroup(btnStudentModifyLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel2)
-                .addGap(24, 24, 24))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         btnStudentModifyLayout.setVerticalGroup(
             btnStudentModifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnStudentModifyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnStudentModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 190, 40));
+        leftSidePanel.add(btnStudentModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, 40));
 
         btnSubjectDelete.setBackground(new java.awt.Color(103, 69, 128));
         btnSubjectDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -285,6 +289,7 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-delete-24.png"))); // NOI18N
         jLabel3.setText("Borrar Materia");
 
         javax.swing.GroupLayout btnSubjectDeleteLayout = new javax.swing.GroupLayout(btnSubjectDelete);
@@ -292,19 +297,16 @@ public class AdminMain extends javax.swing.JFrame {
         btnSubjectDeleteLayout.setHorizontalGroup(
             btnSubjectDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnSubjectDeleteLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         btnSubjectDeleteLayout.setVerticalGroup(
             btnSubjectDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSubjectDeleteLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addContainerGap())
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnSubjectDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 190, 40));
+        leftSidePanel.add(btnSubjectDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 220, 40));
 
         btnStudentDelete.setBackground(new java.awt.Color(103, 69, 128));
         btnStudentDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -321,6 +323,7 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-delete-24.png"))); // NOI18N
         jLabel4.setText("Borrar Estudiante");
 
         javax.swing.GroupLayout btnStudentDeleteLayout = new javax.swing.GroupLayout(btnStudentDelete);
@@ -328,19 +331,16 @@ public class AdminMain extends javax.swing.JFrame {
         btnStudentDeleteLayout.setHorizontalGroup(
             btnStudentDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnStudentDeleteLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         btnStudentDeleteLayout.setVerticalGroup(
             btnStudentDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnStudentDeleteLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap())
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnStudentDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 190, 40));
+        leftSidePanel.add(btnStudentDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, 40));
 
         btnSubjectAdd.setBackground(new java.awt.Color(103, 69, 128));
         btnSubjectAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -358,6 +358,7 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-add-24.png"))); // NOI18N
         jLabel5.setText("Agregar Materia");
 
         javax.swing.GroupLayout btnSubjectAddLayout = new javax.swing.GroupLayout(btnSubjectAdd);
@@ -365,19 +366,16 @@ public class AdminMain extends javax.swing.JFrame {
         btnSubjectAddLayout.setHorizontalGroup(
             btnSubjectAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnSubjectAddLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel5)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         btnSubjectAddLayout.setVerticalGroup(
             btnSubjectAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSubjectAddLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnSubjectAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 190, 40));
+        leftSidePanel.add(btnSubjectAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 220, 40));
 
         btnEvaluationAdd.setBackground(new java.awt.Color(103, 69, 128));
         btnEvaluationAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -395,26 +393,24 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Agregar Evaluacion");
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-add-24.png"))); // NOI18N
+        jLabel10.setText("Agregar Evaluación");
 
         javax.swing.GroupLayout btnEvaluationAddLayout = new javax.swing.GroupLayout(btnEvaluationAdd);
         btnEvaluationAdd.setLayout(btnEvaluationAddLayout);
         btnEvaluationAddLayout.setHorizontalGroup(
             btnEvaluationAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnEvaluationAddLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel10)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         btnEvaluationAddLayout.setVerticalGroup(
             btnEvaluationAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEvaluationAddLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnEvaluationAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 190, 40));
+        leftSidePanel.add(btnEvaluationAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 220, 40));
 
         btnEvaluationDelete.setBackground(new java.awt.Color(103, 69, 128));
         btnEvaluationDelete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -431,26 +427,24 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Borrar Evaluacion");
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-delete-24.png"))); // NOI18N
+        jLabel12.setText("Borrar Evaluación");
 
         javax.swing.GroupLayout btnEvaluationDeleteLayout = new javax.swing.GroupLayout(btnEvaluationDelete);
         btnEvaluationDelete.setLayout(btnEvaluationDeleteLayout);
         btnEvaluationDeleteLayout.setHorizontalGroup(
             btnEvaluationDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnEvaluationDeleteLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel12)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         btnEvaluationDeleteLayout.setVerticalGroup(
             btnEvaluationDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEvaluationDeleteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnEvaluationDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 190, 40));
+        leftSidePanel.add(btnEvaluationDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 220, 40));
 
         btnEvaluationInfo.setBackground(new java.awt.Color(103, 69, 128));
         btnEvaluationInfo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -467,26 +461,24 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Resultados Evaluacion");
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-report-card-24.png"))); // NOI18N
+        jLabel14.setText("Resultados Evaluación");
 
         javax.swing.GroupLayout btnEvaluationInfoLayout = new javax.swing.GroupLayout(btnEvaluationInfo);
         btnEvaluationInfo.setLayout(btnEvaluationInfoLayout);
         btnEvaluationInfoLayout.setHorizontalGroup(
             btnEvaluationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEvaluationInfoLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEvaluationInfoLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel14)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         btnEvaluationInfoLayout.setVerticalGroup(
             btnEvaluationInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnEvaluationInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnEvaluationInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 190, 40));
+        leftSidePanel.add(btnEvaluationInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 220, 40));
 
         btnSubjectInfo.setBackground(new java.awt.Color(103, 69, 128));
         btnSubjectInfo.setForeground(new java.awt.Color(255, 255, 255));
@@ -504,6 +496,7 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-report-card-24.png"))); // NOI18N
         jLabel6.setText("Resultados Materia");
 
         javax.swing.GroupLayout btnSubjectInfoLayout = new javax.swing.GroupLayout(btnSubjectInfo);
@@ -511,23 +504,48 @@ public class AdminMain extends javax.swing.JFrame {
         btnSubjectInfoLayout.setHorizontalGroup(
             btnSubjectInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnSubjectInfoLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel6)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         btnSubjectInfoLayout.setVerticalGroup(
             btnSubjectInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSubjectInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        leftSidePanel.add(btnSubjectInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 190, 40));
+        leftSidePanel.add(btnSubjectInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 220, 40));
 
-        jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 530));
+        jLabel11.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-tableau-software-48.png"))); // NOI18N
+        jLabel11.setText("AP Análisis ");
+        leftSidePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 530));
 
         topPanel.setBackground(new java.awt.Color(65, 10, 97));
+
+        alertMessagePanel.setBackground(new java.awt.Color(217, 171, 251));
+
+        alertMessage.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        alertMessage.setText("EXAMPLE TEXT");
+
+        javax.swing.GroupLayout alertMessagePanelLayout = new javax.swing.GroupLayout(alertMessagePanel);
+        alertMessagePanel.setLayout(alertMessagePanelLayout);
+        alertMessagePanelLayout.setHorizontalGroup(
+            alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(alertMessagePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addContainerGap(439, Short.MAX_VALUE))
+        );
+        alertMessagePanelLayout.setVerticalGroup(
+            alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(alertMessagePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(alertMessage)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         exit.setBackground(new java.awt.Color(103, 69, 128));
         exit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -542,8 +560,9 @@ public class AdminMain extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-logout-24.png"))); // NOI18N
         jLabel13.setText("Salir");
 
         javax.swing.GroupLayout exitLayout = new javax.swing.GroupLayout(exit);
@@ -551,61 +570,38 @@ public class AdminMain extends javax.swing.JFrame {
         exitLayout.setHorizontalGroup(
             exitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(exitLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel13)
+                .addGap(19, 19, 19))
         );
         exitLayout.setVerticalGroup(
             exitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        alertMessagePanel.setBackground(new java.awt.Color(217, 171, 251));
-
-        alertMessage.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        alertMessage.setText("jLabel14");
-
-        javax.swing.GroupLayout alertMessagePanelLayout = new javax.swing.GroupLayout(alertMessagePanel);
-        alertMessagePanel.setLayout(alertMessagePanelLayout);
-        alertMessagePanelLayout.setHorizontalGroup(
-            alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(alertMessagePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addContainerGap(493, Short.MAX_VALUE))
-        );
-        alertMessagePanelLayout.setVerticalGroup(
-            alertMessagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(alertMessagePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(alertMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
         topPanel.setLayout(topPanelLayout);
         topPanelLayout.setHorizontalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
-                .addComponent(alertMessagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+            .addGroup(topPanelLayout.createSequentialGroup()
+                .addComponent(alertMessagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(alertMessagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(alertMessagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
-        jPanel1.add(topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 720, 60));
+        jPanel1.add(topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 820, 60));
 
         mainTabbedPane.setBackground(new java.awt.Color(65, 10, 97));
         mainTabbedPane.setToolTipText("");
@@ -615,6 +611,8 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Lista de estudiantes");
+
+        jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
 
         studentsTable.setBackground(new java.awt.Color(78, 36, 102));
         studentsTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -659,7 +657,7 @@ public class AdminMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(studentsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(0, 532, Short.MAX_VALUE)))
+                        .addGap(0, 622, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         studentsPanelLayout.setVerticalGroup(
@@ -722,7 +720,7 @@ public class AdminMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(subjectsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 554, Short.MAX_VALUE)))
+                        .addGap(0, 644, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         subjectsPanelLayout.setVerticalGroup(
@@ -785,7 +783,7 @@ public class AdminMain extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(evaluationsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addGap(0, 520, Short.MAX_VALUE)))
+                        .addGap(0, 610, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         evaluationsPanelLayout.setVerticalGroup(
@@ -800,7 +798,7 @@ public class AdminMain extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("Evaluaciones", evaluationsPanel);
 
-        jPanel1.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 720, 470));
+        jPanel1.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 810, 470));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -970,6 +968,7 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JPanel exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
