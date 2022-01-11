@@ -22,6 +22,7 @@ import proyecto.dataModel.evaluationRelated.Question;
 import proyecto.dataModel.evaluationRelated.Quiz;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.helpers.FilesManager;
+import proyecto.helpers.ReportGenerator;
 
 /**
  *
@@ -33,26 +34,26 @@ public class Proyecto {
         Admin admin1 = new Admin(UUID.randomUUID().toString(), "admin1", "admin1", userType.ADMIN);
         
         Student student1 = new Student(
-                "student1", 
-                "student1",
+                "Pedro", 
+                "Casas",
                 1111, 
                 gender.Femenino, 
                 true,
                 UUID.randomUUID().toString(), 
-                "student1", 
-                "student1", 
+                "PedroCasas", 
+                "1111", 
                 userType.STUDENT
         );
         
         Student student2 = new Student(
-                "student2", 
-                "student2",
+                "Carlos", 
+                "Vera",
                 2222, 
                 gender.Masculino, 
                 false,
                 UUID.randomUUID().toString(), 
-                "student2", 
-                "student2", 
+                "CarlosVera", 
+                "2222", 
                 userType.STUDENT
         );
         
@@ -177,7 +178,6 @@ public class Proyecto {
         // create the evaluation
         control.setQuestions(questions);
         control.createEvaluation(evaluationType.Prueba, 15, new Date(), new Date(), true, 10000);
-//        control.createEvaluation(evaluationType.Quiz, 15, new Date(), new Date(), true, 2);
     }
     
     public static void testUsers() {

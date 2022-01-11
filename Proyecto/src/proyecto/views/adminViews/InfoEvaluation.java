@@ -6,12 +6,14 @@
 package proyecto.views.adminViews;
 
 import java.awt.Color;
+import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import proyecto.controls.InfoEvaluationControl;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.helpers.JFramesHelper;
+import proyecto.helpers.ReportGenerator;
 
 /**
  *
@@ -68,6 +70,15 @@ public class InfoEvaluation extends javax.swing.JFrame {
         DefaultListModel<String> aux1 = new DefaultListModel<>();
         control.getStudentOptions(ci).forEach(element -> aux1.addElement(element.toString()));
         studentAnswers.setModel(aux1);
+    }
+    
+    private void generateReport() {
+        try {
+            ReportGenerator.generateEvaluationReport("reporte", control);
+        } catch (IOException e) {
+            System.out.println("No se pudo generar el reporte");
+        }
+        
     }
     
     /**
@@ -316,7 +327,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerateReportMouseExited
 
     private void btnGenerateReportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateReportMousePressed
-        // TODO add your handling code here:
+        generateReport();
     }//GEN-LAST:event_btnGenerateReportMousePressed
 
     private void btnExitToMainMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitToMainMenuMouseEntered
