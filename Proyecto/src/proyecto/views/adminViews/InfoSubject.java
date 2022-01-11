@@ -180,7 +180,7 @@ public class InfoSubject extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Cedula", "Evaluaciones Presentadas", "Evaluaciones No Presentadas", "Evaluaciones Aprobadas", "Evaluaciones No Aprobadas", "Nota Final", "Aprobo"
+                "Nombre", "Apellido", "Cédula", "Evaluaciones Presentadas", "Evaluaciones No Presentadas", "Evaluaciones Aprobadas", "Evaluaciones No Aprobadas", "Nota Final", "Aprobo"
             }
         ) {
             Class[] types = new Class [] {

@@ -622,7 +622,7 @@ public class AdminMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "CI", "Genero", "Estado"
+                "Nombre", "Apellido", "CI", "Género", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -686,7 +686,7 @@ public class AdminMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Codigo"
+                "Nombre", "Código"
             }
         ) {
             Class[] types = new Class [] {
@@ -749,7 +749,7 @@ public class AdminMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Ponderacion", "Fecha Cierre"
+                "Tipo", "Ponderación", "Fecha cierre"
             }
         ) {
             Class[] types = new Class [] {

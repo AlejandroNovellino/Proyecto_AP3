@@ -188,7 +188,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tipo");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 24, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         type.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quiz", "Parcial Practico", "Parcial Prueba", "Parcial Teorico" }));
@@ -206,7 +206,7 @@ public class CreateEvaluation extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Ponderacion(%)");
+        jLabel3.setText("Ponderación(%)");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         initDate.setBackground(new java.awt.Color(245, 222, 255));

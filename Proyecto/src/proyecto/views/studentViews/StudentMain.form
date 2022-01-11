@@ -289,7 +289,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/proyecto/views/icons/icons8-subscription-24.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Registrar Evaluacion"/>
+                    <Property name="text" type="java.lang.String" value="Registrar Evaluaci&#xf3;n"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -389,7 +389,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/proyecto/views/icons/icons8-present-to-all-24.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Presentar Evaluacion"/>
+                    <Property name="text" type="java.lang.String" value="Presentar Evaluaci&#xf3;n"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -413,6 +413,56 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Container class="javax.swing.JPanel" name="btnCertifieNotes">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="80" green="45" red="67" type="rgb"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCertifieNotesMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCertifieNotesMouseExited"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCertifieNotesMousePressed"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="200" width="210" height="40"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel5" alignment="1" pref="40" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel5">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Roboto" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/proyecto/views/icons/icons8-present-to-all-24.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Notas Certificadas"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="topPanel">
@@ -628,8 +678,8 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Nombre" type="java.lang.String"/>
-                            <Column editable="false" title="Codigo" type="java.lang.Integer"/>
-                            <Column editable="true" title="Nota" type="java.lang.Integer"/>
+                            <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
+                            <Column editable="false" title="Nota" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -746,8 +796,8 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Nombre" type="java.lang.String"/>
-                            <Column editable="false" title="Codigo" type="java.lang.Integer"/>
-                            <Column editable="true" title="Nota" type="java.lang.Integer"/>
+                            <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
+                            <Column editable="false" title="Nota" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -870,9 +920,9 @@
                           <Table columnCount="6" rowCount="0">
                             <Column editable="false" title="Tipo" type="java.lang.String"/>
                             <Column editable="false" title="Materia" type="java.lang.Object"/>
-                            <Column editable="false" title="Ponderacion" type="java.lang.Float"/>
-                            <Column editable="false" title="Fecha Inicio" type="java.lang.String"/>
-                            <Column editable="false" title="Fecha Cierre" type="java.lang.String"/>
+                            <Column editable="false" title="Ponderaci&#xf3;n" type="java.lang.Float"/>
+                            <Column editable="false" title="Fecha inicio" type="java.lang.String"/>
+                            <Column editable="false" title="Fecha cierre" type="java.lang.String"/>
                             <Column editable="false" title="Num. Intentos" type="java.lang.String"/>
                           </Table>
                         </Property>
@@ -1006,9 +1056,9 @@
                           <Table columnCount="8" rowCount="0">
                             <Column editable="false" title="Tipo" type="java.lang.String"/>
                             <Column editable="false" title="Materia" type="java.lang.String"/>
-                            <Column editable="false" title="Ponderacion" type="java.lang.Float"/>
-                            <Column editable="false" title="Fecha Inicio" type="java.lang.String"/>
-                            <Column editable="false" title="Fecha Cierre" type="java.lang.String"/>
+                            <Column editable="false" title="Ponderaci&#xf3;n" type="java.lang.Float"/>
+                            <Column editable="false" title="Fecha inicio" type="java.lang.String"/>
+                            <Column editable="false" title="Fecha cierre" type="java.lang.String"/>
                             <Column editable="false" title="Num. Intentos" type="java.lang.String"/>
                             <Column editable="false" title="Num. Realizada" type="java.lang.Integer"/>
                             <Column editable="false" title="Nota" type="java.lang.Float"/>

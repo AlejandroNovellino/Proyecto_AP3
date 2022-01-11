@@ -255,7 +255,7 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="Nombre" type="java.lang.String"/>
                     <Column editable="false" title="Apellido" type="java.lang.String"/>
-                    <Column editable="false" title="Cedula" type="java.lang.String"/>
+                    <Column editable="false" title="C&#xe9;dula" type="java.lang.String"/>
                     <Column editable="false" title="Nota" type="java.lang.String"/>
                   </Table>
                 </Property>

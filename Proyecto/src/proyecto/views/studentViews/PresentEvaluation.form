@@ -134,7 +134,7 @@
                             <Column editable="false" title="Pregunta" type="java.lang.String"/>
                             <Column editable="false" title="Enunciado" type="java.lang.String"/>
                             <Column editable="false" title="Puntaje" type="java.lang.String"/>
-                            <Column editable="false" title="Opcion seleccionada" type="java.lang.String"/>
+                            <Column editable="false" title="Opci&#xf3;n seleccionada" type="java.lang.String"/>
                             <Column editable="false" title="Correcta" type="java.lang.String"/>
                           </Table>
                         </Property>

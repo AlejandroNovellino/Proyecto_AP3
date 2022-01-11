@@ -238,7 +238,7 @@
                   <Table columnCount="9" rowCount="0">
                     <Column editable="false" title="Nombre" type="java.lang.String"/>
                     <Column editable="false" title="Apellido" type="java.lang.String"/>
-                    <Column editable="false" title="Cedula" type="java.lang.String"/>
+                    <Column editable="false" title="C&#xe9;dula" type="java.lang.String"/>
                     <Column editable="false" title="Evaluaciones Presentadas" type="java.lang.String"/>
                     <Column editable="false" title="Evaluaciones No Presentadas" type="java.lang.String"/>
                     <Column editable="false" title="Evaluaciones Aprobadas" type="java.lang.String"/>

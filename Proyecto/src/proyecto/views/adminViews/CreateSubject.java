@@ -203,7 +203,7 @@ public class CreateSubject extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Codigo");
+        jLabel3.setText("Código");
 
         cancel.setBackground(new java.awt.Color(65, 10, 97));
         cancel.setText("Cancelar");

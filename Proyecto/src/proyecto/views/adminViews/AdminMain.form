@@ -767,7 +767,7 @@
                             <Column editable="false" title="Nombre" type="java.lang.String"/>
                             <Column editable="false" title="Apellido" type="java.lang.String"/>
                             <Column editable="false" title="CI" type="java.lang.Integer"/>
-                            <Column editable="false" title="Genero" type="java.lang.String"/>
+                            <Column editable="false" title="G&#xe9;nero" type="java.lang.String"/>
                             <Column editable="false" title="Estado" type="java.lang.Object"/>
                           </Table>
                         </Property>
@@ -894,7 +894,7 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="2" rowCount="0">
                             <Column editable="false" title="Nombre" type="java.lang.String"/>
-                            <Column editable="false" title="Codigo" type="java.lang.Integer"/>
+                            <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1005,8 +1005,8 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="0">
                             <Column editable="false" title="Tipo" type="java.lang.String"/>
-                            <Column editable="false" title="Ponderacion" type="java.lang.Float"/>
-                            <Column editable="false" title="Fecha Cierre" type="java.lang.Object"/>
+                            <Column editable="false" title="Ponderaci&#xf3;n" type="java.lang.Float"/>
+                            <Column editable="false" title="Fecha cierre" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

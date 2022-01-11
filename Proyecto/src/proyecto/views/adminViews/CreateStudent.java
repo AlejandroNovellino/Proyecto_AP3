@@ -372,12 +372,12 @@ public class CreateStudent extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Cedula");
+        jLabel4.setText("Cédula");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 20, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Genero");
+        jLabel5.setText("Género");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 59, -1, -1));
 
         ci.setBackground(new java.awt.Color(245, 222, 255));

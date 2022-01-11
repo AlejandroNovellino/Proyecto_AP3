@@ -130,7 +130,7 @@ public class CreateQuestion extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Datos opcion");
+        jLabel3.setText("Datos opción");
 
         jPanel5.setBackground(new java.awt.Color(103, 69, 128));
 
@@ -286,7 +286,7 @@ public class CreateQuestion extends javax.swing.JFrame {
 
         createOption.setBackground(new java.awt.Color(65, 10, 97));
         createOption.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        createOption.setText("Crear opcion");
+        createOption.setText("Crear opción");
         createOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createOptionActionPerformed(evt);
@@ -295,7 +295,7 @@ public class CreateQuestion extends javax.swing.JFrame {
 
         deleteOption.setBackground(new java.awt.Color(65, 10, 97));
         deleteOption.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        deleteOption.setText("Borrar opcion");
+        deleteOption.setText("Borrar opción");
         deleteOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteOptionActionPerformed(evt);

@@ -232,6 +232,8 @@ public class StudentMain extends javax.swing.JFrame {
         btnPresentEvaluation = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        btnCertifieNotes = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         topPanel = new javax.swing.JPanel();
         exit = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -391,7 +393,7 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-subscription-24.png"))); // NOI18N
-        jLabel1.setText("Registrar Evaluacion");
+        jLabel1.setText("Registrar Evaluación");
 
         javax.swing.GroupLayout btnRegisterEvaluationLayout = new javax.swing.GroupLayout(btnRegisterEvaluation);
         btnRegisterEvaluation.setLayout(btnRegisterEvaluationLayout);
@@ -459,7 +461,7 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-present-to-all-24.png"))); // NOI18N
-        jLabel4.setText("Presentar Evaluacion");
+        jLabel4.setText("Presentar Evaluación");
 
         javax.swing.GroupLayout btnPresentEvaluationLayout = new javax.swing.GroupLayout(btnPresentEvaluation);
         btnPresentEvaluation.setLayout(btnPresentEvaluationLayout);
@@ -482,6 +484,40 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-tableau-software-48.png"))); // NOI18N
         jLabel12.setText("AP Análisis ");
         leftSidePanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        btnCertifieNotes.setBackground(new java.awt.Color(103, 69, 128));
+        btnCertifieNotes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCertifieNotesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCertifieNotesMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCertifieNotesMousePressed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-present-to-all-24.png"))); // NOI18N
+        jLabel5.setText("Notas Certificadas");
+
+        javax.swing.GroupLayout btnCertifieNotesLayout = new javax.swing.GroupLayout(btnCertifieNotes);
+        btnCertifieNotes.setLayout(btnCertifieNotesLayout);
+        btnCertifieNotesLayout.setHorizontalGroup(
+            btnCertifieNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCertifieNotesLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel5)
+                .addContainerGap())
+        );
+        btnCertifieNotesLayout.setVerticalGroup(
+            btnCertifieNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        leftSidePanel.add(btnCertifieNotes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 210, 40));
 
         jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 530));
 
@@ -581,14 +617,14 @@ public class StudentMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Codigo", "Nota"
+                "Nombre", "Código", "Nota"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -645,14 +681,14 @@ public class StudentMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Codigo", "Nota"
+                "Nombre", "Código", "Nota"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -711,7 +747,7 @@ public class StudentMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Materia", "Ponderacion", "Fecha Inicio", "Fecha Cierre", "Num. Intentos"
+                "Tipo", "Materia", "Ponderación", "Fecha inicio", "Fecha cierre", "Num. Intentos"
             }
         ) {
             Class[] types = new Class [] {
@@ -775,7 +811,7 @@ public class StudentMain extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Materia", "Ponderacion", "Fecha Inicio", "Fecha Cierre", "Num. Intentos", "Num. Realizada", "Nota"
+                "Tipo", "Materia", "Ponderación", "Fecha inicio", "Fecha cierre", "Num. Intentos", "Num. Realizada", "Nota"
             }
         ) {
             Class[] types = new Class [] {
@@ -906,9 +942,22 @@ public class StudentMain extends javax.swing.JFrame {
         JFramesHelper.setMessage(alertMessagePanel, alertMessage, false, "");
     }//GEN-LAST:event_confirmActionPerformed
 
+    private void btnCertifieNotesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCertifieNotesMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCertifieNotesMouseEntered
+
+    private void btnCertifieNotesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCertifieNotesMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCertifieNotesMouseExited
+
+    private void btnCertifieNotesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCertifieNotesMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCertifieNotesMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;
     private javax.swing.JPanel alertMessagePanel;
+    private javax.swing.JPanel btnCertifieNotes;
     private javax.swing.JPanel btnDeleteEvaluationRegister;
     private javax.swing.JPanel btnPresentEvaluation;
     private javax.swing.JPanel btnRegisterEvaluation;
@@ -924,6 +973,7 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

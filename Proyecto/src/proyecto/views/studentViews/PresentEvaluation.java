@@ -182,7 +182,7 @@ public class PresentEvaluation extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pregunta", "Enunciado", "Puntaje", "Opcion seleccionada", "Correcta"
+                "Pregunta", "Enunciado", "Puntaje", "Opción seleccionada", "Correcta"
             }
         ) {
             Class[] types = new Class [] {

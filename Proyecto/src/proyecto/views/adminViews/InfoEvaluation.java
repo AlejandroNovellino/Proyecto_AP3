@@ -183,7 +183,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Cedula", "Nota"
+                "Nombre", "Apellido", "Cédula", "Nota"
             }
         ) {
             Class[] types = new Class [] {
