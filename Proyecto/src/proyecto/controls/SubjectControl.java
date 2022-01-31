@@ -7,6 +7,7 @@ package proyecto.controls;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.helpers.FilesManager;
 
@@ -21,6 +22,6 @@ public class SubjectControl {
         ArrayList<Subject> allSubjects = FilesManager.getSubjects();
         allSubjects.add(newSubject);
         // save it to the file
-        FilesManager.writeListToFile(allSubjects, "subjects");
+        FilesManager.writeListToFile(allSubjects, filesNames.subjects);
     }
 }

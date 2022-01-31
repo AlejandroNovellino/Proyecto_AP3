@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<evaluationRegistries>
+    <evaluationRegistrys>
+        <evaluationRegistry>
+            <id>dbe32568-6424-4360-b9fd-fe9d6704d697</id>
+            <evaluationId>63f90b4a-a482-49eb-95ba-a5368b48b936</evaluationId>
+            <studentId>e141094f-19a0-4307-97b0-c054df693815</studentId>
+            <numTries>0</numTries>
+            <presented>false</presented>
+            <beingPresented>false</beingPresented>
+            <options/>
+        </evaluationRegistry>
+        <evaluationRegistry>
+            <id>57bc21e9-9ad4-4ecf-ae2a-734da198d870</id>
+            <evaluationId>74dcde68-37a3-4642-9811-e6ade8ab1eb9</evaluationId>
+            <studentId>cd673f3f-3223-4d3a-8a02-2a0ba119f524</studentId>
+            <note>0.0</note>
+            <numTries>1</numTries>
+            <presented>true</presented>
+            <beingPresented>false</beingPresented>
+            <options>
+                <option>
+                    <id>2c6a34f4-e25d-4bb6-916f-4ee8e3a769ab</id>
+                    <isAnswer>false</isAnswer>
+                    <value>o2</value>
+                </option>
+            </options>
+        </evaluationRegistry>
+        <evaluationRegistry>
+            <id>70ce7826-800a-4cb8-899b-ca5d3e5c038b</id>
+            <evaluationId>74dcde68-37a3-4642-9811-e6ade8ab1eb9</evaluationId>
+            <studentId>f2c33d70-53f4-4d12-addb-fc6b081c5f34</studentId>
+            <note>20.0</note>
+            <numTries>1</numTries>
+            <presented>true</presented>
+            <beingPresented>false</beingPresented>
+            <options>
+                <option>
+                    <id>57764d78-d2d4-41e1-83b4-43efa5b3cb5b</id>
+                    <isAnswer>true</isAnswer>
+                    <value>o1</value>
+                </option>
+            </options>
+        </evaluationRegistry>
+    </evaluationRegistrys>
+</evaluationRegistries>

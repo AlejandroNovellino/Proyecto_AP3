@@ -22,7 +22,10 @@ public class CreateSubject extends javax.swing.JFrame {
         initComponents();
         // set the jframe icon
         JFramesHelper.setJFrameIcon(this);
+        // set the modal icon
+        JFramesHelper.setJDialogIcon(modal);
         alertMessagePanel.setVisible(false);
+        // set the modal size
         JFramesHelper.setModalSize(modal);
     }
     
@@ -86,6 +89,7 @@ public class CreateSubject extends javax.swing.JFrame {
         cancel = new javax.swing.JButton();
         create = new javax.swing.JButton();
 
+        modal.setTitle("Materia creada");
         modal.setBackground(new java.awt.Color(65, 10, 97));
         modal.setModal(true);
 
@@ -114,7 +118,7 @@ public class CreateSubject extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jLabel4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
+                        .addGap(112, 112, 112)
                         .addComponent(jButton1)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );

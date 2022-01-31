@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import proyecto.dataModel.enums.evaluationType;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.evaluationRelated.ExamTypes.Practical;
 import proyecto.dataModel.evaluationRelated.ExamTypes.Test;
@@ -201,7 +202,7 @@ public class CreateEvaluationControl {
         ArrayList<Evaluation> allEvaluations = FilesManager.getEvaluations();
         allEvaluations.add(newEvaluation);
         // save to file
-        FilesManager.writeListToFile(allEvaluations, "evaluations");
+        FilesManager.writeListToFile(allEvaluations, filesNames.evaluations);
         // add to the subject the evaluation
         subject.getEvaluations().add(newEvaluation);
         // save the new change to the object
@@ -209,6 +210,6 @@ public class CreateEvaluationControl {
         allSubjects.removeIf(element -> element.getCode() == subject.getCode());
         allSubjects.add(subject);
         // save the change to file
-        FilesManager.writeListToFile(allSubjects, "subjects");
+        FilesManager.writeListToFile(allSubjects, filesNames.subjects);
     }
 }

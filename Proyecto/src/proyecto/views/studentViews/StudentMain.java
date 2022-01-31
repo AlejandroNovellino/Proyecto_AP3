@@ -33,6 +33,9 @@ public class StudentMain extends javax.swing.JFrame {
         initComponents();
         // set the jframe icon
         JFramesHelper.setJFrameIcon(this);
+        // set the modal icon
+        JFramesHelper.setJDialogIcon(confirmPresentation);
+        this.control = control;
         alertMessagePanel.setVisible(false);
         control = new StudentMainControl(student); 
         JFramesHelper.setModalSize(confirmPresentation);
@@ -155,6 +158,7 @@ public class StudentMain extends javax.swing.JFrame {
             setTablesValues();
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, false, "");
         } catch (Exception e) {
+            System.out.println(e);
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una evaluacion");
         }
     }

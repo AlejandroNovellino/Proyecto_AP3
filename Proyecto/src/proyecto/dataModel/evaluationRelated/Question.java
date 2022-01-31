@@ -7,17 +7,26 @@ package proyecto.dataModel.evaluationRelated;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "question")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Question implements Serializable{
     private String id;
     //private tag
     private String statement; //enunciado
     private float score; //puntaje (peso)
-    private boolean inUse; 
+    private boolean inUse;
+    @XmlElementWrapper(name="options")
+    @XmlElement(name="option")
     private ArrayList<Option> options;
 
     public Question() {

@@ -6,12 +6,14 @@
 package proyecto.dataModel.evaluationRelated;
 
 import java.util.Date;
+import javax.xml.bind.annotation.XmlRootElement;
 import proyecto.dataModel.enums.evaluationType;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "quiz")
 public class Quiz extends Evaluation{
 
     public Quiz() {

@@ -5,12 +5,14 @@
  */
 package proyecto.dataModel.users;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import proyecto.dataModel.enums.userType;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "admin")
 public class Admin extends User {
 
     public Admin() {

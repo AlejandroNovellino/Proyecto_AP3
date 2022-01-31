@@ -6,11 +6,13 @@
 package proyecto.dataModel.manyToManyRelations;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "enrollment")
 public class Enrollment implements Serializable{
     private String id;
     private String subjectId;

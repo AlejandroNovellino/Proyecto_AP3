@@ -6,6 +6,11 @@
 package proyecto.dataModel.users;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.userType;
@@ -15,13 +20,19 @@ import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "student")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Student extends User {
     private String names;
     private String lastNames;
     private int ci;
     private gender gender;
     private boolean status;
+    @XmlElementWrapper(name="enrollments")
+    @XmlElement(name="enrollment")
     private ArrayList<Enrollment> enrollments;
+    @XmlElementWrapper(name="evaluationRegistrys")
+    @XmlElement(name="evaluationRegistry")
     private ArrayList<EvaluationRegistry> evaluationsRegistrys;
 
     public Student() {

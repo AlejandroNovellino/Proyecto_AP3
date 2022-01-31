@@ -7,13 +7,15 @@ package proyecto.dataModel.users;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlTransient;
 import proyecto.dataModel.enums.userType;
 
 /**
  *
  * @author Alejandro
  */
-public abstract class User implements Serializable{
+@XmlTransient
+public abstract class User {
     protected String id;
     protected String userName;
     protected String passWord;

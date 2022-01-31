@@ -5,16 +5,19 @@
  */
 package proyecto.helpers;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Alejandro
  */
 public class DataCheck {
     public static boolean validString(String word) {
-        if(word.matches("\\d+")) {
-            return false;
-        }
-        return word.matches("\\w+");
+        Pattern pattern = Pattern.compile("\\d", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(word);
+        boolean matchFound = matcher.find();
+        return !matchFound;
     }
     
     public static boolean validInt(String word) {

@@ -8,19 +8,33 @@ package proyecto.dataModel.subjectRelated;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "subject")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Subject implements Serializable{
     private String id; 
     private int code;
     private String name;
+    @XmlElementWrapper(name="enrollments")
+    @XmlElement(name="enrollment")
     private ArrayList<Enrollment> enrrolments;
+    @XmlElementWrapper(name="evaluations")
+    @XmlElement(name="evaluation")
     private ArrayList<Evaluation> evaluations;
 
+    public Subject() {
+    }
+    
     public Subject(String id, int code, String name) {
         this.id = id;
         this.code = code;

@@ -28,6 +28,9 @@ public class CreateStudent extends javax.swing.JFrame {
         initComponents();
         // set the jframe icon
         JFramesHelper.setJFrameIcon(this);
+        // set the modal icon
+        JFramesHelper.setJDialogIcon(modal);
+        // set the other elements
         alertMessagePanel.setVisible(false);
         control = new CreateStudentControl(null);
         JFramesHelper.setModalSize(modal);
@@ -36,6 +39,11 @@ public class CreateStudent extends javax.swing.JFrame {
     
     private CreateStudent(Student student) {
         initComponents();
+        // set the jframe icon
+        JFramesHelper.setJFrameIcon(this);
+        // set the modal icon
+        JFramesHelper.setJDialogIcon(modal);
+        // set the other elements
         alertMessagePanel.setVisible(false);
         // set all the elements with the ones from the student
         names.setText(student.getNames());

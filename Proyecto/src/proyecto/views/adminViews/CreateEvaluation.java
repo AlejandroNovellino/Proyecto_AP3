@@ -86,10 +86,10 @@ public class CreateEvaluation extends javax.swing.JFrame {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Tienen que existir preguntas");
             return false;
         } else if(control.getTotalWeighInQuestions()<20) {
-            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "No se llega al total de 20 puntos en las pregutnas");
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "No se llega al total de 20 puntos en las preguntas");
             return false;
         } else if(control.getTotalWeighInQuestions()>20) {
-            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se sobrepaso el total de 20 puntos en las pregutnas");
+            JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se sobrepaso el total de 20 puntos en las preguntas");
             return false;
         } else if(initDate.getDate() == null) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Fecha de inicio nula");
@@ -174,10 +174,12 @@ public class CreateEvaluation extends javax.swing.JFrame {
         alertMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Crear Evaluación");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(65, 10, 97));
 
+        jLabel1.setDisplayedMnemonic('C');
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Datos Evaluación");

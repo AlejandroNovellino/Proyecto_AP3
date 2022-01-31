@@ -7,6 +7,7 @@ package proyecto.controls;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.dataModel.enums.gender;
 import proyecto.dataModel.enums.userType;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
@@ -167,11 +168,11 @@ public class CreateStudentControl {
         // add student to the file
         ArrayList<User> allUsers = FilesManager.getUsers();
         allUsers.add(newStudent);
-        FilesManager.writeListToFile(allUsers, "users");
+        FilesManager.writeListToFile(allUsers, filesNames.users);
         // add the enrollments to the file
         ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
         enrollments.forEach(enrollment -> allEnrollments.add(enrollment));
-        FilesManager.writeListToFile(allEnrollments, "enrollments");
+        FilesManager.writeListToFile(allEnrollments, filesNames.enrollments);
         // save the changes to the subject file
         // update the list of subjects
         // remove the subjects without the new changes
@@ -189,7 +190,7 @@ public class CreateStudentControl {
             this.allSubjects.add(element);
         });
         // save to the file
-        FilesManager.writeListToFile(this.allSubjects, "subjects");
+        FilesManager.writeListToFile(this.allSubjects, filesNames.subjects);
     }
     
     public void updateStudent(String names, String lastNames, int ci, gender gender, boolean status) {
@@ -202,7 +203,7 @@ public class CreateStudentControl {
         // delete all the old enrollments
         ArrayList<Enrollment> oldEnrollments = FilesManager.getEnrollments();
         oldEnrollments.removeIf(element -> element.getStudentId().equals(currentStudent.getId()));
-        FilesManager.writeListToFile(oldEnrollments, "enrollments");
+        FilesManager.writeListToFile(oldEnrollments, filesNames.enrollments);
         // create the enrollments, the passed ones
         ArrayList<Enrollment> enrollments = new ArrayList<>();
         viewedSubjects.forEach((subject) -> {
@@ -233,11 +234,11 @@ public class CreateStudentControl {
         allUsers.removeIf(element -> element.getId().equals(currentStudent.getId()));
         // add student to the file
         allUsers.add(currentStudent);
-        FilesManager.writeListToFile(allUsers, "users");
+        FilesManager.writeListToFile(allUsers, filesNames.users);
         // add the enrollments to the file
         ArrayList<Enrollment> allEnrollments = FilesManager.getEnrollments();
         enrollments.forEach(enrollment -> allEnrollments.add(enrollment));
-        FilesManager.writeListToFile(allEnrollments, "enrollments");
+        FilesManager.writeListToFile(allEnrollments, filesNames.enrollments);
         // save the changes to the subject file
         // update the list of subjects
         // remove the subjects without the new changes
@@ -255,6 +256,6 @@ public class CreateStudentControl {
             this.allSubjects.add(element);
         });
         // save to the file
-        FilesManager.writeListToFile(this.allSubjects, "subjects");
+        FilesManager.writeListToFile(this.allSubjects, filesNames.subjects);
     }
 }

@@ -9,12 +9,24 @@ import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import proyecto.dataModel.enums.evaluationType;
+import proyecto.dataModel.evaluationRelated.ExamTypes.Practical;
+import proyecto.dataModel.evaluationRelated.ExamTypes.Test;
+import proyecto.dataModel.evaluationRelated.ExamTypes.Theoric;
 
 /**
  *
  * @author Alejandro
  */
+@XmlTransient
+@XmlSeeAlso({Quiz.class, Practical.class, Test.class, Theoric.class})
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class  Evaluation implements Serializable{
     protected String id;
     protected evaluationType type; //tipo de evaluacion
@@ -23,7 +35,11 @@ public abstract class  Evaluation implements Serializable{
     protected Date closeDate;
     protected boolean active;
     protected int tries; //intentos
+    @XmlElementWrapper(name="evaluationRegistrys")
+    @XmlElement(name="evaluationRegistry")
     protected ArrayList<EvaluationRegistry> results;
+    @XmlElementWrapper(name="questions")
+    @XmlElement(name="question")
     protected ArrayList<Question> questions;
 
     public Evaluation() {

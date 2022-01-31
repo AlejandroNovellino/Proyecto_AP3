@@ -6,12 +6,14 @@
 package proyecto.dataModel.evaluationRelated;
 
 import java.util.Date;
+import javax.xml.bind.annotation.XmlTransient;
 import proyecto.dataModel.enums.evaluationType;
 
 /**
  *
  * @author Alejandro
  */
+@XmlTransient
 public abstract class Exam extends Evaluation{
 
     public Exam() {

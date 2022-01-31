@@ -6,6 +6,7 @@
 package proyecto.dataModel.evaluationRelated.ExamTypes;
 
 import java.util.Date;
+import javax.xml.bind.annotation.XmlRootElement;
 import proyecto.dataModel.enums.evaluationType;
 import proyecto.dataModel.evaluationRelated.Exam;
 
@@ -13,6 +14,7 @@ import proyecto.dataModel.evaluationRelated.Exam;
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "test")
 public class Test extends Exam{
 
     public Test() {

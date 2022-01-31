@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import proyecto.controls.AdminMainControl;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.helpers.JFramesHelper;
 import proyecto.views.Login;
 
@@ -100,10 +101,10 @@ public class AdminMain extends javax.swing.JFrame {
         });
     }
     
-    private void deleteFromList(JTable table, ArrayList<?> list, String message, String filename) {
+    private void deleteFromList(JTable table, ArrayList<?> list, String message, filesNames fileName) {
         try {
             int index = table.getSelectedRow();
-            control.deleteFromList(list, index, filename);
+            control.deleteFromList(list, index, fileName);
             setTablesValues();
         } catch (Exception e) {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, message);
@@ -114,6 +115,7 @@ public class AdminMain extends javax.swing.JFrame {
         try {
             int index = studentsTable.getSelectedRow();
             CreateStudent.getInstance(control.getElementByIndex(control.getAllStudents(), index)).setVisible(true);
+            JFramesHelper.setJFrameIcon(this);
             uniqueInstance.setVisible(false);
             killInstance();
         } catch (Exception e) {
@@ -878,7 +880,7 @@ public class AdminMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStudentDeleteMouseExited
 
     private void btnStudentDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentDeleteMousePressed
-        deleteFromList(studentsTable, control.getAllStudents(), "Debe seleccionar un estudiante", "users");
+        deleteFromList(studentsTable, control.getAllStudents(), "Debe seleccionar un estudiante", filesNames.users);
     }//GEN-LAST:event_btnStudentDeleteMousePressed
 
     private void exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseEntered
@@ -904,7 +906,7 @@ public class AdminMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubjectDeleteMouseExited
 
     private void btnSubjectDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubjectDeleteMousePressed
-        deleteFromList(subjectsTable, control.getAllSubjects(), "Debe seleccionar una materia", "subjects");
+        deleteFromList(subjectsTable, control.getAllSubjects(), "Debe seleccionar una materia", filesNames.subjects);
     }//GEN-LAST:event_btnSubjectDeleteMousePressed
 
     private void btnEvaluationDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationDeleteMouseEntered
@@ -916,7 +918,7 @@ public class AdminMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEvaluationDeleteMouseExited
 
     private void btnEvaluationDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEvaluationDeleteMousePressed
-        deleteFromList(evaluationsTable, control.getAllEvaluations(), "Debe seleccionar una evaluacion", "evaluations");
+        deleteFromList(evaluationsTable, control.getAllEvaluations(), "Debe seleccionar una evaluacion", filesNames.evaluations);
     }//GEN-LAST:event_btnEvaluationDeleteMousePressed
 
     private void btnStudentModifyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStudentModifyMouseExited

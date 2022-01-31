@@ -11,6 +11,7 @@ import java.util.UUID;
 import proyecto.controls.CreateEvaluationControl;
 import proyecto.controls.CreateStudentControl;
 import proyecto.dataModel.enums.evaluationType;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.dataModel.users.Admin;
 import proyecto.dataModel.users.Student;
 import proyecto.dataModel.users.User;
@@ -62,6 +63,7 @@ public class Proyecto {
         list.add(student2);
         
         FilesManager.writeListToFile(list, "users");
+        FilesManager.writeListToFile(list, filesNames.users);
     }
     
     public static void  testStudents() {
@@ -111,6 +113,7 @@ public class Proyecto {
     
     public static void createEvaluations(ArrayList<Evaluation> evaluations) {
         FilesManager.writeListToFile(new ArrayList<>(), "evaluations");
+        FilesManager.writeListToFile(new ArrayList<>(), filesNames.evaluations);
         
         CreateEvaluationControl control = new CreateEvaluationControl();
         control.setSubject(4444);
@@ -193,8 +196,10 @@ public class Proyecto {
     public static void testSubjects() {
         ArrayList<Subject> subjects = new ArrayList<>();
         createSubjects(subjects);
-        //file test
+        // file test
         FilesManager.writeListToFile(subjects, "subjects");
+        FilesManager.writeListToFile(subjects, filesNames.subjects);
+        System.out.println(FilesManager.getSubjects());
     }
     
     public static void testUpdateUser() {
@@ -217,16 +222,16 @@ public class Proyecto {
     }
     
     public static void initFiles() {
-        // test users
-        testUsers();
-
-        // test subjects
-        testSubjects();
-        
-        // test evaluations
-        testEvaluations();
-        
-        // test updating a student
-        testUpdateUser();
+//        // test users
+//        testUsers();
+//
+//        // test subjects
+//        testSubjects();
+//        
+//        // test evaluations
+//        testEvaluations();
+//        
+//        // test updating a student
+//        testUpdateUser();
     }
 }

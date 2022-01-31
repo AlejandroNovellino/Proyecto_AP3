@@ -5,7 +5,6 @@
  */
 package proyecto.helpers;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -62,6 +61,16 @@ public class JFramesHelper {
             String filePath = "src\\proyecto\\views\\icons\\icons8-tableau-software-24.png";
             Image icon = Toolkit.getDefaultToolkit().getImage(filePath);  
             frame.setIconImage(icon);  
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public static void setJDialogIcon(JDialog dialog) {
+        try {
+            String filePath = "src\\proyecto\\views\\icons\\icons8-tableau-software-24.png";
+            Image icon = Toolkit.getDefaultToolkit().getImage(filePath);  
+            dialog.setIconImage(icon);  
         } catch (Exception e) {
             System.out.println(e);
         }

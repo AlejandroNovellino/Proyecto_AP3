@@ -7,6 +7,7 @@ package proyecto.controls;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.manyToManyRelations.Enrollment;
 import proyecto.dataModel.manyToManyRelations.EvaluationRegistry;
@@ -215,16 +216,17 @@ public class StudentMainControl {
         // add the new 
         allRegistries.add(newRegistry);
         // save to the file
-        FilesManager.writeListToFile(allRegistries, "evaluationRegistries");
+        FilesManager.writeListToFile(allRegistries, filesNames.evaluationRegistries);
         // add the registry to the student
         currentStudent.getEvaluationsRegistrys().add(newRegistry);
         // update the users file
         ArrayList<User> allUsers = FilesManager.getUsers();
         allUsers.removeIf(user -> user.getId().equals(currentStudent.getId()));
         allUsers.add(currentStudent);
-        FilesManager.writeListToFile(allUsers, "users");
+        FilesManager.writeListToFile(allUsers, filesNames.users);
         // get the subjects and add the registry to the subject
         ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
+        System.out.println(evaluations);
         // add the registry to the evaluation
         for(Evaluation evaluation : evaluations) {
             if(evaluation.getId().equals(selectedEvaluation.getId())) {
@@ -232,7 +234,7 @@ public class StudentMainControl {
             }
         }
         // save the evaluations to the file
-        FilesManager.writeListToFile(evaluations, "evaluations");
+        FilesManager.writeListToFile(evaluations, filesNames.evaluations);
         // set the new values to the variables
         this.setValues();
         selectedEvaluation = null;
@@ -250,12 +252,12 @@ public class StudentMainControl {
         // delete the selected one
         allRegistries.removeIf(registry -> registry.getEvaluationId().equals(selectedEvaluation.getId()));
         // save to the file
-        FilesManager.writeListToFile(allRegistries, "evaluationRegistries");
+        FilesManager.writeListToFile(allRegistries, filesNames.evaluationRegistries);
         // update the users file
         ArrayList<User> allUsers = FilesManager.getUsers();
         allUsers.removeIf(user -> user.getId().equals(currentStudent.getId()));
         allUsers.add(currentStudent);
-        FilesManager.writeListToFile(allUsers, "users");
+        FilesManager.writeListToFile(allUsers, filesNames.users);
         // update the evaluations file
         // get the evalautions and delete the registry from it
         ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
@@ -266,7 +268,7 @@ public class StudentMainControl {
             }
         }
         // save the evaluations to the file
-        FilesManager.writeListToFile(evaluations, "evaluations");
+        FilesManager.writeListToFile(evaluations, filesNames.evaluations);
         // set the new values to the variables
         this.setValues();
         selectedEvaluation = null;

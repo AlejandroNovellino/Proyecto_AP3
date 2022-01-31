@@ -6,11 +6,13 @@
 package proyecto.dataModel.evaluationRelated;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "option")
 public class Option implements Serializable{
     private String id;
     private String value; //valor - lo que indica la opcion

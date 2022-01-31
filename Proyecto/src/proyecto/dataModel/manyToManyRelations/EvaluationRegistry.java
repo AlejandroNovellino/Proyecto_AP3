@@ -7,12 +7,19 @@ package proyecto.dataModel.manyToManyRelations;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import proyecto.dataModel.evaluationRelated.Option;
 
 /**
  *
  * @author Alejandro
  */
+@XmlRootElement(name = "evaluationRegistry")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EvaluationRegistry implements Serializable{
     private String id;
     private String evaluationId;
@@ -21,8 +28,13 @@ public class EvaluationRegistry implements Serializable{
     private int numTries;
     private boolean presented; //presentada
     private boolean beingPresented; //siendoPresentada
+    @XmlElementWrapper(name="options")
+    @XmlElement(name="option")
     private ArrayList<Option> answers;
 
+    public EvaluationRegistry() {
+    }
+    
     public EvaluationRegistry(String id, String evaluationId, String studentId, Float note, int numTries, boolean presented, boolean beingPresented) {
         this.id = id;
         this.evaluationId = evaluationId;

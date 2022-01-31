@@ -6,6 +6,7 @@
 package proyecto.controls;
 
 import java.util.ArrayList;
+import proyecto.dataModel.enums.filesNames;
 import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.evaluationRelated.Option;
 import proyecto.dataModel.evaluationRelated.Question;
@@ -131,7 +132,7 @@ public class PresentEvaluationControl {
         ArrayList<User> allUsers = FilesManager.getUsers();
         allUsers.removeIf(user -> user.getId().equals(student.getId()));
         allUsers.add(student);
-        FilesManager.writeListToFile(allUsers, "users");
+        FilesManager.writeListToFile(allUsers, filesNames.users);
         // update the evaluation file
         // get the evaluations 
         ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
@@ -145,7 +146,7 @@ public class PresentEvaluationControl {
             }
         }
         // save the evaluations to the file
-        FilesManager.writeListToFile(evaluations, "evaluations");
+        FilesManager.writeListToFile(evaluations, filesNames.evaluations);
         // update the evaluation registries file
         // update the registries file
         ArrayList<EvaluationRegistry> evaluationsRegistries = FilesManager.getEvaluationRegistries();
@@ -154,6 +155,6 @@ public class PresentEvaluationControl {
         // add the updated registry
         evaluationsRegistries.add(evaluationRegistry);
         // save the registries to the file
-        FilesManager.writeListToFile(evaluationsRegistries, "evaluationRegistries");
+        FilesManager.writeListToFile(evaluationsRegistries, filesNames.evaluationRegistries);
     }
 }

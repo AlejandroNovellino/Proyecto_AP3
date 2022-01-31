@@ -28,6 +28,8 @@ public class PresentEvaluation extends javax.swing.JFrame {
         initComponents();
         // set the jframe icon
         JFramesHelper.setJFrameIcon(this);
+        // set the modal icon
+        JFramesHelper.setJDialogIcon(resultsDialog);
         JFramesHelper.setModalSize(resultsDialog);
         this.control = new PresentEvaluationControl(student, evaluation, evaluationRegistry);
         title.setText(control.getEvaluation().getType().toString());
