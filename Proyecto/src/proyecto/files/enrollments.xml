@@ -55,5 +55,17 @@
             <studentId>089382e9-69a8-4216-a324-c45fa7519fdc</studentId>
             <subjectId>c2db6ae8-aab4-4bce-8347-eb386ad948ae</subjectId>
         </enrollment>
+        <enrollment>
+            <id>3158da7e-c6d8-4623-b494-7bd4711267cc</id>
+            <passed>false</passed>
+            <studentId>c6baa222-7360-4672-bc27-14f7526887d0</studentId>
+            <subjectId>7901d1d9-3356-44af-bc89-1ceb2a788ea6</subjectId>
+        </enrollment>
+        <enrollment>
+            <id>5de16569-2236-40a5-96d7-fcbfbe799306</id>
+            <passed>false</passed>
+            <studentId>c6baa222-7360-4672-bc27-14f7526887d0</studentId>
+            <subjectId>c2db6ae8-aab4-4bce-8347-eb386ad948ae</subjectId>
+        </enrollment>
     </enrollments>
 </enrollments>

@@ -136,7 +136,7 @@ public class InfoEvaluation extends javax.swing.JFrame {
         jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
-        jTextArea2.setText("El reporte se encuetnra en paquete/carpeta proyecto.reporte bajo el nombre de \"reporte_evaluation_idDeLaEvaluacion\".");
+        jTextArea2.setText("El reporte se encuetnra en paquete/carpeta proyecto.reporte bajo el nombre de \"reporte_evaluacion_idDeLaEvaluacion\".");
         jTextArea2.setWrapStyleWord(true);
         jTextArea2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         jTextArea2.setSelectionColor(new java.awt.Color(217, 171, 251));

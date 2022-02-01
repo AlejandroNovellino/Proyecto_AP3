@@ -126,7 +126,7 @@
                         </Property>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
-                        <Property name="text" type="java.lang.String" value="El reporte se encuetnra en paquete/carpeta proyecto.reporte bajo el nombre de &quot;reporte_subject_nombreDeLaMateria&quot;."/>
+                        <Property name="text" type="java.lang.String" value="El reporte se encuetnra en paquete/carpeta proyecto.reporte bajo el nombre de &quot;reporte_materia_nombreDeLaMateria&quot;."/>
                         <Property name="wrapStyleWord" type="boolean" value="true"/>
                         <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="0" red="0" type="rgb"/>

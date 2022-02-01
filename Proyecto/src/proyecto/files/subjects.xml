@@ -4,21 +4,21 @@
         <subject>
             <id>4333ea5b-e5e3-46cf-ace5-a44a66dbb0cf</id>
             <code>1111</code>
-            <name>Materia1</name>
+            <name>MateriaUno</name>
             <enrollments/>
             <evaluations/>
         </subject>
         <subject>
             <id>9c5b4642-b582-4c76-963c-200d36c742a8</id>
             <code>2222</code>
-            <name>Materia2</name>
+            <name>MateriaDos</name>
             <enrollments/>
             <evaluations/>
         </subject>
         <subject>
             <id>7901d1d9-3356-44af-bc89-1ceb2a788ea6</id>
             <code>3333</code>
-            <name>Materia3</name>
+            <name>MateriaTres</name>
             <enrollments>
                 <enrollment>
                     <id>ac43d83b-3e29-43e3-a44d-9bf96eff8038</id>
@@ -38,13 +38,19 @@
                     <studentId>73e6115e-f72d-4241-9dc3-95c4b164c6b2</studentId>
                     <subjectId>7901d1d9-3356-44af-bc89-1ceb2a788ea6</subjectId>
                 </enrollment>
+                <enrollment>
+                    <id>3158da7e-c6d8-4623-b494-7bd4711267cc</id>
+                    <passed>false</passed>
+                    <studentId>c6baa222-7360-4672-bc27-14f7526887d0</studentId>
+                    <subjectId>7901d1d9-3356-44af-bc89-1ceb2a788ea6</subjectId>
+                </enrollment>
             </enrollments>
             <evaluations/>
         </subject>
         <subject>
             <id>c2db6ae8-aab4-4bce-8347-eb386ad948ae</id>
             <code>4444</code>
-            <name>Materia4</name>
+            <name>MateriaCuatro</name>
             <enrollments>
                 <enrollment>
                     <id>789e8b4f-bda6-4fa4-8114-27afc3fb7381</id>
@@ -128,6 +134,12 @@
                     <id>7c2cdb16-a6af-4100-bf00-dbae640286e7</id>
                     <passed>false</passed>
                     <studentId>089382e9-69a8-4216-a324-c45fa7519fdc</studentId>
+                    <subjectId>c2db6ae8-aab4-4bce-8347-eb386ad948ae</subjectId>
+                </enrollment>
+                <enrollment>
+                    <id>5de16569-2236-40a5-96d7-fcbfbe799306</id>
+                    <passed>false</passed>
+                    <studentId>c6baa222-7360-4672-bc27-14f7526887d0</studentId>
                     <subjectId>c2db6ae8-aab4-4bce-8347-eb386ad948ae</subjectId>
                 </enrollment>
             </enrollments>
