@@ -42,6 +42,17 @@ public class JFramesHelper {
         modal.pack();
     }
     
+    public static void setBigModalSize(JDialog modal) {
+        Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
+        int dialogWidth = SCREEN_DIMENSION.width / 4; 
+        int dialogHeight = SCREEN_DIMENSION.height / 4; 
+        int dialogX = SCREEN_DIMENSION.width / 3 - dialogWidth / 2; 
+        int dialogY = SCREEN_DIMENSION.height / 3 - dialogHeight / 2;
+        
+        modal.setBounds(dialogX, dialogY, dialogWidth, dialogHeight);
+        modal.pack();
+    }
+    
     public static int swingConstantToCenter() {
         return SwingConstants.CENTER;
     }

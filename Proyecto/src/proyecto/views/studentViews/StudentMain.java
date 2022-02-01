@@ -6,6 +6,7 @@
 package proyecto.views.studentViews;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +14,7 @@ import proyecto.controls.StudentMainControl;
 import proyecto.dataModel.enums.evaluationType;
 import proyecto.dataModel.users.Student;
 import proyecto.helpers.JFramesHelper;
+import proyecto.helpers.ReportGenerator;
 import proyecto.views.Login;
 
 /**
@@ -33,12 +35,18 @@ public class StudentMain extends javax.swing.JFrame {
         initComponents();
         // set the jframe icon
         JFramesHelper.setJFrameIcon(this);
-        // set the modal icon
+        // set the modals icon
+        // big modal
         JFramesHelper.setJDialogIcon(confirmPresentation);
+        JFramesHelper.setBigModalSize(confirmPresentation);
+        JFramesHelper.setJDialogIcon(confirmDownloadActivity);
+        JFramesHelper.setModalSize(confirmDownloadActivity);
+        JFramesHelper.setJDialogIcon(confirmDownloadCertifiedNotes);
+        JFramesHelper.setModalSize(confirmDownloadCertifiedNotes);
+        // set the other values
         this.control = control;
         alertMessagePanel.setVisible(false);
-        control = new StudentMainControl(student); 
-        JFramesHelper.setModalSize(confirmPresentation);
+        control = new StudentMainControl(student);
         // set the align place to the tables
         JFramesHelper.alignTextJTableCetner(registeredSubjects, JFramesHelper.swingConstantToCenter());
         JFramesHelper.alignTextJTableCetner(registeredEvaluations, JFramesHelper.swingConstantToCenter());
@@ -209,6 +217,24 @@ public class StudentMain extends javax.swing.JFrame {
             JFramesHelper.setMessage(alertMessagePanel, alertMessage, true, "Se debe seleccionar una evaluacion inscrita");
         }
     }
+    
+    private void generateActivityReport() {
+        try {
+            ReportGenerator.generateActivityReport(control);
+            confirmDownloadActivity.setVisible(true);
+        } catch (IOException e) {
+            System.out.println("No se pudo generar el reporte");
+        }
+    }
+    
+    private void generateCertifiesNotesReport() {
+        try {
+            ReportGenerator.generateCertifiedNotesReport(control);
+            confirmDownloadActivity.setVisible(true);
+        } catch (IOException e) {
+            System.out.println("No se pudo generar el reporte");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -227,6 +253,22 @@ public class StudentMain extends javax.swing.JFrame {
         confirm = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        confirmDownloadActivity = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        btnConfirm1 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        confirmDownloadCertifiedNotes = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        btnConfirm2 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         leftSidePanel = new javax.swing.JPanel();
         btnRegisterEvaluation = new javax.swing.JPanel();
@@ -238,6 +280,8 @@ public class StudentMain extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         btnCertifieNotes = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        btnReporteActividad = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         topPanel = new javax.swing.JPanel();
         exit = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -366,6 +410,234 @@ public class StudentMain extends javax.swing.JFrame {
             .addGroup(confirmPresentationLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        confirmDownloadActivity.setTitle("Confirmar");
+        confirmDownloadActivity.setModal(true);
+        confirmDownloadActivity.setResizable(false);
+
+        jPanel5.setBackground(new java.awt.Color(65, 10, 97));
+
+        jPanel6.setBackground(new java.awt.Color(103, 69, 128));
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Reporte generado:");
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(103, 69, 128));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setRows(5);
+        jTextArea2.setText("El reporte se encuentra en paquete/carpeta proyecto.reporte bajo el nombre de \"reporte_estudiante_NombreApellido\".");
+        jTextArea2.setWrapStyleWord(true);
+        jTextArea2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea2.setSelectionColor(new java.awt.Color(217, 171, 251));
+        jScrollPane6.setViewportView(jTextArea2);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnConfirm1.setBackground(new java.awt.Color(103, 69, 128));
+        btnConfirm1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnConfirm1MousePressed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-next-page-24.png"))); // NOI18N
+        jLabel16.setText("Continuar");
+
+        javax.swing.GroupLayout btnConfirm1Layout = new javax.swing.GroupLayout(btnConfirm1);
+        btnConfirm1.setLayout(btnConfirm1Layout);
+        btnConfirm1Layout.setHorizontalGroup(
+            btnConfirm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnConfirm1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel16)
+                .addGap(50, 50, 50))
+        );
+        btnConfirm1Layout.setVerticalGroup(
+            btnConfirm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout confirmDownloadActivityLayout = new javax.swing.GroupLayout(confirmDownloadActivity.getContentPane());
+        confirmDownloadActivity.getContentPane().setLayout(confirmDownloadActivityLayout);
+        confirmDownloadActivityLayout.setHorizontalGroup(
+            confirmDownloadActivityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        confirmDownloadActivityLayout.setVerticalGroup(
+            confirmDownloadActivityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        confirmDownloadCertifiedNotes.setTitle("Confirmar");
+        confirmDownloadCertifiedNotes.setModal(true);
+        confirmDownloadCertifiedNotes.setResizable(false);
+
+        jPanel7.setBackground(new java.awt.Color(65, 10, 97));
+
+        jPanel8.setBackground(new java.awt.Color(103, 69, 128));
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Reporte generado:");
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setBackground(new java.awt.Color(103, 69, 128));
+        jTextArea3.setColumns(20);
+        jTextArea3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea3.setLineWrap(true);
+        jTextArea3.setRows(5);
+        jTextArea3.setText("El reporte se encuentra en paquete/carpeta proyecto.reporte bajo el nombre de \"notas_certificadas_NombreApellido\".");
+        jTextArea3.setWrapStyleWord(true);
+        jTextArea3.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea3.setSelectionColor(new java.awt.Color(217, 171, 251));
+        jScrollPane7.setViewportView(jTextArea3);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane7))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnConfirm2.setBackground(new java.awt.Color(103, 69, 128));
+        btnConfirm2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnConfirm2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConfirm2MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnConfirm2MousePressed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-next-page-24.png"))); // NOI18N
+        jLabel17.setText("Continuar");
+
+        javax.swing.GroupLayout btnConfirm2Layout = new javax.swing.GroupLayout(btnConfirm2);
+        btnConfirm2.setLayout(btnConfirm2Layout);
+        btnConfirm2Layout.setHorizontalGroup(
+            btnConfirm2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnConfirm2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel17)
+                .addGap(50, 50, 50))
+        );
+        btnConfirm2Layout.setVerticalGroup(
+            btnConfirm2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(btnConfirm2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirm2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout confirmDownloadCertifiedNotesLayout = new javax.swing.GroupLayout(confirmDownloadCertifiedNotes.getContentPane());
+        confirmDownloadCertifiedNotes.getContentPane().setLayout(confirmDownloadCertifiedNotesLayout);
+        confirmDownloadCertifiedNotesLayout.setHorizontalGroup(
+            confirmDownloadCertifiedNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        confirmDownloadCertifiedNotesLayout.setVerticalGroup(
+            confirmDownloadCertifiedNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -504,7 +776,7 @@ public class StudentMain extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-present-to-all-24.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-download-graph-report-24.png"))); // NOI18N
         jLabel5.setText("Notas Certificadas");
 
         javax.swing.GroupLayout btnCertifieNotesLayout = new javax.swing.GroupLayout(btnCertifieNotes);
@@ -522,6 +794,40 @@ public class StudentMain extends javax.swing.JFrame {
         );
 
         leftSidePanel.add(btnCertifieNotes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 210, 40));
+
+        btnReporteActividad.setBackground(new java.awt.Color(103, 69, 128));
+        btnReporteActividad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnReporteActividadMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteActividadMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnReporteActividadMousePressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-download-graph-report-24.png"))); // NOI18N
+        jLabel6.setText("Reporte Actividad");
+
+        javax.swing.GroupLayout btnReporteActividadLayout = new javax.swing.GroupLayout(btnReporteActividad);
+        btnReporteActividad.setLayout(btnReporteActividadLayout);
+        btnReporteActividadLayout.setHorizontalGroup(
+            btnReporteActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReporteActividadLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel6)
+                .addContainerGap())
+        );
+        btnReporteActividadLayout.setVerticalGroup(
+            btnReporteActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        leftSidePanel.add(btnReporteActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 210, 40));
 
         jPanel1.add(leftSidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 530));
 
@@ -947,37 +1253,83 @@ public class StudentMain extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmActionPerformed
 
     private void btnCertifieNotesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCertifieNotesMouseEntered
-        // TODO add your handling code here:
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
     }//GEN-LAST:event_btnCertifieNotesMouseEntered
 
     private void btnCertifieNotesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCertifieNotesMouseExited
-        // TODO add your handling code here:
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
     }//GEN-LAST:event_btnCertifieNotesMouseExited
 
     private void btnCertifieNotesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCertifieNotesMousePressed
-        // TODO add your handling code here:
+        generateCertifiesNotesReport();
     }//GEN-LAST:event_btnCertifieNotesMousePressed
+
+    private void btnConfirm1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnConfirm1MouseEntered
+
+    private void btnConfirm1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnConfirm1MouseExited
+
+    private void btnConfirm1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MousePressed
+        confirmDownloadActivity.setVisible(false);
+    }//GEN-LAST:event_btnConfirm1MousePressed
+
+    private void btnReporteActividadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteActividadMouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnReporteActividadMouseEntered
+
+    private void btnReporteActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteActividadMouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnReporteActividadMouseExited
+
+    private void btnReporteActividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteActividadMousePressed
+        generateActivityReport();
+    }//GEN-LAST:event_btnReporteActividadMousePressed
+
+    private void btnConfirm2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm2MouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnConfirm2MouseEntered
+
+    private void btnConfirm2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm2MouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnConfirm2MouseExited
+
+    private void btnConfirm2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm2MousePressed
+        confirmDownloadCertifiedNotes.setVisible(false);
+    }//GEN-LAST:event_btnConfirm2MousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alertMessage;
     private javax.swing.JPanel alertMessagePanel;
     private javax.swing.JPanel btnCertifieNotes;
+    private javax.swing.JPanel btnConfirm1;
+    private javax.swing.JPanel btnConfirm2;
     private javax.swing.JPanel btnDeleteEvaluationRegister;
     private javax.swing.JPanel btnPresentEvaluation;
     private javax.swing.JPanel btnRegisterEvaluation;
+    private javax.swing.JPanel btnReporteActividad;
     private javax.swing.JButton cancel;
     private javax.swing.JButton confirm;
+    private javax.swing.JDialog confirmDownloadActivity;
+    private javax.swing.JDialog confirmDownloadCertifiedNotes;
     private javax.swing.JDialog confirmPresentation;
     private javax.swing.JPanel evaluationsPanel;
     private javax.swing.JPanel exit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -985,12 +1337,20 @@ public class StudentMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JPanel leftSidePanel;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JTable passedSubjects;

@@ -42,5 +42,21 @@
                 </option>
             </options>
         </evaluationRegistry>
+        <evaluationRegistry>
+            <id>c8f064ee-fc24-4071-857e-9d214d92e399</id>
+            <evaluationId>d4c44448-7d7e-418a-938a-94bb98147879</evaluationId>
+            <studentId>cd673f3f-3223-4d3a-8a02-2a0ba119f524</studentId>
+            <note>20.0</note>
+            <numTries>2</numTries>
+            <presented>true</presented>
+            <beingPresented>false</beingPresented>
+            <options>
+                <option>
+                    <id>e5951d5a-8c04-45c0-989d-262330026e74</id>
+                    <isAnswer>true</isAnswer>
+                    <value>o1</value>
+                </option>
+            </options>
+        </evaluationRegistry>
     </evaluationRegistrys>
 </evaluationRegistries>

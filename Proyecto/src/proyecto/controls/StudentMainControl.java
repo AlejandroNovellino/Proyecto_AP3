@@ -74,7 +74,7 @@ public class StudentMainControl {
         }
     }
     //##########################################################################
-    // atributos de la clase
+    // class attributes
     private Student currentStudent;
     private ArrayList<SubjectInfo> subjectsInfo;
     private ArrayList<EvaluationInfo> evaluationsInfo;
@@ -226,7 +226,6 @@ public class StudentMainControl {
         FilesManager.writeListToFile(allUsers, filesNames.users);
         // get the subjects and add the registry to the subject
         ArrayList<Evaluation> evaluations = FilesManager.getEvaluations();
-        System.out.println(evaluations);
         // add the registry to the evaluation
         for(Evaluation evaluation : evaluations) {
             if(evaluation.getId().equals(selectedEvaluation.getId())) {

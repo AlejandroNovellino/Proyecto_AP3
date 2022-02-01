@@ -6,6 +6,7 @@
 package proyecto.views.adminViews;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import proyecto.controls.InfoSubjectControl;
@@ -13,6 +14,7 @@ import proyecto.dataModel.evaluationRelated.Evaluation;
 import proyecto.dataModel.subjectRelated.Subject;
 import proyecto.dataModel.users.Student;
 import proyecto.helpers.JFramesHelper;
+import proyecto.helpers.ReportGenerator;
 
 /**
  *
@@ -25,8 +27,11 @@ public class InfoSubject extends javax.swing.JFrame {
     
     public InfoSubject(ArrayList<Student> students, Subject subject, ArrayList<Evaluation> evaluations) {
         initComponents();
-        // set the jframe icon
+        // set the jframes icon
         JFramesHelper.setJFrameIcon(this);
+        JFramesHelper.setJDialogIcon(confirm);
+        JFramesHelper.setModalSize(confirm);
+        // set the other elements
         control = new InfoSubjectControl(students, subject, evaluations);
         subjectName.setText(control.getSubject().getName());
         // set the align place to the tables
@@ -67,6 +72,15 @@ public class InfoSubject extends javax.swing.JFrame {
             });
         });
     }
+    
+    private void generateReport() {
+        try {
+            ReportGenerator.generateSubjectReport(control);
+            confirm.setVisible(true);
+        } catch (IOException e) {
+            System.out.println("No se pudo generar el reporte");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,6 +91,14 @@ public class InfoSubject extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        confirm = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        btnConfirm1 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnGenerateReport = new javax.swing.JPanel();
@@ -90,6 +112,120 @@ public class InfoSubject extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         subjectInfo = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+
+        confirm.setTitle("Confirmar");
+        confirm.setModal(true);
+        confirm.setResizable(false);
+
+        jPanel5.setBackground(new java.awt.Color(65, 10, 97));
+
+        jPanel6.setBackground(new java.awt.Color(103, 69, 128));
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Reporte generado:");
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(103, 69, 128));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setRows(5);
+        jTextArea2.setText("El reporte se encuetnra en paquete/carpeta proyecto.reporte bajo el nombre de \"reporte_subject_nombreDeLaMateria\".");
+        jTextArea2.setWrapStyleWord(true);
+        jTextArea2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea2.setSelectionColor(new java.awt.Color(217, 171, 251));
+        jScrollPane4.setViewportView(jTextArea2);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnConfirm1.setBackground(new java.awt.Color(103, 69, 128));
+        btnConfirm1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnConfirm1MousePressed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/views/icons/icons8-next-page-24.png"))); // NOI18N
+        jLabel16.setText("Continuar");
+
+        javax.swing.GroupLayout btnConfirm1Layout = new javax.swing.GroupLayout(btnConfirm1);
+        btnConfirm1.setLayout(btnConfirm1Layout);
+        btnConfirm1Layout.setHorizontalGroup(
+            btnConfirm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnConfirm1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel16)
+                .addGap(50, 50, 50))
+        );
+        btnConfirm1Layout.setVerticalGroup(
+            btnConfirm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout confirmLayout = new javax.swing.GroupLayout(confirm.getContentPane());
+        confirm.getContentPane().setLayout(confirmLayout);
+        confirmLayout.setHorizontalGroup(
+            confirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        confirmLayout.setVerticalGroup(
+            confirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Detalles Materia");
@@ -122,9 +258,9 @@ public class InfoSubject extends javax.swing.JFrame {
         btnGenerateReportLayout.setHorizontalGroup(
             btnGenerateReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnGenerateReportLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel13)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         btnGenerateReportLayout.setVerticalGroup(
             btnGenerateReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,16 +292,16 @@ public class InfoSubject extends javax.swing.JFrame {
         btnExitToMainMenuLayout.setHorizontalGroup(
             btnExitToMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnExitToMainMenuLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(85, 85, 85)
                 .addComponent(jLabel14)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         btnExitToMainMenuLayout.setVerticalGroup(
             btnExitToMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel2.add(btnExitToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 250, -1));
+        jPanel2.add(btnExitToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 230, -1));
 
         subjectName.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         subjectName.setForeground(new java.awt.Color(255, 255, 255));
@@ -257,9 +393,9 @@ public class InfoSubject extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap(36, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(676, Short.MAX_VALUE)
+                .addContainerGap(686, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addGap(0, 39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +441,7 @@ public class InfoSubject extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerateReportMouseExited
 
     private void btnGenerateReportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateReportMousePressed
-        // TODO add your handling code here:
+        generateReport();
     }//GEN-LAST:event_btnGenerateReportMousePressed
 
     private void btnExitToMainMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitToMainMenuMouseEntered
@@ -321,17 +457,37 @@ public class InfoSubject extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnExitToMainMenuMousePressed
 
+    private void btnConfirm1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseEntered
+        changeBackgroundColor(evt, hoverColorButtons[0], hoverColorButtons[1], hoverColorButtons[2]);
+    }//GEN-LAST:event_btnConfirm1MouseEntered
+
+    private void btnConfirm1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseExited
+        changeBackgroundColor(evt, standarColorButtons[0], standarColorButtons[1], standarColorButtons[2]);
+    }//GEN-LAST:event_btnConfirm1MouseExited
+
+    private void btnConfirm1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MousePressed
+        confirm.setVisible(false);
+    }//GEN-LAST:event_btnConfirm1MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnConfirm1;
     private javax.swing.JPanel btnExitToMainMenu;
     private javax.swing.JPanel btnGenerateReport;
+    private javax.swing.JDialog confirm;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTable studentsTable;
     private javax.swing.JTable subjectInfo;
     private javax.swing.JLabel subjectName;

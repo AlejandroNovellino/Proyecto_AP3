@@ -7,8 +7,6 @@ package proyecto.views.adminViews;
 
 import javax.swing.DefaultListModel;
 import proyecto.controls.CreateEvaluationControl;
-import proyecto.controls.SubjectControl;
-import proyecto.dataModel.evaluationRelated.Option;
 import proyecto.helpers.DataCheck;
 import proyecto.helpers.JFramesHelper;
 
@@ -31,7 +29,6 @@ public class CreateQuestion extends javax.swing.JFrame {
         JFramesHelper.setJDialogIcon(createOptionModal);
         this.control = control;
         // set the error message visibility
-        valueNotValid.setVisible(false);
         alertMessagePanel.setVisible(false);
         JFramesHelper.setModalSize(createOptionModal);
     }
@@ -109,8 +106,6 @@ public class CreateQuestion extends javax.swing.JFrame {
         isAnswer = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         addOption = new javax.swing.JButton();
-        valueNotValid = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -171,28 +166,6 @@ public class CreateQuestion extends javax.swing.JFrame {
             }
         });
 
-        valueNotValid.setBackground(new java.awt.Color(217, 171, 251));
-
-        jLabel6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel6.setText("Valor no puede ser vacío");
-
-        javax.swing.GroupLayout valueNotValidLayout = new javax.swing.GroupLayout(valueNotValid);
-        valueNotValid.setLayout(valueNotValidLayout);
-        valueNotValidLayout.setHorizontalGroup(
-            valueNotValidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(valueNotValidLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        valueNotValidLayout.setVerticalGroup(
-            valueNotValidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, valueNotValidLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -206,7 +179,6 @@ public class CreateQuestion extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valueNotValid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(37, 37, 37)
@@ -221,15 +193,13 @@ public class CreateQuestion extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(valueNotValid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(isAnswer)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addOption)
                     .addComponent(jButton1))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -240,10 +210,8 @@ public class CreateQuestion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,8 +219,8 @@ public class CreateQuestion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout createOptionModalLayout = new javax.swing.GroupLayout(createOptionModal.getContentPane());
@@ -500,16 +468,11 @@ public class CreateQuestion extends javax.swing.JFrame {
 
     private void addOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOptionActionPerformed
         // save the created option in control
-        if(optionText.getText().trim().equals("")) {
-            valueNotValid.setVisible(true);
-        } else {
-            control.addOptionToCurrentsOptions(optionText.getText(), isAnswer.isSelected());
-            updateList();
-            createOptionModal.setVisible(false);
-            optionText.setText("");
-            isAnswer.setSelected(false);
-            valueNotValid.setVisible(false);
-        }
+        control.addOptionToCurrentsOptions(optionText.getText(), isAnswer.isSelected());
+        updateList();
+        createOptionModal.setVisible(false);
+        optionText.setText("");
+        isAnswer.setSelected(false);
     }//GEN-LAST:event_addOptionActionPerformed
 
     private void deleteOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOptionActionPerformed
@@ -537,7 +500,6 @@ public class CreateQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -551,6 +513,5 @@ public class CreateQuestion extends javax.swing.JFrame {
     private javax.swing.JList<String> options;
     private javax.swing.JTextField score;
     private javax.swing.JTextPane statement;
-    private javax.swing.JPanel valueNotValid;
     // End of variables declaration//GEN-END:variables
 }
